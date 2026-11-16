@@ -27,7 +27,7 @@ Each project has its own shareable link: `https://mcsyme11-byte.github.io/#p/<id
 
 ## Privacy
 
-This site is public. It contains no phone number, address, school name or other personal details: only my name and email.
+This site is public. It contains no address, school name or other personal details: only my name, email and phone number.
 
 ---
 © 2026 Malcolm Syme · mcsyme11@gmail.com. All rights reserved.

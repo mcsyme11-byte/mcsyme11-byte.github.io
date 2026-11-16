@@ -13,7 +13,7 @@ window.PORTFOLIO = {
   /* The four numbers at the top of the page. "auto" counts from the project list below. */
   stats: [
     { label: "Projects", value: "auto:built", note: "current and past" },
-    { label: "Apps built", value: "8", note: "desktop, phone and web" },
+    { label: "Apps built", value: "13", note: "desktop, phone and web" },
     { label: "Explainers", value: "24", note: "on Simply Aerospace" },
     { label: "Ideas", value: "auto:idea", note: "waiting their turn" }
   ],
@@ -29,23 +29,30 @@ window.PORTFOLIO = {
       featured: true,
       role: "Designer and developer (built with Claude)",
       summary:
-        "A family of six connected utilities that make flying online in Microsoft Flight Simulator 2024 more realistic and easier to manage: a phone app for the cockpit radio, an automatic logbook with accurate landing rates, landing replays, parked airliners at real gates, a cameras-and-sound app, and an add-on finder.",
+        "A family of connected utilities, publicly released on November 10, 2026, that make flying online in Microsoft Flight Simulator 2024 more realistic and easier to manage: a phone app for the cockpit radio, an automatic logbook with accurate landing rates, landing replays, parked airliners at real gates, a cameras-and-sound app, an add-on finder, and Flight Deck Manager, which installs and updates them all.",
       parts: [
-        { name: "Squawk", version: "6.6", text: "vPilot plugin and iPhone/iPad app: ATC messages, transponder, live map with the filed route, and flight alerts in your pocket." },
-        { name: "Logbook", version: "4.6.4", text: "Logs every flight automatically, with landing rate, runway, crab angle and a grade per aircraft class, plus a full logbook website." },
+        { name: "Squawk", version: "6.8", text: "vPilot plugin and iPhone/iPad app: ATC messages, transponder, live map with the filed route, and flight alerts in your pocket." },
+        { name: "Logbook", version: "4.9", text: "Logs every flight automatically, with landing rate, runway, crab angle and a grade per aircraft class, plus a full logbook website." },
         { name: "Playback", version: "1.2.1", text: "A black box for every landing: replays flown by the sim, with screenshots and video clips." },
         { name: "Ramp", version: "0.3.1", text: "Parks realistic airliners on empty gates, sized to each stand and grouped by airline, while keeping the pilot's gate clear." },
-        { name: "Vantage", version: "0.2.1", text: "Saved camera views, tower and fly-by cameras, and added runway rumble and touchdown sounds." },
-        { name: "Hangar", version: "", text: "A read-only finder for every add-on installed in the simulator." }
+        { name: "Vantage", version: "0.2.1", text: "Saved camera views, tower and fly-by cameras, and added runway rumble and touchdown sounds. Public release coming soon." },
+        { name: "Hangar", version: "", text: "A read-only finder for every add-on installed in the simulator." },
+        { name: "Flight Deck Manager", version: "0.1.4", text: "One app that checks the PC, then installs, updates, starts and removes the others." }
       ],
       highlights: [
-        "Six apps that share live data: the logbook feeds the phone app, Ramp tells the logbook which gate you parked at",
+        "Publicly released on November 10, 2026, with its own website and downloads",
+        "Seven apps that share live data: the logbook feeds the phone app, Ramp tells the logbook which gate you parked at",
         "Landing grades tuned separately for light, regional, single-aisle, wide-body and very large aircraft",
         "Strict safety rules: nothing that talks to the simulator reaches the PC until it has been tested on its own",
         "Fully documented: roadmap, change log, history and an automatically rebuilt project record"
       ],
-      skills: ["C#", "Python", "JavaScript", "SimConnect API", "Web apps", "Software testing", "UI design"],
-      links: []
+      skills: ["C#", "Python", "JavaScript", "SimConnect API", "Web apps", "Software testing", "UI design", "Release management"],
+      links: [
+        { label: "Website and downloads", url: "https://mcsyme11-byte.github.io/Flight-Suite-Releases/" },
+        { label: "Live flight page", url: "https://mcsyme11-byte.github.io/flight/" },
+        { label: "Releases repo", url: "https://github.com/mcsyme11-byte/Flight-Suite-Releases" },
+        { label: "Live flight repo", url: "https://github.com/mcsyme11-byte/flight" }
+      ]
     },
     {
       id: "hot-mic",
@@ -62,10 +69,14 @@ window.PORTFOLIO = {
         "On-device AI: no account, no subscription, no audio leaves the computer",
         "Accessibility first: sound cues, a large high-contrast indicator, read-back and full keyboard control",
         "Spoken numbers, times, dates and prices are written as digits automatically",
-        "145 automated tests, automatic updates and a public download website"
+        "159 automated tests, automatic updates and a public download website",
+        "Version 0.5.7 started a public testing phase, with a built-in Report a problem page"
       ],
       skills: ["C#", ".NET", "On-device AI", "Speech recognition", "Accessibility", "Software testing", "Release management"],
-      links: [{ label: "Website and download", url: "https://mcsyme11-byte.github.io/HotMic-releases/" }]
+      links: [
+        { label: "Website and download", url: "https://mcsyme11-byte.github.io/HotMic-releases/" },
+        { label: "Releases repo", url: "https://github.com/mcsyme11-byte/HotMic-releases" }
+      ]
     },
     {
       id: "simply-aerospace",
@@ -84,30 +95,41 @@ window.PORTFOLIO = {
         "Website with topic hubs, a myth index, quiz, glossary and search (version 2.7.0)"
       ],
       skills: ["Science communication", "Teaching", "Video and slide design", "HTML/CSS/JavaScript", "Physics"],
-      links: [{ label: "Website", url: "https://mcsyme11-byte.github.io/SimplyAerospace/" }]
+      links: [
+        { label: "Website", url: "https://mcsyme11-byte.github.io/SimplyAerospace/" },
+        { label: "YouTube", url: "https://www.youtube.com/@SimplyAerospace" },
+        { label: "Instagram", url: "https://www.instagram.com/simplyaerospace" },
+        { label: "Website repo", url: "https://github.com/mcsyme11-byte/SimplyAerospace" }
+      ]
     },
     {
       id: "nasa-data",
-      title: "NASA Data Projects",
-      tagline: "Exploring real NASA data through interactive web pages",
+      title: "NASA and ESA Data Projects",
+      tagline: "Exploring real space data from NASA and the European Space Agency",
       status: "current",
       categories: ["Space", "Software"],
       started: "Nov 2026",
       featured: false,
       role: "Designer and developer (built with Claude)",
       summary:
-        "Three planned projects that turn NASA's public data into something easy to explore. The first, Asteroid Tracker, is live: a dashboard of the near-Earth objects passing Earth, sorted by size, with distances shown in Moon distances.",
+        "A website (short name NEDAP) that turns NASA's and ESA's public data into pages anyone can explore: near-Earth asteroids, the weather on Mars, the Earth from orbit and the spacecraft working across the solar system. All three main projects are live.",
       parts: [
-        { name: "Asteroid Tracker", version: "Live", text: "Near-Earth objects from NASA NeoWs and JPL, updated daily by an automated workflow." },
-        { name: "Image Explorer", version: "Planned", text: "Search NASA's images and slide through time over the whole Earth." },
-        { name: "Mars Data", version: "Planned", text: "Weather measured by the Curiosity rover, cleaned and charted in Python." }
+        { name: "Asteroid Tracker", version: "Live", text: "The near-Earth objects passing Earth, a page and orbit diagram for each, and a turnable map of all 43,000, updated daily." },
+        { name: "Mars Data", version: "Live", text: "Weather measured on Mars by Curiosity and Perseverance, cleaned by written rules and charted by Mars day, season and hour." },
+        { name: "Image Explorer", version: "Live", text: "The Earth from orbit on any day since 2000, and NASA's and ESA's picture libraries, searchable by subject, mission and date." },
+        { name: "Sky Finder", version: "Live", text: "A phone web app: hold the phone up to the sky to find tonight's passing asteroid." },
+        { name: "Spacecraft map", version: "Live", text: "The active spacecraft of NASA, ESA and others, from low Earth orbit to the Voyagers." }
       ],
       highlights: [
-        "Real data from NASA APIs, refreshed automatically every day",
-        "Numbers people can picture: '3.2 Moon distances' next to the exact value"
+        "Real data from NASA and ESA APIs, refreshed automatically every day",
+        "Numbers people can picture: distances in Moon distances next to the exact value",
+        "Mars weather cleaned by written, documented rules"
       ],
-      skills: ["JavaScript", "Python", "REST APIs", "Data visualization", "GitHub Actions"],
-      links: []
+      skills: ["JavaScript", "Python", "REST APIs", "Data visualization", "Data cleaning", "GitHub Actions"],
+      links: [
+        { label: "Website", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
+        { label: "Repo", url: "https://github.com/mcsyme11-byte/NASA-ESA-Data-and-API-Projects" }
+      ]
     },
     {
       id: "airport-scenery",
@@ -214,7 +236,7 @@ window.PORTFOLIO = {
         "Runs its own crew, timesheets and invoicing"
       ],
       skills: ["Entrepreneurship", "Drone operations", "Construction", "Client communication", "Invoicing"],
-      links: []
+      links: [{ label: "Website repo", url: "https://github.com/mcsyme11-byte/SymeSkyWorks" }]
     },
     {
       id: "a320-study",
@@ -247,7 +269,7 @@ window.PORTFOLIO = {
       title: "Orbit & Space Watch",
       tagline: "Space debris, collisions, space weather and exoplanets",
       status: "idea", categories: ["Space", "Software"], started: "", featured: false, role: "",
-      summary: "New pages for NASA Data Projects: track space debris, simulate satellite collisions, show space weather, find exoplanets, map planets and judge which asteroids would be worth mining.",
+      summary: "New pages for NASA and ESA Data Projects: track space debris, simulate satellite collisions, show space weather, find exoplanets, map planets and judge which asteroids would be worth mining.",
       highlights: ["Satellite debris tracker", "Satellite collision simulator", "Space junk cleanup", "Space weather dashboard", "Exoplanet detection tool", "Planetary mapping tool", "Asteroid mining feasibility"],
       skills: ["Orbital mechanics", "Data visualization"], links: []
     },
@@ -310,8 +332,10 @@ window.PORTFOLIO = {
     { when: "2026", what: "Launched Simply Aerospace, now with 24 explainers and Mission Control" },
     { when: "Sep 2026", what: "Started VATSIM air traffic control training in the Edmonton FIR" },
     { when: "Oct 2026", what: "Built the Flight Deck Suite (Squawk, Logbook, Playback, Ramp, Vantage, Hangar)" },
-    { when: "Oct 2026", what: "Released Hot Mic, a free on-device dictation app for Windows" },
+    { when: "Oct 2026", what: "Built Hot Mic, a free on-device dictation app for Windows" },
     { when: "Fall 2026", what: "Began the winglets research paper and Project Alpha rocket" },
-    { when: "Nov 2026", what: "Launched NASA Data Projects (Asteroid Tracker) and Airport Scenery" }
+    { when: "Nov 2026", what: "Launched NASA and ESA Data Projects and started Airport Scenery" },
+    { when: "Nov 10, 2026", what: "First public release of the Flight Deck Suite" },
+    { when: "Nov 15, 2026", what: "Started public testing of Hot Mic" }
   ]
 };
