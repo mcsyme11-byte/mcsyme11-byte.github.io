@@ -334,6 +334,7 @@ window.PORTFOLIO = {
     { group: "Programming", items: ["C# and .NET", "Python", "JavaScript", "HTML and CSS", "REST APIs", "Automated testing", "Git and GitHub Actions"] },
     { group: "Engineering and science", items: ["Physics", "Aerodynamics", "Rocketry", "CAD and 3D printing", "Technical writing", "Research"] },
     { group: "Aviation", items: ["Flight simulation (MSFS 2024)", "VATSIM ATC training", "Aeronautical charts", "Aviation weather (METARs)", "Drone operations"] },
+    { group: "Working with AI", items: ["Building software with AI (Claude)", "Learning and studying with AI", "Writing instructions and rules that guide AI", "Checking and testing AI-made work"] },
     { group: "Business and communication", items: ["Founder and President, Syme Skyworks", "Teaching at three levels", "Video and slide design", "Client work and invoicing"] }
   ],
 
