@@ -22,6 +22,7 @@ Plain HTML, CSS and JavaScript with no build step, hosted free on GitHub Pages. 
 2. Change `status` (`"current"`, `"past"` or `"idea"`), the text, or the links.
 3. Set `featured: true` to show it in the Featured section.
 4. Update `updated` at the top of the file to today's date.
+5. In `index.html`, bump the `?v=` number on the CSS and script links so browsers load the new version.
 
 Each project has its own shareable link: `https://mcsyme11-byte.github.io/#p/<id>` (for example `#p/hot-mic`).
 

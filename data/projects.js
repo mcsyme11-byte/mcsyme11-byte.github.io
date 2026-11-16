@@ -21,6 +21,7 @@ window.PORTFOLIO = {
   projects: [
     {
       id: "flight-deck-suite",
+      badge: "Public release",
       title: "Flight Deck Suite",
       tagline: "Companion apps for Microsoft Flight Simulator 2024 on the VATSIM network",
       status: "current",
@@ -56,6 +57,7 @@ window.PORTFOLIO = {
     },
     {
       id: "hot-mic",
+      badge: "Public testing",
       title: "Hot Mic",
       tagline: "Free, private voice dictation for Windows: press F9, speak, and clean text appears",
       status: "current",
@@ -80,6 +82,7 @@ window.PORTFOLIO = {
     },
     {
       id: "simply-aerospace",
+      badge: "Live site",
       title: "Simply Aerospace",
       tagline: "An educational channel and website that explain aerospace at three levels",
       status: "current",
@@ -104,6 +107,7 @@ window.PORTFOLIO = {
     },
     {
       id: "nasa-data",
+      badge: "Live",
       title: "NASA and ESA Data Projects",
       tagline: "Exploring real space data from NASA and the European Space Agency",
       status: "current",
