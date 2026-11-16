@@ -321,8 +321,9 @@ window.PORTFOLIO = {
     }
   ],
 
-  /* Profiles shown in the Contact section. Add LinkedIn here once its address is known. */
+  /* Profiles shown in the Contact section. */
   social: [
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/malcolm-syme-38177a3b6" },
     { label: "GitHub", url: "https://github.com/mcsyme11-byte" },
     { label: "Instagram · Simply Aerospace", url: "https://www.instagram.com/simplyaerospace" },
     { label: "YouTube · Simply Aerospace", url: "https://www.youtube.com/@SimplyAerospace" },
