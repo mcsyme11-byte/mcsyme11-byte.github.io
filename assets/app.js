@@ -166,6 +166,11 @@
     return '<li class="reveal"><span class="t-when">' + esc(t.when) + '</span><span class="t-what">' + esc(t.what) + "</span></li>";
   }).join("");
   $("#updated").textContent = "Updated " + D.updated;
+  if (D.social) {
+    $("#social").innerHTML = D.social.map(function (l) {
+      return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
+    }).join("");
+  }
 
   /* Menu (phones) */
   var btn = $(".menu-btn"), nav = $("#nav");

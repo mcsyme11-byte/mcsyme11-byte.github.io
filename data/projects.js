@@ -207,7 +207,7 @@ window.PORTFOLIO = {
     {
       id: "atc-recordings",
       title: "ATC Recordings Account",
-      tagline: "Sharing air traffic control audio on Instagram",
+      tagline: "Sharing air traffic control audio on Instagram as @atcc_centre",
       status: "current",
       categories: ["Aviation", "Education"],
       started: "Oct 2026",
@@ -216,7 +216,7 @@ window.PORTFOLIO = {
       summary: "An Instagram account that posts air traffic control recordings, to show how pilots and controllers really talk to each other.",
       highlights: ["Started October 2026"],
       skills: ["Content creation", "Aviation radio"],
-      links: []
+      links: [{ label: "Instagram @atcc_centre", url: "https://www.instagram.com/atcc_centre/" }]
     },
     {
       id: "syme-skyworks",
@@ -224,12 +224,13 @@ window.PORTFOLIO = {
       tagline: "My own drone services and construction support company",
       status: "current",
       categories: ["Business"],
-      started: "2024",
+      started: "2023",
       featured: true,
       role: "Founder and President",
       summary:
-        "A small business I founded and run in Alberta, offering drone inspections, aerial surveys and photography alongside hands-on construction help on job sites, including yurt builds and log stripping.",
+        "A small business I founded in 2023, after first developing the idea in 2020. It offers drone inspections, aerial surveys and photography alongside hands-on construction help on job sites, including yurt builds and log stripping.",
       highlights: [
+        "First ideas in 2020; founded in 2023",
         "Drone inspections, site surveys, progress monitoring and 4K aerial video with a DJI Air 3S",
         "More than 2 years of flight experience",
         "Construction labour, material runs and on-call site support",
@@ -320,6 +321,14 @@ window.PORTFOLIO = {
     }
   ],
 
+  /* Profiles shown in the Contact section. Add LinkedIn here once its address is known. */
+  social: [
+    { label: "GitHub", url: "https://github.com/mcsyme11-byte" },
+    { label: "Instagram · Simply Aerospace", url: "https://www.instagram.com/simplyaerospace" },
+    { label: "YouTube · Simply Aerospace", url: "https://www.youtube.com/@SimplyAerospace" },
+    { label: "Instagram · @atcc_centre", url: "https://www.instagram.com/atcc_centre/" }
+  ],
+
   skills: [
     { group: "Programming", items: ["C# and .NET", "Python", "JavaScript", "HTML and CSS", "REST APIs", "Automated testing", "Git and GitHub Actions"] },
     { group: "Engineering and science", items: ["Physics", "Aerodynamics", "Rocketry", "CAD and 3D printing", "Technical writing", "Research"] },
@@ -328,7 +337,8 @@ window.PORTFOLIO = {
   ],
 
   timeline: [
-    { when: "2024", what: "Founded Syme Skyworks: drone services and construction support" },
+    { when: "2020", what: "First ideas for Syme Skyworks" },
+    { when: "2023", what: "Founded Syme Skyworks: drone services and construction support" },
     { when: "2026", what: "Launched Simply Aerospace, now with 24 explainers and Mission Control" },
     { when: "Sep 2026", what: "Started VATSIM air traffic control training in the Edmonton FIR" },
     { when: "Oct 2026", what: "Built the Flight Deck Suite (Squawk, Logbook, Playback, Ramp, Vantage, Hangar)" },
