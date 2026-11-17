@@ -326,7 +326,8 @@ h1.split .sp { width: .26em; }
 .lv .grade { color: var(--green); }
 .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #E06C5F; position: relative; }
 .live-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #E06C5F; animation: ping 1.8s var(--ease) infinite; }
-.lv.hot { border-color: rgba(224,108,95,.5); }
+.lv.hot { border-color: rgba(224,108,95,.55); background: rgba(60,20,18,.55); }
+.lv .follow { color: var(--brass-bright); }
 
 /* Patches */
 .patch { flex: none; display: block; }

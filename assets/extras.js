@@ -45,40 +45,76 @@
   var SKYTEXT = { dawn: "dawn", day: "daytime", dusk: "dusk", night: "night" };
   $("#sky-note").innerHTML = '<span class="sky-dot"></span>The sky up here follows your local time. Right now it\'s <b>' + SKYTEXT[sky] + "</b>.";
 
-  /* ---------- Live strip ---------- */
-  var L = D.live || {}, liveEl = $("#live"), items = [];
-  function addLive(html, cls) { items.push('<div class="lv ' + (cls || "") + '">' + html + "</div>"); liveEl.innerHTML = items.join(""); liveEl.hidden = false; }
+  /* ---------- Live strip ----------
+   * Last flight and career come from the flight page's snapshot (written after each flight).
+   * While flying, Logbook serves the live flight from the pilot's PC; its address is read from the flight page
+   * itself (never stored here), and Logbook allows this website to read it. Checked once a minute while visible. */
+  var L = D.live || {}, liveEl = $("#live"), chips = { flight: "", career: "", asteroid: "" };
+  function paint() {
+    var html = ["flight", "career", "asteroid"].map(function (k) { return chips[k]; }).join("");
+    liveEl.innerHTML = html; liveEl.hidden = !html;
+  }
+  function chip(html, cls) { return '<div class="lv ' + (cls || "") + '">' + html + "</div>"; }
   function ago(ms) {
     var m = Math.round(Math.abs(ms) / 60000);
     if (m < 60) return m + " min";
     var h = Math.round(m / 60);
     return h < 48 ? h + " h" : Math.round(h / 24) + " days";
   }
+  var PLANE_IC = '<svg class="lv-ic" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>';
+  var snapFlight = "", liveBase = null;
+  function timed(url, ms) {
+    var ctl = window.AbortController ? new AbortController() : null, t = setTimeout(function () { if (ctl) ctl.abort(); }, ms);
+    return fetch(url, ctl ? { cache: "no-store", signal: ctl.signal } : { cache: "no-store" })
+      .then(function (r) { clearTimeout(t); if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  function checkLive() {
+    if (!liveBase || document.hidden) return;
+    timed(liveBase + "api/flight", 7000).then(function (d) {
+      if (d && d.on && d.flying) {
+        var dep = d.dep && d.dep.icao, arr = d.arr && d.arr.icao, alt = d.pos && d.pos.alt;
+        var altTxt = alt ? (alt >= 18000 ? "FL" + String(Math.round(alt / 100)).padStart(3, "0") : Math.round(alt / 100) * 100 + " ft") : "";
+        chips.flight = chip('<span class="lv-ic live-dot"></span><span class="lv-k">Flying now</span><a href="' + esc(L.flightPage) + '" target="_blank" rel="noopener"><b>' +
+          esc(dep || "?") + " → " + esc(arr || "?") + "</b>" + (d.aircraft ? " · " + esc(d.aircraft) : "") + (altTxt ? " · " + altTxt : "") +
+          (d.phase ? " · " + esc(d.phase) : "") + ' · <span class="follow">Follow live</span></a>', "hot");
+      } else chips.flight = snapFlight;
+      paint();
+    }).catch(function () { chips.flight = snapFlight; paint(); });
+  }
   var flightP = L.flight ? getJSON(L.flight).then(function (d) {
-    if (d && d.on && d.flying) {
-      addLive('<span class="lv-ic live-dot"></span><span class="lv-k">In flight now</span><a href="' + esc(L.flightPage) + '" target="_blank" rel="noopener">Follow live</a>', "hot");
-    } else if (d && d.last) {
+    if (d && d.last) {
       var f = d.last;
-      addLive('<svg class="lv-ic" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>' +
-        '<span class="lv-k">Last flight</span><a href="' + esc(L.flightPage) + '" target="_blank" rel="noopener"><b>' + esc(f.from) + " → " + esc(f.to) + "</b> · " + esc(f.aircraft) +
+      snapFlight = chip(PLANE_IC + '<span class="lv-k">Last flight</span><a href="' + esc(L.flightPage) + '" target="_blank" rel="noopener"><b>' + esc(f.from) + " → " + esc(f.to) + "</b> · " + esc(f.aircraft) +
         (f.grade ? ' · <span class="grade">' + esc(f.grade) + " " + Math.abs(f.rate) + " fpm</span>" : "") + "</a>");
+      chips.flight = snapFlight;
     }
     if (d && d.career) {
-      var c = d.career, best = null;
-      (c.best || []).forEach(function (b) { if (!best || Math.abs(b.rate) < Math.abs(best.rate)) best = b; });
-      addLive('<svg class="lv-ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="lv-k">Sim career</span><span><b>' +
+      var c = d.career;
+      chips.career = chip('<svg class="lv-ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="lv-k">Sim career</span><span><b>' +
         Math.round(c.minutes / 60).toLocaleString() + " h</b> · " + c.flights + " flights · " + c.airports + " airports</span>");
     }
+    paint();
+    if (d && d.on === false) return;
+    /* the live address, as published on the flight page */
+    return fetch(L.flightPage, { cache: "no-cache" }).then(function (r) { return r.text(); }).then(function (html) {
+      var m = html.match(/var CFG=\{[^}]*"live":\s*"(https:\/\/[^"]+)"/);
+      if (!m) return;
+      liveBase = m[1].replace(/\/?$/, "/");
+      checkLive();
+      setInterval(checkLive, 60000);
+      document.addEventListener("visibilitychange", function () { if (!document.hidden) checkLive(); });
+    });
   }).catch(function () {}) : Promise.resolve();
-  if (L.asteroids) flightP.then(function () { return getJSON(L.asteroids); }).then(function (d) {
+  if (L.asteroids) getJSON(L.asteroids).then(function (d) {
     var now = Date.now(), f = d.fields, ti = f.indexOf("time_ms_utc"), di = f.indexOf("distance_ld"), ni = f.indexOf("designation"), hi = f.indexOf("h");
     var next = (d.rows || []).filter(function (r) { return r[ti] > now - 3600e3; }).sort(function (a, b) { return a[ti] - b[ti]; })[0];
     if (!next) return;
     var dt = next[ti] - now, size = 1329 / Math.sqrt(0.14) * Math.pow(10, -next[hi] / 5) * 1000;
     var sz = size < 100 ? Math.round(size) + " m" : (Math.round(size / 10) * 10) + " m";
-    addLive('<svg class="lv-ic" viewBox="0 0 24 24"><path d="M12 3c5 0 9 3 9 8s-3.5 10-9 10S3 17 3 12s4-9 9-9z"/><circle cx="14.5" cy="9.5" r="1.5"/></svg>' +
+    chips.asteroid = chip('<svg class="lv-ic" viewBox="0 0 24 24"><path d="M12 3c5 0 9 3 9 8s-3.5 10-9 10S3 17 3 12s4-9 9-9z"/><circle cx="14.5" cy="9.5" r="1.5"/></svg>' +
       '<span class="lv-k">Next asteroid</span><a href="' + esc(L.asteroidPage) + '" target="_blank" rel="noopener"><b>' + esc(next[ni]) + "</b> · ~" + sz + " · " +
       next[di].toFixed(1) + " Moon distances " + (dt > 0 ? "in " + ago(dt) : ago(dt) + " ago") + "</a>");
+    paint();
   }).catch(function () {});
 
   /* ---------- Latest feed: curated news + live Flight Deck Suite catalog ---------- */
