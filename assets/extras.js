@@ -68,9 +68,12 @@
     return fetch(url, ctl ? { cache: "no-store", signal: ctl.signal } : { cache: "no-store" })
       .then(function (r) { clearTimeout(t); if (!r.ok) throw new Error(r.status); return r.json(); });
   }
+  var liveTimer = 0;
+  function nextCheck(ms) { clearTimeout(liveTimer); liveTimer = setTimeout(checkLive, ms); }
   function checkLive() {
     if (!liveBase || document.hidden) return;
     timed(liveBase + "api/flight", 7000).then(function (d) {
+      nextCheck(60000);
       if (d && d.on && d.flying) {
         var dep = d.dep && d.dep.icao, arr = d.arr && d.arr.icao, alt = d.pos && d.pos.alt;
         var altTxt = alt ? (alt >= 18000 ? "FL" + String(Math.round(alt / 100)).padStart(3, "0") : Math.round(alt / 100) * 100 + " ft") : "";
@@ -79,7 +82,7 @@
           (d.phase ? " · " + esc(d.phase) : "") + ' · <span class="follow">Follow live</span></a>', "hot");
       } else chips.flight = snapFlight;
       paint();
-    }).catch(function () { chips.flight = snapFlight; paint(); });
+    }).catch(function () { chips.flight = snapFlight; paint(); nextCheck(300000); });
   }
   var flightP = L.flight ? getJSON(L.flight).then(function (d) {
     if (d && d.last) {
@@ -101,7 +104,6 @@
       if (!m) return;
       liveBase = m[1].replace(/\/?$/, "/");
       checkLive();
-      setInterval(checkLive, 60000);
       document.addEventListener("visibilitychange", function () { if (!document.hidden) checkLive(); });
     });
   }).catch(function () {}) : Promise.resolve();
