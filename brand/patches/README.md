@@ -9,20 +9,22 @@ Each patch comes as:
 
 The inner ring's colour shows the status when the patch was made: green for current, blue for past, brass for ideas. The bottom of the ring shows the start year, or "IDEA".
 
-| Project | Files | Also copied to |
-|---|---|---|
-| Flight Deck Suite | `flight-deck-suite-patch.*` | Flight-Deck-Suite repo, `brand/` |
-| Hot Mic | `hot-mic-patch.*` | HotMic repo, `brand/` |
-| Simply Aerospace | `simply-aerospace-patch.*` | Simply-Aerospace-Archive repo, `brand/` |
-| NASA and ESA Data Projects (NEDAP) | `nedap-patch.svg`, `nedap-patch-1024.png`, `nedap-mark.svg`, `nedap-mark-small.svg` | **Official logo since Nov 17, 2026.** Copied from the NASA-ESA-Data-and-API-Projects repo (`brand/patch/`), which is the master: ring text "NEDAP · DATA PROJECTS" as outlines, an original centre symbol, and a mark and small mark for small sizes. The site shows these files instead of drawing the patch. |
-| Airport Scenery (MSFS 2024) | `airport-scenery-patch.*` | Airport-Scenery-Profile-Development-MSFS2024 repo, `brand/` |
-| Syme Skyworks | `syme-skyworks-patch.*` | SymeSkyWorks repo, `brand/` |
-| Project Alpha | `project-alpha-patch.*` | (no repo yet; kept here) |
-| Winglets Research Paper | `winglets-patch.*` | (no repo yet; kept here) |
-| VATSIM ATC Training | `vatsim-atc-patch.*` | (no repo yet; kept here) |
-| ATC Recordings | `atc-recordings-patch.*` | (no repo yet; kept here) |
-| A320 Landing Study | `a320-study-patch.*` | (no repo yet; kept here) |
-| Ideas: Rocketry Lab, Orbit & Space Watch, Off-World Base, Living in Space, Small Spacecraft Mission, Greener Aviation, Drone Systems | `idea-*-patch.*` | (kept here until each idea becomes a project) |
+| Project | Files here | Source (the master copy) | The site uses |
+|---|---|---|---|
+| Flight Deck Suite | `flight-deck-suite-patch.svg` / `.png`, `flight-deck-suite-mark.svg`, `-mark-tiny.svg` | Flight-Deck-Suite repo, `brand/` (also each app's own badge in `brand/apps/`) | patch from 64 px, mark below |
+| Hot Mic | `hot-mic-patch-outlined.svg`, `hot-mic-patch-1024.png`, `hot-mic-mark-simplified.svg`, `hot-mic-mark-tiny.svg` | HotMic repo, `brand/` | patch from 64 px, simplified mark below |
+| Simply Aerospace | `simply-aerospace-patch.svg`, `-1024.png`, `-notext.svg`, `-tiny.svg` | Simply-Aerospace-Archive repo, `brand/` (`BRAND.md`) | patch from 180 px, no-text version below |
+| NASA and ESA Data Projects (NEDAP) | `nedap-patch.svg`, `nedap-patch-1024.png`, `nedap-mark.svg`, `nedap-mark-small.svg` | NASA-ESA-Data-and-API-Projects repo, `brand/patch/` | patch from 64 px, mark below |
+| Airport Scenery (MSFS 2024) | `airport-scenery-patch-outlined.svg`, `-1024.png`, `-small.svg`, `-mark.svg` | Airport-Scenery-Profile-Development-MSFS2024 repo, `brand/` | patch from 128 px, small version below |
+| Syme Skyworks | `syme-skyworks-patch.png` / `.svg`, `syme-skyworks-mark.svg`, `-mark-small.svg` | SymeSkyWorks repo, `brand/` | the PNG from 64 px (its SVG still needs a font), mark below |
+| Project Alpha | `project-alpha-patch.*` | here (no repo yet) | drawn by `assets/patches.js` |
+| Winglets Research Paper | `winglets-patch.*` | here (no repo yet) | drawn |
+| VATSIM ATC Training | `vatsim-atc-patch.*` | here (no repo yet) | drawn |
+| ATC Recordings | `atc-recordings-patch.*` | here (no repo yet) | drawn |
+| A320 Landing Study | `a320-study-patch.*` | here (no repo yet) | drawn |
+| Ideas: Rocketry Lab, Orbit & Space Watch, Off-World Base, Living in Space, Small Spacecraft Mission, Greener Aviation, Drone Systems | `idea-*-patch.*` | here, until each idea becomes a project | drawn |
+
+All six projects adopted their patches as official logos on Nov 17, 2026. **Each project's repo is the master copy:** when a logo changes there, copy the new files here and keep the project's own size guide (`patchMin` in `data/projects.js`). Don't edit these copies.
 
 When a project adopts its patch as its official logo, copy its final files here from that project's repo and set `patchImage` (and `markImage`, for sizes under 64 px) on its entry in `data/projects.js`; the site then shows those files instead of drawing the patch.
 

@@ -28,9 +28,9 @@
   /* size: pixel size. Big patches (80+) get the name stitched around the ring. */
   window.Patch = function (p, size) {
     /* A project that has adopted its patch as its official logo uses those files:
-       the full patch from 64 px, the mark (no lettering) below that. */
+       the full patch from 64 px (or the project's own minimum, patchMin), the mark (no lettering) below that. */
     if (p.patchImage) {
-      var src = size >= 64 || !p.markImage ? p.patchImage : p.markImage;
+      var src = size >= (p.patchMin || 64) || !p.markImage ? p.patchImage : p.markImage;
       return '<img class="patch" src="' + esc(src) + '" width="' + size + '" height="' + size + '" alt="" decoding="async">';
     }
     var id = "pt" + (++n), big = size >= 80, tint = TINT[p.status] || "#C0A062";

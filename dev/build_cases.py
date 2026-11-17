@@ -55,7 +55,7 @@ CASES = [
     title="Hot Mic",
     lede="Building a free, private dictation app that's as smart as a cloud assistant, works for people with low vision, and never sends a word of audio off the computer.",
     facts=[("Role", "Designer, tester and decision-maker. Built with Claude"), ("Timeline", "Idea Oct 25, 2026, public testing Nov 15, 2026"),
-           ("Stack", "C#, .NET, on-device speech and language models"), ("Status", "Public testing (0.5.7)")],
+           ("Stack", "C#, .NET, on-device speech and language models"), ("Status", "Public testing (0.5.8)")],
     stats=[("0", "bytes of audio sent off the PC"), ("159", "automated tests"), ("~0.4 s", "AI warm-up, down from a 17 s first dictation"), ("137 / 176", "dictations that safely skip the AI")],
     sections=[
       ("The problem", [

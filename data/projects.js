@@ -21,6 +21,8 @@ window.PORTFOLIO = {
   projects: [
     {
       id: "flight-deck-suite",
+      patchImage: "brand/patches/flight-deck-suite-patch.svg",
+      markImage: "brand/patches/flight-deck-suite-mark.svg",
       caseStudy: "case/flight-deck-suite.html",
       icon: "plane",
       badge: "Public release",
@@ -59,6 +61,8 @@ window.PORTFOLIO = {
     },
     {
       id: "hot-mic",
+      patchImage: "brand/patches/hot-mic-patch-outlined.svg",
+      markImage: "brand/patches/hot-mic-mark-simplified.svg",
       caseStudy: "case/hot-mic.html",
       icon: "mic",
       badge: "Public testing",
@@ -76,7 +80,7 @@ window.PORTFOLIO = {
         "Accessibility first: sound cues, a large high-contrast indicator, read-back and full keyboard control",
         "Spoken numbers, times, dates and prices are written as digits automatically",
         "159 automated tests, automatic updates and a public download website",
-        "Version 0.5.7 started a public testing phase, with a built-in Report a problem page"
+        "Public testing since version 0.5.7 (now 0.5.8), with a built-in Report a problem page"
       ],
       skills: ["C#", ".NET", "On-device AI", "Speech recognition", "Accessibility", "Software testing", "Release management"],
       links: [
@@ -86,6 +90,9 @@ window.PORTFOLIO = {
     },
     {
       id: "simply-aerospace",
+      patchImage: "brand/patches/simply-aerospace-patch.svg",
+      markImage: "brand/patches/simply-aerospace-patch-notext.svg",
+      patchMin: 180,
       icon: "book",
       badge: "Live site",
       title: "Simply Aerospace",
@@ -100,7 +107,7 @@ window.PORTFOLIO = {
       highlights: [
         "24 explainers on aviation, space and propulsion",
         "Mission Control: 8 interactive missions that teach math and critical thinking to kids aged 7 to 11",
-        "Website with topic hubs, a myth index, quiz, glossary and search (version 2.7.0)"
+        "Website with topic hubs, a myth index, quiz, glossary and search (version 2.8.0)"
       ],
       skills: ["Science communication", "Teaching", "Video and slide design", "HTML/CSS/JavaScript", "Physics"],
       links: [
@@ -145,6 +152,9 @@ window.PORTFOLIO = {
     },
     {
       id: "airport-scenery",
+      patchImage: "brand/patches/airport-scenery-patch-outlined.svg",
+      markImage: "brand/patches/airport-scenery-patch-small.svg",
+      patchMin: 128,
       patchName: "Airport Scenery",
       icon: "runway",
       title: "Airport Scenery (MSFS 2024)",
@@ -241,6 +251,8 @@ window.PORTFOLIO = {
     },
     {
       id: "syme-skyworks",
+      patchImage: "brand/patches/syme-skyworks-patch.png",
+      markImage: "brand/patches/syme-skyworks-mark.svg",
       icon: "drone",
       title: "Syme Skyworks",
       tagline: "My own drone services and construction support company",
@@ -259,7 +271,10 @@ window.PORTFOLIO = {
         "Runs its own crew, timesheets and invoicing"
       ],
       skills: ["Entrepreneurship", "Drone operations", "Construction", "Client communication", "Invoicing"],
-      links: [{ label: "Website repo", url: "https://github.com/mcsyme11-byte/SymeSkyWorks" }]
+      links: [
+        { label: "Website", url: "https://mcsyme11-byte.github.io/SymeSkyWorks/" },
+        { label: "Website repo", url: "https://github.com/mcsyme11-byte/SymeSkyWorks" }
+      ]
     },
     {
       id: "a320-study",
@@ -385,7 +400,10 @@ window.PORTFOLIO = {
 
   /* "What's new". Newest first. Flight Deck Suite releases are also read live from its catalog. */
   news: [
-    { date: "2026-11-17", project: "NASA and ESA Data Projects", text: "The NEDAP mission patch became the project's official logo", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
+    { date: "2026-11-17", project: "All projects", text: "Six projects adopted their mission patches as official logos" },
+    { date: "2026-11-17", project: "Hot Mic", text: "Hot Mic 0.5.8 released, with the new logo", url: "https://mcsyme11-byte.github.io/HotMic-releases/" },
+    { date: "2026-11-17", project: "Simply Aerospace", text: "Website 2.8.0: the mission patch becomes the main logo", url: "https://mcsyme11-byte.github.io/SimplyAerospace/" },
+    { date: "2026-11-17", project: "Syme Skyworks", text: "Website redesigned around the new logo", url: "https://mcsyme11-byte.github.io/SymeSkyWorks/" },
     { date: "2026-11-16", project: "NASA and ESA Data Projects", text: "Renamed to NASA and ESA Data Projects, with ESA data, Sky Finder and the Spacecraft map", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
     { date: "2026-11-16", project: "Portfolio", text: "This portfolio went live" },
     { date: "2026-11-15", project: "Hot Mic", text: "Hot Mic 0.5.7: public testing begins, with a built-in Report a problem page", url: "https://mcsyme11-byte.github.io/HotMic-releases/" },
