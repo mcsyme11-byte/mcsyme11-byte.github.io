@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Off the chart · Malcolm Syme</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#141B26">
+  <link rel="icon" href="/assets/emblem.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css?v=20261117d">
+  <style>
+    .lost { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: 40px 20px; position: relative; overflow: hidden; }
+    .lost .ring { position: absolute; width: min(720px, 120vw); aspect-ratio: 1; border: 1px dashed var(--brass-dim); border-radius: 50%; opacity: .5; animation: spin 90s linear infinite; }
+    .lost .ring::after { content: ""; position: absolute; top: -5px; left: 50%; width: 9px; height: 9px; border-radius: 50%; background: var(--brass-bright); box-shadow: 0 0 12px var(--brass); }
+    .code { font-family: var(--mono); color: var(--brass); letter-spacing: .3em; font-size: 14px; }
+    .lost h1 { font-size: clamp(48px, 10vw, 104px); margin: 14px 0 12px; }
+    .lost p { color: var(--ink2); font-size: 19px; max-width: 520px; margin: 0 auto 30px; }
+    .lost .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <main class="lost">
+    <div class="ring" aria-hidden="true"></div>
+    <div>
+      <p class="code">ERROR 404 · NO SUCH WAYPOINT</p>
+      <h1>Off the chart</h1>
+      <p>This page isn't in the flight plan. It may have moved, or the link has a typo. Let's get you back on course.</p>
+      <div class="row">
+        <a class="btn" href="/">Back to the portfolio</a>
+        <a class="btn ghost" href="/#projects">See all projects</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

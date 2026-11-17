@@ -9,7 +9,8 @@ This is Malcolm Syme's public portfolio website (https://mcsyme11-byte.github.io
 - **All content lives in `data/projects.js`.** Change the page structure only when Malcolm asks.
 - **After every change, bump the `?v=` version on the CSS and script links in `index.html`** (for example `?v=20261116d` → `?v=20261117a`), so browsers load the new files instead of an old cached copy.
 - **Performance:** nothing may run every frame while scrolling. Animate only `transform` and `opacity`; no `backdrop-filter`, no animated `box-shadow`, no scroll or pointermove handlers outside one requestAnimationFrame. Re-check smoothness after visual changes.
-- **Keep it current:** when a project's version, status or highlights change in its own repo, update its entry here and the `updated` date.
+- **Keep it current:** when a project's version, status or highlights change in its own repo, update its entry here and the `updated` date. Add a dated line to `news` in `data/projects.js` for anything that ships.
+- **Case studies** (`case/*.html`) must stay factual: every statement comes from the project's own `docs/HISTORY.md` or CHANGELOG. No PC hardware, paths or personal setup details.
 - **Accuracy:** only state facts that are true and checkable in the repos or confirmed by Malcolm. Never invent achievements.
 - **Look:** follow the shared "old money" design (navy, brass and cream, serif type), kept modern; it must work on phones, tablets and PCs. Big visual changes start as a proposal Malcolm approves.
 - When Malcolm asks a question, answer it only; change nothing until he says go.

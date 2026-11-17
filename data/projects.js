@@ -8,7 +8,7 @@
  *   started:    shown on the card and used for the timeline (keep it short, e.g. "Oct 2026")
  */
 window.PORTFOLIO = {
-  updated: "November 16, 2026",
+  updated: "November 17, 2026",
 
   /* The four numbers at the top of the page. "auto" counts from the project list below. */
   stats: [
@@ -21,6 +21,8 @@ window.PORTFOLIO = {
   projects: [
     {
       id: "flight-deck-suite",
+      caseStudy: "case/flight-deck-suite.html",
+      icon: "plane",
       badge: "Public release",
       title: "Flight Deck Suite",
       tagline: "Companion apps for Microsoft Flight Simulator 2024 on the VATSIM network",
@@ -57,6 +59,8 @@ window.PORTFOLIO = {
     },
     {
       id: "hot-mic",
+      caseStudy: "case/hot-mic.html",
+      icon: "mic",
       badge: "Public testing",
       title: "Hot Mic",
       tagline: "Free, private voice dictation for Windows: press F9, speak, and clean text appears",
@@ -82,6 +86,7 @@ window.PORTFOLIO = {
     },
     {
       id: "simply-aerospace",
+      icon: "book",
       badge: "Live site",
       title: "Simply Aerospace",
       tagline: "An educational channel and website that explain aerospace at three levels",
@@ -107,6 +112,7 @@ window.PORTFOLIO = {
     },
     {
       id: "nasa-data",
+      icon: "asteroid",
       badge: "Live",
       title: "NASA and ESA Data Projects",
       tagline: "Exploring real space data from NASA and the European Space Agency",
@@ -137,6 +143,7 @@ window.PORTFOLIO = {
     },
     {
       id: "airport-scenery",
+      icon: "runway",
       title: "Airport Scenery (MSFS 2024)",
       tagline: "Chart-accurate airport scenery for Springbank (CYBW) and Red Deer (CYQF)",
       status: "current",
@@ -155,6 +162,7 @@ window.PORTFOLIO = {
     },
     {
       id: "project-alpha",
+      icon: "rocket",
       title: "Project Alpha",
       tagline: "Designing and building a high-power model rocket",
       status: "current",
@@ -174,6 +182,7 @@ window.PORTFOLIO = {
     },
     {
       id: "winglets",
+      icon: "winglet",
       title: "Winglets Research Paper",
       tagline: "How winglets reduce induced drag, with a 3D-printed wingtip model",
       status: "current",
@@ -192,6 +201,7 @@ window.PORTFOLIO = {
     },
     {
       id: "vatsim-atc",
+      icon: "radar",
       title: "VATSIM Air Traffic Control Training",
       tagline: "Training for a controller rating in the Edmonton FIR",
       status: "current",
@@ -210,6 +220,7 @@ window.PORTFOLIO = {
     },
     {
       id: "atc-recordings",
+      icon: "radio",
       title: "ATC Recordings Account",
       tagline: "Sharing air traffic control audio on Instagram as @atcc_centre",
       status: "current",
@@ -224,6 +235,7 @@ window.PORTFOLIO = {
     },
     {
       id: "syme-skyworks",
+      icon: "drone",
       title: "Syme Skyworks",
       tagline: "My own drone services and construction support company",
       status: "current",
@@ -245,6 +257,7 @@ window.PORTFOLIO = {
     },
     {
       id: "a320-study",
+      icon: "landing",
       title: "A320 Landing Study",
       tagline: "Reduced-flap landings combined with idle reverse thrust",
       status: "past",
@@ -262,6 +275,7 @@ window.PORTFOLIO = {
     /* Ideas */
     {
       id: "idea-rocketry-lab",
+      icon: "rocket",
       title: "Rocketry Lab",
       tagline: "Rocket design, fuels, reusability and landing simulation",
       status: "idea", categories: ["Space"], started: "", featured: false, role: "",
@@ -271,6 +285,7 @@ window.PORTFOLIO = {
     },
     {
       id: "idea-orbit-watch",
+      icon: "satellite",
       title: "Orbit & Space Watch",
       tagline: "Space debris, collisions, space weather and exoplanets",
       status: "idea", categories: ["Space", "Software"], started: "", featured: false, role: "",
@@ -280,6 +295,7 @@ window.PORTFOLIO = {
     },
     {
       id: "idea-off-world-base",
+      icon: "dome",
       title: "Off-World Base",
       tagline: "A Moon and Mars base with habitat, farm, shielding and rover",
       status: "idea", categories: ["Space"], started: "", featured: false, role: "",
@@ -289,6 +305,7 @@ window.PORTFOLIO = {
     },
     {
       id: "idea-living-in-space",
+      icon: "plant",
       title: "Living in Space",
       tagline: "Experiments on how people, plants and food cope with microgravity",
       status: "idea", categories: ["Space", "Research"], started: "", featured: false, role: "",
@@ -298,6 +315,7 @@ window.PORTFOLIO = {
     },
     {
       id: "idea-small-spacecraft",
+      icon: "sail",
       title: "Small Spacecraft Mission",
       tagline: "A CubeSat mission powered by a solar sail",
       status: "idea", categories: ["Space"], started: "", featured: false, role: "",
@@ -307,6 +325,7 @@ window.PORTFOLIO = {
     },
     {
       id: "idea-greener-aviation",
+      icon: "leaf",
       title: "Greener Aviation",
       tagline: "Wing optimization, electric aircraft, emissions and airport noise",
       status: "idea", categories: ["Aviation", "Research"], started: "", featured: false, role: "",
@@ -316,6 +335,7 @@ window.PORTFOLIO = {
     },
     {
       id: "idea-drone-systems",
+      icon: "drone",
       title: "Drone Systems",
       tagline: "Drone delivery, swarm simulation and autonomous landing",
       status: "idea", categories: ["Aviation", "Software"], started: "", featured: false, role: "",
@@ -342,16 +362,38 @@ window.PORTFOLIO = {
     { group: "Business and communication", items: ["Founder and President, Syme Skyworks", "Teaching at three levels", "Video and slide design", "Client work and invoicing"] }
   ],
 
+  /* The Journey, drawn as a flight route. "fix" is a made-up five-letter waypoint name, like on a real chart. */
   timeline: [
-    { when: "2020", what: "First ideas for Syme Skyworks" },
-    { when: "2023", what: "Founded Syme Skyworks: drone services and construction support" },
-    { when: "2026", what: "Launched Simply Aerospace, now with 24 explainers and Mission Control" },
-    { when: "Sep 2026", what: "Started VATSIM air traffic control training in the Edmonton FIR" },
-    { when: "Oct 2026", what: "Built the Flight Deck Suite (Squawk, Logbook, Playback, Ramp, Vantage, Hangar)" },
-    { when: "Oct 2026", what: "Built Hot Mic, a free on-device dictation app for Windows" },
-    { when: "Fall 2026", what: "Began the winglets research paper and Project Alpha rocket" },
-    { when: "Nov 2026", what: "Launched NASA and ESA Data Projects and started Airport Scenery" },
-    { when: "Nov 10, 2026", what: "First public release of the Flight Deck Suite" },
-    { when: "Nov 15, 2026", what: "Started public testing of Hot Mic" }
-  ]
+    { fix: "IDEAS", when: "2020", what: "First ideas for Syme Skyworks" },
+    { fix: "SKYWK", when: "2023", what: "Founded Syme Skyworks: drone services and construction support" },
+    { fix: "SMPLA", when: "2026", what: "Launched Simply Aerospace, now with 24 explainers and Mission Control" },
+    { fix: "CZEGG", when: "Sep 2026", what: "Started VATSIM air traffic control training in the Edmonton FIR" },
+    { fix: "FDECK", when: "Oct 2026", what: "Built the Flight Deck Suite (Squawk, Logbook, Playback, Ramp, Vantage, Hangar)" },
+    { fix: "HOTMC", when: "Oct 2026", what: "Built Hot Mic, a free on-device dictation app for Windows" },
+    { fix: "WNGLT", when: "Fall 2026", what: "Began the winglets research paper and Project Alpha rocket" },
+    { fix: "NEDAP", when: "Nov 2026", what: "Launched NASA and ESA Data Projects and started Airport Scenery" },
+    { fix: "PUBLC", when: "Nov 10, 2026", what: "First public release of the Flight Deck Suite" },
+    { fix: "TESTG", when: "Nov 15, 2026", what: "Started public testing of Hot Mic" }
+  ],
+  destination: { fix: "UNIV", what: "Study aerospace engineering at university, and work toward a career in Canada's space industry." },
+
+  /* "What's new". Newest first. Flight Deck Suite releases are also read live from its catalog. */
+  news: [
+    { date: "2026-11-16", project: "NASA and ESA Data Projects", text: "Renamed to NASA and ESA Data Projects, with ESA data, Sky Finder and the Spacecraft map", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
+    { date: "2026-11-16", project: "Portfolio", text: "This portfolio went live" },
+    { date: "2026-11-15", project: "Hot Mic", text: "Hot Mic 0.5.7: public testing begins, with a built-in Report a problem page", url: "https://mcsyme11-byte.github.io/HotMic-releases/" },
+    { date: "2026-11-10", project: "Flight Deck Suite", text: "First public release, with its own website and downloads", url: "https://mcsyme11-byte.github.io/Flight-Suite-Releases/" },
+    { date: "2026-11-07", project: "Airport Scenery", text: "Research started for Springbank (CYBW) and Red Deer (CYQF)" }
+  ],
+
+  /* Live data read from Malcolm's own public sites (same website, so no keys are needed). */
+  live: {
+    flight: "/flight/data.json",
+    flightPage: "/flight/",
+    asteroids: "/NASA-ESA-Data-and-API-Projects/asteroid-tracker/data/soon.json",
+    asteroidPage: "/NASA-ESA-Data-and-API-Projects/asteroid-tracker/",
+    catalog: "/Flight-Suite-Releases/catalog.json",
+    catalogPage: "/Flight-Suite-Releases/"
+  }
+
 };

@@ -49,7 +49,7 @@
       '<div class="card-top">' + pill(p.status) +
       (p.badge ? '<span class="badge">' + esc(p.badge) + "</span>" : "") +
       (p.started ? '<span class="when">' + esc(p.started) + "</span>" : "") + "</div>" +
-      "<h3>" + hl(p.title) + "</h3>" +
+      '<div class="card-title">' + window.Patch(p, cls === "big" ? 64 : 48) + "<h3>" + hl(p.title) + "</h3></div>" +
       '<p class="tagline">' + hl(p.tagline) + "</p>" + extra +
       '<div class="meta">' + p.categories.map(function (c) { return '<span class="tag">' + esc(c) + "</span>"; }).join("") + "</div>" +
       '<span class="more">Details<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></span></button>';
@@ -113,6 +113,7 @@
     if (e.key === "/" && document.activeElement !== q && !$("#detail").open) { e.preventDefault(); q.focus(); }
   });
   render(false);
+  window.PF = { open: open, esc: esc, $: $, $$: $$, reduce: reduce };
 
   /* ---------- Details dialog ---------- */
   var dlg = $("#detail");
@@ -122,9 +123,11 @@
     var idea = p.status === "idea";
     var h = '<div class="d-head">' + pill(p.status) + (p.badge ? '<span class="badge">' + esc(p.badge) + "</span>" : "") +
       (p.started ? '<span class="when">Started ' + esc(p.started) + "</span>" : "") + "</div>";
+    h += '<div class="d-hero">' + window.Patch(p, 116) + "<div>";
     if (p.role) h += '<p class="d-role">' + esc(p.role) + "</p>";
     h += '<h3 id="d-title">' + esc(p.title) + "</h3>";
-    h += '<p class="d-tagline">' + esc(p.tagline) + "</p>";
+    h += '<p class="d-tagline">' + esc(p.tagline) + "</p></div></div>";
+    if (p.caseStudy) h += '<a class="case-link" href="' + esc(p.caseStudy) + '"><span>Case study</span><b>How I built it</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a>';
     h += '<p class="d-summary">' + esc(p.summary) + "</p>";
     if (p.parts) {
       h += '<div class="d-section"><h4>' + (idea ? "Includes" : "What's inside") + '</h4><div class="parts">' +
@@ -145,6 +148,7 @@
         return '<a class="btn' + (i ? " ghost" : "") + '" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
       }).join("") + "</div></div>";
     }
+    h += '<div class="d-actions"><button class="mini" data-share="' + esc(p.id) + '">Share this project</button></div>';
     $("#d-body").innerHTML = h;
     if (location.hash !== "#p/" + id) history.replaceState(null, "", "#p/" + id);
     dlg.showModal();
@@ -169,8 +173,8 @@
       g.items.map(function (it) { return "<li>" + esc(it) + "</li>"; }).join("") + "</ul></div>";
   }).join("");
   $("#timeline").innerHTML = D.timeline.map(function (t) {
-    return '<li class="reveal"><span class="t-when">' + esc(t.when) + '</span><span class="t-what">' + esc(t.what) + "</span></li>";
-  }).join("");
+    return '<li class="reveal"><span class="t-fix">' + esc(t.fix) + '</span><span class="t-when">' + esc(t.when) + '</span><span class="t-what">' + esc(t.what) + "</span></li>";
+  }).join("") + (D.destination ? '<li class="reveal dest"><span class="t-fix">' + esc(D.destination.fix) + '</span><span class="t-when">Next</span><span class="t-what">' + esc(D.destination.what) + "</span></li>" : "");
   $("#updated").textContent = "Updated " + D.updated;
   if (D.social) {
     $("#social").innerHTML = D.social.map(function (l) {
@@ -238,6 +242,7 @@
       var y = scrollY;
       bar.style.transform = "scaleX(" + (h > 0 ? y / h : 0) + ")";
       top.classList.toggle("show", y > innerHeight * 1.2);
+      if (window.PF && window.PF.onScroll) window.PF.onScroll(y);
       ticking = false;
     });
   }
