@@ -112,7 +112,8 @@ window.PORTFOLIO = {
     },
     {
       id: "nasa-data",
-      patchName: "NASA · ESA Data",
+      patchImage: "brand/patches/nedap-patch.svg",
+      markImage: "brand/patches/nedap-mark.svg",
       icon: "asteroid",
       badge: "Live",
       title: "NASA and ESA Data Projects",
@@ -384,6 +385,7 @@ window.PORTFOLIO = {
 
   /* "What's new". Newest first. Flight Deck Suite releases are also read live from its catalog. */
   news: [
+    { date: "2026-11-17", project: "NASA and ESA Data Projects", text: "The NEDAP mission patch became the project's official logo", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
     { date: "2026-11-16", project: "NASA and ESA Data Projects", text: "Renamed to NASA and ESA Data Projects, with ESA data, Sky Finder and the Spacecraft map", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
     { date: "2026-11-16", project: "Portfolio", text: "This portfolio went live" },
     { date: "2026-11-15", project: "Hot Mic", text: "Hot Mic 0.5.7: public testing begins, with a built-in Report a problem page", url: "https://mcsyme11-byte.github.io/HotMic-releases/" },

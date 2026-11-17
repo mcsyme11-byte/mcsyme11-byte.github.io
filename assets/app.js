@@ -166,6 +166,9 @@
     if (location.hash.indexOf("#p/") === 0) history.replaceState(null, "", location.pathname + location.search);
   });
   if (location.hash.indexOf("#p/") === 0) open(location.hash.slice(3));
+  addEventListener("hashchange", function () {
+    if (location.hash.indexOf("#p/") === 0 && !dlg.open) open(location.hash.slice(3));
+  });
 
   /* ---------- Skills, timeline, social ---------- */
   $("#skill-groups").innerHTML = D.skills.map(function (g, i) {

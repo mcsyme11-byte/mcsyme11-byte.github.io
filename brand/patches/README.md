@@ -14,7 +14,7 @@ The inner ring's colour shows the status when the patch was made: green for curr
 | Flight Deck Suite | `flight-deck-suite-patch.*` | Flight-Deck-Suite repo, `brand/` |
 | Hot Mic | `hot-mic-patch.*` | HotMic repo, `brand/` |
 | Simply Aerospace | `simply-aerospace-patch.*` | Simply-Aerospace-Archive repo, `brand/` |
-| NASA and ESA Data Projects | `nasa-data-patch.*` | NASA-ESA-Data-and-API-Projects repo, `brand/` |
+| NASA and ESA Data Projects (NEDAP) | `nedap-patch.svg`, `nedap-patch-1024.png`, `nedap-mark.svg`, `nedap-mark-small.svg` | **Official logo since Nov 17, 2026.** Copied from the NASA-ESA-Data-and-API-Projects repo (`brand/patch/`), which is the master: ring text "NEDAP · DATA PROJECTS" as outlines, an original centre symbol, and a mark and small mark for small sizes. The site shows these files instead of drawing the patch. |
 | Airport Scenery (MSFS 2024) | `airport-scenery-patch.*` | Airport-Scenery-Profile-Development-MSFS2024 repo, `brand/` |
 | Syme Skyworks | `syme-skyworks-patch.*` | SymeSkyWorks repo, `brand/` |
 | Project Alpha | `project-alpha-patch.*` | (no repo yet; kept here) |
@@ -23,6 +23,8 @@ The inner ring's colour shows the status when the patch was made: green for curr
 | ATC Recordings | `atc-recordings-patch.*` | (no repo yet; kept here) |
 | A320 Landing Study | `a320-study-patch.*` | (no repo yet; kept here) |
 | Ideas: Rocketry Lab, Orbit & Space Watch, Off-World Base, Living in Space, Small Spacecraft Mission, Greener Aviation, Drone Systems | `idea-*-patch.*` | (kept here until each idea becomes a project) |
+
+When a project adopts its patch as its official logo, copy its final files here from that project's repo and set `patchImage` (and `markImage`, for sizes under 64 px) on its entry in `data/projects.js`; the site then shows those files instead of drawing the patch.
 
 To make a new patch: add the project to `data/projects.js` with an `icon` (see the list in `assets/patches.js`), and add `patchName` if the title is long. The patch then appears on the site; to export the files, render it at 1024 px with `window.Patch(project, 1024)`.
 
