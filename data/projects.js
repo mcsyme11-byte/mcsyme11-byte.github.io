@@ -112,6 +112,7 @@ window.PORTFOLIO = {
     },
     {
       id: "nasa-data",
+      patchName: "NASA · ESA Data",
       icon: "asteroid",
       badge: "Live",
       title: "NASA and ESA Data Projects",
@@ -143,6 +144,7 @@ window.PORTFOLIO = {
     },
     {
       id: "airport-scenery",
+      patchName: "Airport Scenery",
       icon: "runway",
       title: "Airport Scenery (MSFS 2024)",
       tagline: "Chart-accurate airport scenery for Springbank (CYBW) and Red Deer (CYQF)",
@@ -182,6 +184,7 @@ window.PORTFOLIO = {
     },
     {
       id: "winglets",
+      patchName: "Winglets Paper",
       icon: "winglet",
       title: "Winglets Research Paper",
       tagline: "How winglets reduce induced drag, with a 3D-printed wingtip model",
@@ -201,6 +204,7 @@ window.PORTFOLIO = {
     },
     {
       id: "vatsim-atc",
+      patchName: "VATSIM ATC",
       icon: "radar",
       title: "VATSIM Air Traffic Control Training",
       tagline: "Training for a controller rating in the Edmonton FIR",
@@ -220,6 +224,7 @@ window.PORTFOLIO = {
     },
     {
       id: "atc-recordings",
+      patchName: "ATC Recordings",
       icon: "radio",
       title: "ATC Recordings Account",
       tagline: "Sharing air traffic control audio on Instagram as @atcc_centre",

@@ -29,9 +29,9 @@
   window.Patch = function (p, size) {
     var id = "pt" + (++n), big = size >= 80, tint = TINT[p.status] || "#C0A062";
     var glyph = GLYPHS[p.icon] || GLYPHS.rocket;
-    var name = p.title.toUpperCase().replace(/\s*\(.*\)/, "");
-    if (name.length > 24) name = name.slice(0, 23) + "…";
-    var year = (p.started || "").replace(/^.*?(\d{4}).*$/, "$1");
+    var name = (p.patchName || p.title).toUpperCase().replace(/\s*\(.*\)/, "");
+    var fs = name.length > 17 ? Math.max(5.4, 7.2 * 17 / name.length) : 7.2;
+    var year = p.status === "idea" ? "IDEA" : (p.started || "").replace(/^.*?(\d{4}).*$/, "$1");
     return '<svg class="patch" width="' + size + '" height="' + size + '" viewBox="0 0 100 100" aria-hidden="true">' +
       "<defs>" +
       '<radialGradient id="' + id + 'g" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#26324A"/><stop offset="1" stop-color="#0E1520"/></radialGradient>' +
@@ -42,7 +42,7 @@
       '<circle cx="50" cy="50" r="44.5" fill="none" stroke="#7E6A45" stroke-width=".8" stroke-dasharray="1.6 1.6"/>' +
       '<circle cx="50" cy="50" r="' + (big ? 28 : 38) + '" fill="url(#' + id + 'g)" stroke="' + tint + '" stroke-opacity=".7" stroke-width="1.2"/>' +
       (big ?
-        '<text font-family="Georgia,serif" font-size="7.2" letter-spacing="1.6" fill="#E2C88E"><textPath href="#' + id + 't" startOffset="25%" text-anchor="middle">' + esc(name) + "</textPath></text>" +
+        '<text font-family="Georgia,serif" font-size="' + fs.toFixed(2) + '" letter-spacing="' + (fs > 6.5 ? 1.6 : 1.1) + '" fill="#E2C88E"><textPath href="#' + id + 't" startOffset="25%" text-anchor="middle">' + esc(name) + "</textPath></text>" +
         (year ? '<text font-family="Georgia,serif" font-size="6.5" letter-spacing="2" fill="#98A0AB"><textPath href="#' + id + 'b" startOffset="50%" text-anchor="middle">★ ' + esc(year) + " ★</textPath></text>" : "")
         : '<circle cx="50" cy="12" r="1.3" fill="#E2C88E"/><circle cx="41" cy="14" r=".8" fill="#E2C88E"/><circle cx="59" cy="14" r=".8" fill="#E2C88E"/>') +
       '<g transform="translate(' + (big ? 36 : 31) + " " + (big ? 36 : 31) + ") scale(" + (big ? 1.17 : 1.58) + ')" fill="none" stroke="#EDE6D3" stroke-width="' + (big ? 1.5 : 1.35) + '" stroke-linecap="round" stroke-linejoin="round"><path d="' + glyph + '"/></g>' +
