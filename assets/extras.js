@@ -51,7 +51,7 @@
    * itself (never stored here), and Logbook allows this website to read it. Checked once a minute while visible. */
   var L = D.live || {}, liveEl = $("#live"), chips = { flight: "", career: "", asteroid: "" };
   function paint() {
-    var html = ["flight", "career", "asteroid"].map(function (k) { return chips[k]; }).join("");
+    var html = ["flight", "career", "asteroid", "code"].map(function (k) { return chips[k] || ""; }).join("");
     liveEl.innerHTML = html; liveEl.hidden = !html;
   }
   function chip(html, cls) { return '<div class="lv ' + (cls || "") + '">' + html + "</div>"; }
@@ -142,26 +142,47 @@
     renderNews(news);
   }).catch(function () {});
 
-  /* ---------- Journey route: the aircraft flies down the route as you scroll ---------- */
-  var wrap = $(".route-wrap"), fill = $(".route-fill"), plane = $(".route-plane"), stops = [], wrapTop = 0, wrapH = 0;
-  function measure() {
+  /* ---------- Journey route: the aircraft flies down the route as you scroll ----------
+   * Positions are read fresh on every update (one layout read inside the shared scroll rAF), so content that
+   * arrives late above the route (the live strip, news, images) can never leave it out of step. A ResizeObserver
+   * re-measures the waypoints when the route itself changes size. On very tall screens, where the page can't
+   * scroll far enough for the usual trigger line, the progress is scaled so the aircraft always arrives. */
+  var wrap = $(".route-wrap"), fill = $(".route-fill"), plane = $(".route-plane"), stops = [], wrapH = 0, routeEnd = 0;
+  function measureRoute() {
     if (!wrap) return;
-    var r = wrap.getBoundingClientRect();
-    wrapTop = r.top + scrollY; wrapH = r.height;
-    stops = $$("#timeline li").map(function (li) { return { el: li, y: li.offsetTop + 10 }; });
+    wrapH = wrap.offsetHeight;
+    stops = $$("#timeline li").map(function (li) { return { el: li, y: li.offsetTop + (li.classList.contains("dest") ? 34 : 15) }; });
+    routeEnd = stops.length ? stops[stops.length - 1].y : wrapH;
   }
-  measure();
-  addEventListener("resize", function () { setTimeout(measure, 120); }, { passive: true });
-  addEventListener("load", measure);
-  PF.onScroll = function (y) {
-    if (!wrap || !wrapH) return;
-    var end = stops.length ? stops[stops.length - 1].y + 12 : wrapH;
-    var px = Math.max(0, Math.min(end, y + innerHeight * 0.6 - wrapTop));
+  var routeNear = true, docH = 0;
+  function updateRoute(force) {
+    if (!wrap || !wrapH || (!routeNear && force !== true)) return;
+    var H = innerHeight, line = H * 0.6, top = wrap.getBoundingClientRect().top;
+    var px = line - top;
+    if (!docH) docH = document.documentElement.scrollHeight;
+    var maxScroll = docH - H;
+    var reach = line - (top + scrollY - maxScroll);          /* how far the line gets at the very bottom */
+    if (reach > 0 && reach < routeEnd) px = px * routeEnd / reach;
+    px = Math.max(0, Math.min(routeEnd, px));
     fill.style.transform = "scaleY(" + (px / wrapH) + ")";
     plane.style.transform = "translateY(" + px + "px) rotate(180deg)";
-    for (var i = 0; i < stops.length; i++) stops[i].el.classList.toggle("passed", px >= stops[i].y);
-  };
-  PF.onScroll(scrollY);
+    for (var i = 0; i < stops.length; i++) stops[i].el.classList.toggle("passed", px >= stops[i].y - 1);
+    wrap.classList.toggle("arrived", px >= routeEnd - 1);
+  }
+  measureRoute();
+  function remeasure() { docH = 0; measureRoute(); updateRoute(true); }
+  if (window.ResizeObserver && wrap) {
+    var ro = new ResizeObserver(remeasure);
+    ro.observe(wrap); ro.observe(document.body);            /* the page growing or shrinking anywhere */
+  }
+  if ("IntersectionObserver" in window && wrap) {
+    /* only do the per-scroll work while the route is on or near the screen */
+    new IntersectionObserver(function (es) { routeNear = es[0].isIntersecting; if (routeNear) updateRoute(true); }, { rootMargin: "60% 0px 60% 0px" }).observe(wrap);
+  }
+  addEventListener("resize", remeasure, { passive: true });
+  addEventListener("load", remeasure);
+  PF.onScroll = function () { updateRoute(); };
+  updateRoute(true);
 
   /* ---------- Squawk codes ---------- */
   var SQ = {
@@ -256,4 +277,128 @@
   });
   plist.addEventListener("click", function (e) { var li = e.target.closest("[data-i]"); if (li) runSel(+li.dataset.i); });
   pal.addEventListener("click", function (e) { if (e.target === pal) pal.close(); });
+
+  /* =====================================================================
+     Nov 18, 2026 additions
+     ===================================================================== */
+  var byId = {}; D.projects.forEach(function (p) { byId[p.id] = p; });
+
+  /* ---------- Greeting with the sky note ---------- */
+  var GREET = hr < 5 ? "Clear skies tonight." : hr < 12 ? "Good morning." : hr < 17 ? "Good afternoon." : hr < 21 ? "Good evening." : "Clear skies tonight.";
+  var note = $("#sky-note");
+  if (note) note.innerHTML = '<span class="sky-dot"></span>' + GREET + " The sky up here follows your local time: right now it's <b>" + SKYTEXT[sky] + "</b>.";
+
+  /* ---------- On the workbench ---------- */
+  var benchEl = $("#bench");
+  if (benchEl && D.bench) {
+    benchEl.innerHTML = D.bench.map(function (b) {
+      var p = byId[b.id]; if (!p) return "";
+      return '<li><button class="bench-row" data-open="' + esc(b.id) + '">' + window.Patch(p, 44) +
+        '<span class="b-main"><span class="b-proj">' + esc(p.title) + '</span><span class="b-text">' + esc(b.text) + "</span></span>" +
+        '<span class="b-state s-' + esc(b.state.toLowerCase().replace(/\s+/g, "-")) + '"><i></i>' + esc(b.state) + "</span></button></li>";
+    }).join("");
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-open]");
+    if (b) PF.open(b.dataset.open);
+  });
+
+  /* ---------- Patch wall: two rows drifting in opposite directions (CSS transform only) ---------- */
+  var wall = $(".wall");
+  if (wall) {
+    var all = D.projects.slice(), half = Math.ceil(all.length / 2);
+    var row = function (list) {
+      var one = list.map(function (p) {
+        return '<button class="wp" data-open="' + esc(p.id) + '" aria-label="' + esc(p.title) + '">' + window.Patch(p, 92) + "<span>" + esc(p.title) + "</span></button>";
+      }).join("");
+      /* the strip is repeated so the loop has no seam; the copies are hidden from screen readers and the keyboard */
+      var copy = one.replace(/<button class="wp"/g, '<button class="wp" tabindex="-1" aria-hidden="true"');
+      return '<div class="wall-track">' + one + copy + copy + copy + copy + copy + "</div>";
+    };
+    $("#wall-a").innerHTML = row(all.slice(0, half));
+    $("#wall-b").innerHTML = row(all.slice(half));
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { wall.classList.toggle("paused", !es[0].isIntersecting); }).observe(wall);
+    }
+  }
+
+  /* ---------- Featured cards lean toward the pointer (desktop only; one rAF per move) ---------- */
+  if (!reduce && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    var tiltEl = null, tiltX = 0, tiltY = 0, tiltQ = false;
+    var bento = $("#bento");
+    bento.addEventListener("pointermove", function (e) {
+      var c = e.target.closest(".card"); if (!c) return;
+      tiltEl = c; tiltX = e.clientX; tiltY = e.clientY;
+      if (tiltQ) return; tiltQ = true;
+      requestAnimationFrame(function () {
+        tiltQ = false; if (!tiltEl) return;
+        var r = tiltEl.getBoundingClientRect(), big = tiltEl.classList.contains("big") ? 2.2 : 4;
+        var rx = ((tiltY - r.top) / r.height - .5) * -big, ry = ((tiltX - r.left) / r.width - .5) * big;
+        tiltEl.style.transform = "perspective(900px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg) translateY(-4px)";
+      });
+    });
+    bento.addEventListener("pointerout", function (e) {
+      var c = e.target.closest(".card");
+      if (c && !c.contains(e.relatedTarget)) { c.style.transform = ""; if (tiltEl === c) tiltEl = null; }
+    });
+  }
+
+  /* ---------- Previous / next project, random project, shortcuts ---------- */
+  var order = D.projects.map(function (p) { return p.id; }), dlg = $("#detail"), keys = $("#keys");
+  function currentId() { return location.hash.indexOf("#p/") === 0 ? location.hash.slice(3) : null; }
+  function step(n) {
+    var i = order.indexOf(currentId()); if (i < 0) return;
+    PF.open(order[(i + n + order.length) % order.length]);
+  }
+  function randomProject() {
+    var cur = currentId(), pick;
+    do { pick = order[Math.floor(Math.random() * order.length)]; } while (pick === cur && order.length > 1);
+    PF.open(pick);
+  }
+  PF.step = step; PF.random = randomProject;
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-step]");
+    if (b) step(+b.dataset.step);
+    if (e.target.closest("#surprise")) randomProject();
+  });
+  document.addEventListener("keydown", function (e) {
+    var t = e.target;
+    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (dlg.open && e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    else if (dlg.open && e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+    else if (e.key === "?" && !pal.open) { e.preventDefault(); if (keys.open) keys.close(); else { if (dlg.open) dlg.close(); keys.showModal(); } }
+    else if ((e.key === "r" || e.key === "R") && !pal.open && !keys.open) randomProject();
+  });
+  $("#keys-close").addEventListener("click", function () { keys.close(); });
+  keys.addEventListener("click", function (e) { if (e.target === keys) keys.close(); });
+  ENTRIES.push({ kind: "Action", label: "Open a random project", run: randomProject });
+  ENTRIES.push({ kind: "Action", label: "Show keyboard shortcuts", run: function () { keys.showModal(); } });
+  ENTRIES.push({ kind: "Section", label: "Now: on the workbench", run: go("latest") });
+  ENTRIES.push({ kind: "Section", label: "Mission patches", run: go("patches") });
+
+  /* ---------- "Latest code": the most recently updated public repository, from GitHub's public API ----------
+   * One request per visit at most (kept for ten minutes in this tab). If it fails, the chip simply doesn't show. */
+  var REPO_NAMES = { "mcsyme11-byte.github.io": "This portfolio", "NASA-ESA-Data-and-API-Projects": "NASA and ESA Data Projects", "flight": "Live flight page",
+    "Flight-Suite-Releases": "Flight Deck Suite", "HotMic-releases": "Hot Mic", "SimplyAerospace": "Simply Aerospace", "SymeSkyWorks": "Syme Skyworks" };
+  function showCode(list) {
+    var skip = { "flight": 1, "mcsyme11-byte.github.io": 1 };      /* these update themselves; show real project work */
+    var r = (list || []).filter(function (x) { return !skip[x.name] && !x.fork; })[0];
+    if (!r) return;
+    var dt = Date.now() - new Date(r.pushed_at).getTime();
+    chips.code = chip('<svg class="lv-ic" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg><span class="lv-k">Latest code</span><a href="' + esc(r.html_url) +
+      '" target="_blank" rel="noopener"><b>' + esc(REPO_NAMES[r.name] || r.name) + "</b> · updated " + ago(dt) + " ago</a>");
+    paint();
+  }
+  (function () {
+    var KEY = "pf-gh", cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch (err) {}
+    if (cached && Date.now() - cached.t < 600000) return showCode(cached.d);
+    fetch("https://api.github.com/users/mcsyme11-byte/repos?sort=pushed&per_page=8").then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (d) {
+        d = d.map(function (x) { return { name: x.name, pushed_at: x.pushed_at, html_url: x.html_url, fork: x.fork }; });
+        try { sessionStorage.setItem(KEY, JSON.stringify({ t: Date.now(), d: d })); } catch (err) {}
+        showCode(d);
+      }).catch(function () {});
+  })();
 })();

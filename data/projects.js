@@ -8,12 +8,12 @@
  *   started:    shown on the card and used for the timeline (keep it short, e.g. "Oct 2026")
  */
 window.PORTFOLIO = {
-  updated: "November 17, 2026",
+  updated: "November 18, 2026",
 
   /* The four numbers at the top of the page. "auto" counts from the project list below. */
   stats: [
     { label: "Projects", value: "auto:built", note: "current and past" },
-    { label: "Apps built", value: "13", note: "desktop, phone and web" },
+    { label: "Apps and tools", value: "17", note: "desktop, phone and web" },
     { label: "Explainers", value: "24", note: "on Simply Aerospace" },
     { label: "Ideas", value: "auto:idea", note: "waiting their turn" }
   ],
@@ -21,6 +21,7 @@ window.PORTFOLIO = {
   projects: [
     {
       id: "flight-deck-suite",
+      thumbImage: "brand/patches/thumb/flight-deck-suite-232.png",
       patchImage: "brand/patches/flight-deck-suite-patch.svg",
       markImage: "brand/patches/flight-deck-suite-mark.svg",
       caseStudy: "case/flight-deck-suite.html",
@@ -36,13 +37,13 @@ window.PORTFOLIO = {
       summary:
         "A family of connected utilities, publicly released on November 10, 2026, that make flying online in Microsoft Flight Simulator 2024 more realistic and easier to manage: a phone app for the cockpit radio, an automatic logbook with accurate landing rates, landing replays, parked airliners at real gates, a cameras-and-sound app, an add-on finder, and Flight Deck Manager, which installs and updates them all.",
       parts: [
-        { name: "Squawk", version: "6.8", text: "vPilot plugin and iPhone/iPad app: ATC messages, transponder, live map with the filed route, and flight alerts in your pocket." },
-        { name: "Logbook", version: "4.9", text: "Logs every flight automatically, with landing rate, runway, crab angle and a grade per aircraft class, plus a full logbook website." },
+        { name: "Squawk", version: "6.9", text: "vPilot plugin and iPhone/iPad app: ATC messages, transponder, live map with the filed route, and flight alerts in your pocket." },
+        { name: "Logbook", version: "4.11", text: "Logs every flight automatically, with landing rate, runway, crab angle and a grade per aircraft class, plus a full logbook website." },
         { name: "Playback", version: "1.2.1", text: "A black box for every landing: replays flown by the sim, with screenshots and video clips." },
-        { name: "Ramp", version: "0.3.1", text: "Parks realistic airliners on empty gates, sized to each stand and grouped by airline, while keeping the pilot's gate clear." },
+        { name: "Ramp", version: "0.3.2", text: "Parks realistic airliners on empty gates, sized to each stand and grouped by airline, while keeping the pilot's gate clear." },
         { name: "Vantage", version: "0.2.1", text: "Saved camera views, tower and fly-by cameras, and added runway rumble and touchdown sounds. Public release coming soon." },
         { name: "Hangar", version: "", text: "A read-only finder for every add-on installed in the simulator." },
-        { name: "Flight Deck Manager", version: "0.1.4", text: "One app that checks the PC, then installs, updates, starts and removes the others." }
+        { name: "Flight Deck Manager", version: "0.1.5", text: "One app that checks the PC, then installs, updates, starts and removes the others." }
       ],
       highlights: [
         "Publicly released on November 10, 2026, with its own website and downloads",
@@ -61,6 +62,7 @@ window.PORTFOLIO = {
     },
     {
       id: "hot-mic",
+      thumbImage: "brand/patches/thumb/hot-mic-232.png",
       patchImage: "brand/patches/hot-mic-patch-outlined.svg",
       markImage: "brand/patches/hot-mic-mark-simplified.svg",
       caseStudy: "case/hot-mic.html",
@@ -90,6 +92,8 @@ window.PORTFOLIO = {
     },
     {
       id: "simply-aerospace",
+      thumbImage: "brand/patches/thumb/simply-aerospace-232.png",
+      caseStudy: "case/simply-aerospace.html",
       patchImage: "brand/patches/simply-aerospace-patch.svg",
       markImage: "brand/patches/simply-aerospace-patch-notext.svg",
       patchMin: 180,
@@ -107,7 +111,7 @@ window.PORTFOLIO = {
       highlights: [
         "24 explainers on aviation, space and propulsion",
         "Mission Control: 8 interactive missions that teach math and critical thinking to kids aged 7 to 11",
-        "Website with topic hubs, a myth index, quiz, glossary and search (version 2.8.0)"
+        "Website redesigned in November 2026 (version 3.1.1): every explainer searchable and filterable by topic and level, with a myth index, quiz and glossary"
       ],
       skills: ["Science communication", "Teaching", "Video and slide design", "HTML/CSS/JavaScript", "Physics"],
       links: [
@@ -119,39 +123,49 @@ window.PORTFOLIO = {
     },
     {
       id: "nasa-data",
+      thumbImage: "brand/patches/thumb/nasa-data-232.png",
+      caseStudy: "case/nasa-esa-data-projects.html",
       patchImage: "brand/patches/nedap-patch.svg",
       markImage: "brand/patches/nedap-mark.svg",
       icon: "asteroid",
-      badge: "Live",
+      badge: "10 tools live",
       title: "NASA and ESA Data Projects",
       tagline: "Exploring real space data from NASA and the European Space Agency",
       status: "current",
       categories: ["Space", "Software"],
       started: "Nov 2026",
-      featured: false,
+      featured: true,
       role: "Designer and developer (built with Claude)",
       summary:
-        "A website (short name NEDAP) that turns NASA's and ESA's public data into pages anyone can explore: near-Earth asteroids, the weather on Mars, the Earth from orbit and the spacecraft working across the solar system. All three main projects are live.",
+        "A website (short name NEDAP) that turns NASA's and ESA's public data into pages anyone can explore: near-Earth asteroids, the weather on Mars, the Earth from orbit, the satellites and junk circling the Earth, the Sun's storms, planets around other stars, and maps of the Moon and Mars. Ten projects and tools are live, each fed by automatic data updates.",
       parts: [
-        { name: "Asteroid Tracker", version: "Live", text: "The near-Earth objects passing Earth, a page and orbit diagram for each, and a turnable map of all 43,000, updated daily." },
+        { name: "Asteroid Tracker", version: "Live", text: "The near-Earth objects passing Earth, a page and orbit diagram for each, a turnable map of all 43,000, and which ones a spacecraft could reach." },
         { name: "Mars Data", version: "Live", text: "Weather measured on Mars by Curiosity and Perseverance, cleaned by written rules and charted by Mars day, season and hour." },
         { name: "Image Explorer", version: "Live", text: "The Earth from orbit on any day since 2000, and NASA's and ESA's picture libraries, searchable by subject, mission and date." },
+        { name: "Orbit Watch", version: "New", text: "The satellites and space junk around the Earth on a live globe, the closest predicted passes, a collision calculator and how orbit could be cleaned up." },
+        { name: "Space Weather", version: "New", text: "What the Sun is doing now: flares, coronal mass ejections, the solar wind, geomagnetic storms and the chance of seeing the aurora." },
+        { name: "Exoplanets", version: "New", text: "How planets around other stars are found, shown with real measurements, and every confirmed planet with its system to scale." },
+        { name: "Planetary Maps", version: "New", text: "Zoomable maps of the Moon and Mars from NASA's orbiters, with every landing site, the rovers' routes and named places." },
         { name: "Sky Finder", version: "Live", text: "A phone web app: hold the phone up to the sky to find tonight's passing asteroid." },
         { name: "Spacecraft map", version: "Live", text: "The active spacecraft of NASA, ESA and others, from low Earth orbit to the Voyagers." }
       ],
       highlights: [
-        "Real data from NASA and ESA APIs, refreshed automatically every day",
+        "Orbit & Space Watch: four new tools planned and published in November 2026, from my own list of project ideas",
+        "Real data from NASA and ESA, refreshed automatically by scheduled jobs with a daily health check",
         "Numbers people can picture: distances in Moon distances next to the exact value",
-        "Mars weather cleaned by written, documented rules"
+        "Mars weather cleaned by written, documented rules",
+        "Every source checked against its official documentation and credited on the page"
       ],
-      skills: ["JavaScript", "Python", "REST APIs", "Data visualization", "Data cleaning", "GitHub Actions"],
+      skills: ["JavaScript", "Python", "REST APIs", "Data visualization", "Data cleaning", "Orbital mechanics", "GitHub Actions"],
       links: [
         { label: "Website", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
+        { label: "Orbit & Space Watch", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-watch/" },
         { label: "Repo", url: "https://github.com/mcsyme11-byte/NASA-ESA-Data-and-API-Projects" }
       ]
     },
     {
       id: "airport-scenery",
+      thumbImage: "brand/patches/thumb/airport-scenery-232.png",
       patchImage: "brand/patches/airport-scenery-patch-outlined.svg",
       markImage: "brand/patches/airport-scenery-patch-small.svg",
       patchMin: 128,
@@ -168,9 +182,11 @@ window.PORTFOLIO = {
         "Accurate airport scenery and ground-handling profiles for two Alberta airports, built so every runway, taxiway and gate matches the published charts. That way, the gate an online air traffic controller assigns is the gate that actually exists in the simulator.",
       highlights: [
         "Research done for both airports, with every source and edition date recorded",
-        "Next step: the Springbank layout drawing, then the scenery itself"
+        "A building kit in Blender that makes hangars and buildings from measurements",
+        "First buildings modelled, including Springbank's control tower",
+        "Springbank layout drawn from the current airport chart, in review"
       ],
-      skills: ["Research", "Aeronautical charts", "3D scenery", "Attention to detail"],
+      skills: ["Research", "Aeronautical charts", "Blender", "3D modelling", "Python", "Attention to detail"],
       links: []
     },
     {
@@ -251,6 +267,7 @@ window.PORTFOLIO = {
     },
     {
       id: "syme-skyworks",
+      thumbImage: "brand/patches/thumb/syme-skyworks-232.png",
       patchImage: "brand/patches/syme-skyworks-patch.png",
       markImage: "brand/patches/syme-skyworks-mark.svg",
       icon: "drone",
@@ -265,6 +282,7 @@ window.PORTFOLIO = {
         "A small business I founded in 2023, after first developing the idea in 2020. It offers drone inspections, aerial surveys and photography alongside hands-on construction help on job sites, including yurt builds and log stripping.",
       highlights: [
         "First ideas in 2020; founded in 2023",
+        "Website redesigned in November 2026, with the mission patch as its logo",
         "Drone inspections, site surveys, progress monitoring and 4K aerial video with a DJI Air 3S",
         "More than 2 years of flight experience",
         "Construction labour, material runs and on-call site support",
@@ -303,16 +321,6 @@ window.PORTFOLIO = {
       summary: "An extension of Project Alpha: compare rocket fuels, study reusable rockets, and simulate landing a booster the way Falcon 9 does.",
       highlights: ["Model rocket design", "Rocket fuel comparison", "Reusable rocket study", "Rocket landing simulator"],
       skills: ["Rocket equation", "Simulation"], links: []
-    },
-    {
-      id: "idea-orbit-watch",
-      icon: "satellite",
-      title: "Orbit & Space Watch",
-      tagline: "Space debris, collisions, space weather and exoplanets",
-      status: "idea", categories: ["Space", "Software"], started: "", featured: false, role: "",
-      summary: "New pages for NASA and ESA Data Projects: track space debris, simulate satellite collisions, show space weather, find exoplanets, map planets and judge which asteroids would be worth mining.",
-      highlights: ["Satellite debris tracker", "Satellite collision simulator", "Space junk cleanup", "Space weather dashboard", "Exoplanet detection tool", "Planetary mapping tool", "Asteroid mining feasibility"],
-      skills: ["Orbital mechanics", "Data visualization"], links: []
     },
     {
       id: "idea-off-world-base",
@@ -394,15 +402,29 @@ window.PORTFOLIO = {
     { fix: "WNGLT", when: "Fall 2026", what: "Began the winglets research paper and Project Alpha rocket" },
     { fix: "NEDAP", when: "Nov 2026", what: "Launched NASA and ESA Data Projects and started Airport Scenery" },
     { fix: "PUBLC", when: "Nov 10, 2026", what: "First public release of the Flight Deck Suite" },
-    { fix: "TESTG", when: "Nov 15, 2026", what: "Started public testing of Hot Mic" }
+    { fix: "TESTG", when: "Nov 15, 2026", what: "Started public testing of Hot Mic" },
+    { fix: "ORBIT", when: "Nov 17, 2026", what: "Orbit & Space Watch went live: four new space tools, from idea to published" },
+    { fix: "PATCH", when: "Nov 17, 2026", what: "Six projects adopted their mission patches as official logos" }
   ],
   destination: { fix: "UNIV", what: "Study aerospace engineering at university, and work toward a career in Canada's space industry." },
 
+  /* "On the workbench": what is being worked on right now. state: "Building" | "Testing" | "Writing" | "Refining" | "In review" */
+  bench: [
+    { id: "nasa-data", state: "Refining", text: "Orbit & Space Watch: four new tools just went live and are being polished" },
+    { id: "flight-deck-suite", state: "Testing", text: "Vantage: tests before its first public release through Flight Deck Manager" },
+    { id: "hot-mic", state: "Testing", text: "Public testing: fixing what testers report" },
+    { id: "airport-scenery", state: "In review", text: "Springbank (CYBW): the airport layout, with the first buildings modelled" },
+    { id: "winglets", state: "Writing", text: "The research paper, and a 3D-printed wingtip display model" },
+    { id: "project-alpha", state: "Building", text: "Alpha I: a 3-inch fibreglass, dual-deploy rocket" }
+  ],
+
   /* "What's new". Newest first. Flight Deck Suite releases are also read live from its catalog. */
   news: [
+    { date: "2026-11-18", project: "NASA and ESA Data Projects", text: "Space Weather now updates itself with a scheduled data job", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-weather/" },
+    { date: "2026-11-17", project: "NASA and ESA Data Projects", text: "Orbit & Space Watch is live: Orbit Watch, Space Weather, Exoplanets and Planetary Maps", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-watch/" },
     { date: "2026-11-17", project: "All projects", text: "Six projects adopted their mission patches as official logos" },
     { date: "2026-11-17", project: "Hot Mic", text: "Hot Mic 0.5.8 released, with the new logo", url: "https://mcsyme11-byte.github.io/HotMic-releases/" },
-    { date: "2026-11-17", project: "Simply Aerospace", text: "Website 2.8.0: the mission patch becomes the main logo", url: "https://mcsyme11-byte.github.io/SimplyAerospace/" },
+    { date: "2026-11-17", project: "Simply Aerospace", text: "Website 3.0: a full redesign in the shared look, with the mission patch as its logo", url: "https://mcsyme11-byte.github.io/SimplyAerospace/" },
     { date: "2026-11-17", project: "Syme Skyworks", text: "Website redesigned around the new logo", url: "https://mcsyme11-byte.github.io/SymeSkyWorks/" },
     { date: "2026-11-16", project: "NASA and ESA Data Projects", text: "Renamed to NASA and ESA Data Projects, with ESA data, Sky Finder and the Spacecraft map", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
     { date: "2026-11-16", project: "Portfolio", text: "This portfolio went live" },

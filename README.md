@@ -31,7 +31,16 @@ The site reads three files from Malcolm's own public sites on the same domain, s
 
 The rest of the Latest feed is the `news` list in `data/projects.js`. Add a line there when something ships.
 
+## Sections added Nov 18, 2026
+
+- **Now** (`bench` and `news` in `data/projects.js`): what is on the workbench, beside what just shipped.
+- **Patch wall:** every project's patch drifting in two rows; selecting one opens the project.
+- **Case studies** for four projects (`dev/build_cases.py`).
+- **Latest code** chip: the most recently updated public repository, read from GitHub's public API (one request per visit at most; hidden if it fails).
+
 ## Hidden extras
+
+- Press **?** for the keyboard shortcuts: **R** opens a random project, **←** and **→** step between projects.
 
 - Type **7700**, **7600** or **1200** anywhere (outside a text box) to change the transponder code.
 - `?sky=dawn`, `day`, `dusk` or `night` in the address previews the time-of-day sky.

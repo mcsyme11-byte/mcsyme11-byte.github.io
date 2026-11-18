@@ -72,7 +72,7 @@
   $("#cat-chips").innerHTML = ['<button class="chip" data-cat="all" aria-pressed="true">Every field</button>'].concat(
     CATS.filter(function (c) { return countBy(function (p) { return p.categories.indexOf(c) > -1; }); }).map(function (c) {
       return '<button class="chip" data-cat="' + c + '" aria-pressed="false">' + c + "</button>";
-    })).join("");
+    })).join("") + '<button class="mini" id="surprise" title="Open a random project (R)">✦ Surprise me</button>';
 
   var index = P.map(function (p) {
     return [p.title, p.tagline, p.summary, p.role, p.started, p.badge, STATUS[p.status]]
@@ -148,10 +148,12 @@
         return '<a class="btn' + (i ? " ghost" : "") + '" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
       }).join("") + "</div></div>";
     }
-    h += '<div class="d-actions"><button class="mini" data-share="' + esc(p.id) + '">Share this project</button></div>';
+    h += '<div class="d-actions"><button class="mini" data-share="' + esc(p.id) + '">Share this project</button>' +
+      '<span class="d-nav"><button class="mini" data-step="-1" aria-label="Previous project">← Previous</button><button class="mini" data-step="1" aria-label="Next project">Next →</button></span></div>';
     $("#d-body").innerHTML = h;
     if (location.hash !== "#p/" + id) history.replaceState(null, "", "#p/" + id);
-    dlg.showModal();
+    if (!dlg.open) dlg.showModal();
+    else { var b = $("#d-body"); b.classList.remove("swap"); void b.offsetWidth; b.classList.add("swap"); }
     dlg.scrollTop = 0;
     document.documentElement.classList.add("modal-open");
   }
@@ -232,20 +234,23 @@
         links.forEach(function (a) { a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.id); });
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
-    ["home", "about", "featured", "projects", "skills", "journey", "contact"].forEach(function (id) { var s = document.getElementById(id); if (s) so.observe(s); });
+    ["home", "about", "featured", "latest", "projects", "skills", "journey", "contact"].forEach(function (id) { var s = document.getElementById(id); if (s) so.observe(s); });
   }
 
   /* ---------- Scroll progress and back-to-top: one rAF per scroll burst ---------- */
-  var bar = $(".progress"), top = $(".to-top"), ticking = false;
+  var bar = $(".progress"), top = $(".to-top"), ticking = false, pageH = 0;
+  if (window.ResizeObserver) new ResizeObserver(function () { pageH = 0; }).observe(document.body);
+  addEventListener("resize", function () { pageH = 0; }, { passive: true });
   function onScroll() {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(function () {
-      var h = document.documentElement.scrollHeight - innerHeight;
       var y = scrollY;
-      bar.style.transform = "scaleX(" + (h > 0 ? y / h : 0) + ")";
+      if (window.PF && window.PF.onScroll) window.PF.onScroll(y);   /* reads first, then the writes below */
+      if (!pageH) pageH = document.documentElement.scrollHeight;
+      var h = pageH - innerHeight;
+      bar.style.transform = "scaleX(" + (h > 0 ? Math.min(1, y / h) : 0) + ")";
       top.classList.toggle("show", y > innerHeight * 1.2);
-      if (window.PF && window.PF.onScroll) window.PF.onScroll(y);
       ticking = false;
     });
   }

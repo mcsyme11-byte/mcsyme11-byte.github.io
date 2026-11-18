@@ -31,6 +31,8 @@
        the full patch from 64 px (or the project's own minimum, patchMin), the mark (no lettering) below that. */
     if (p.patchImage) {
       var src = size >= (p.patchMin || 64) || !p.markImage ? p.patchImage : p.markImage;
+      /* small full patches use a ready-made 232 px picture: much cheaper to draw than the detailed vector file */
+      if (src === p.patchImage && size <= 116 && p.thumbImage) src = p.thumbImage;
       return '<img class="patch" src="' + esc(src) + '" width="' + size + '" height="' + size + '" alt="" decoding="async">';
     }
     var id = "pt" + (++n), big = size >= 80, tint = TINT[p.status] || "#C0A062";

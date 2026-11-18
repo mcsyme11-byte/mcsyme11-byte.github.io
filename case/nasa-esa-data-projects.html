@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How I built NASA and ESA Data Projects · Malcolm Syme</title>
+  <meta name="description" content="How three small learning projects on NASA&#x27;s open data grew into ten live tools, a second space agency and a set of data jobs that keep themselves up to date.">
+  <meta name="author" content="Malcolm Syme">
+  <meta property="og:title" content="How I built NASA and ESA Data Projects · Malcolm Syme">
+  <meta property="og:description" content="How three small learning projects on NASA&#x27;s open data grew into ten live tools, a second space agency and a set of data jobs that keep themselves up to date.">
+  <meta property="og:image" content="https://mcsyme11-byte.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#141B26">
+  <link rel="icon" href="../assets/emblem.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css?v=20261117d">
+</head>
+<body class="case">
+  <header class="topbar">
+    <div class="progress" aria-hidden="true"></div>
+    <div class="wrap bar">
+      <a class="brand" href="../" aria-label="Back to Malcolm Syme's portfolio">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true"><use href="../assets/emblem.svg#e"/></svg>
+        <span>Malcolm Syme</span>
+      </a>
+      <a class="back" href="../#featured"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H4M8 4L4 8l4 4"/></svg>Portfolio</a>
+    </div>
+  </header>
+  <main>
+    <section class="cs-hero">
+      <div class="wrap">
+        <img class="cs-logo reveal" src="../brand/patches/nedap-patch.svg" width="132" height="132" alt="">
+        <p class="eyebrow reveal">Case study · Space · Data</p>
+        <h1 class="reveal">How I built NASA and ESA Data Projects</h1>
+        <p class="lede reveal">How three small learning projects on NASA&#x27;s open data grew into ten live tools, a second space agency and a set of data jobs that keep themselves up to date.</p>
+        <dl class="cs-facts reveal"><div><dt>Role</dt><dd>Designer, tester and decision-maker. Built with Claude</dd></div><div><dt>Timeline</dt><dd>Started Nov 8, 2026; Orbit &amp; Space Watch live Nov 17, 2026</dd></div><div><dt>Stack</dt><dd>JavaScript, Python, GitHub Actions, NASA and ESA data services</dd></div><div><dt>Status</dt><dd>Public, in active development</dd></div></dl>
+      </div>
+    </section>
+    <div class="wrap cs-body">
+      <nav class="cs-toc" aria-label="On this page"><p>On this page</p><a href="#s1"><span>01</span>The problem</a><a href="#s2"><span>02</span>What I built</a><a href="#s3"><span>03</span>Key decisions</a><a href="#s4"><span>04</span>What went wrong</a><a href="#s5"><span>05</span>How the work is done</a><a href="#s6"><span>06</span>What I learned</a></nav>
+      <article>
+        <div class="tiles cs-stats reveal"><div class="tile"><dd>10</dd><span class="note">projects and tools live</span></div><div class="tile"><dd>43,000</dd><span class="note">near-Earth objects on one turnable map</span></div><div class="tile"><dd>4,843</dd><span class="note">Mars days of Curiosity weather, cleaned</span></div><div class="tile"><dd>60 fps</dd><span class="note">measured on the solar system map</span></div></div>
+        <section class="cs-sec" id="s1"><h2 class="reveal"><span>01</span>The problem</h2><p class="reveal">I wanted to learn how real space data works: where it comes from, how messy it is, and how to show it honestly. NASA and ESA publish a huge amount for free, but it is spread across dozens of services, each with its own format, limits and rules.</p><p class="reveal">The plan was three learning projects in one public website, <b>each one building skills the next would use</b>: an asteroid tracker, an image explorer, then a study of Mars weather data.</p></section><section class="cs-sec" id="s2"><h2 class="reveal"><span>02</span>What I built</h2><div class="cs-grid reveal"><div><b>Asteroid Tracker</b><p>The asteroids passing Earth, a page and orbit diagram for each, a turnable map of all 43,000, and which ones a spacecraft could reach.</p></div><div><b>Mars Data</b><p>Weather measured by Curiosity and Perseverance, cleaned by written rules and charted by Mars day, season and hour.</p></div><div><b>Image Explorer</b><p>The Earth from orbit on any day since 2000, on a globe inside the real sky, plus NASA&#x27;s and ESA&#x27;s picture libraries.</p></div><div><b>Orbit Watch</b><p>Satellites and space junk on a live globe, the closest predicted passes, a collision calculator and a model of the Kessler syndrome.</p></div><div><b>Space Weather and Exoplanets</b><p>What the Sun is doing now, and how planets around other stars are found, shown with real measurements.</p></div><div><b>Planetary Maps and more</b><p>Maps of the Moon and Mars with every landing site, plus Sky Finder and the spacecraft map.</p></div></div><p class="reveal">The last four tools are <b>Orbit &amp; Space Watch</b>. Each started as a line on my list of project ideas, got a written brief and a mock-up I approved, and went live in November 2026.</p></section><section class="cs-sec" id="s3"><h2 class="reveal"><span>03</span>Key decisions</h2><div class="cs-dec reveal"><h3>Check the live service before building on it</h3><p>JPL&#x27;s close-approach service can&#x27;t be called from a web page, so the year view reads a file that GitHub refreshes every day. NASA&#x27;s fire layers only work in one map projection, so that set the projection for the whole map.</p></div><div class="cs-dec reveal"><h3>Visitors never need a key</h3><p>No API key is ever written into the public repository. Data that needs one is copied by scheduled jobs on GitHub, using secrets only GitHub can read.</p></div><div class="cs-dec reveal"><h3>NASA first, ESA beside it, everything credited</h3><p>ESA&#x27;s data was added where it helps, with NASA as the main source. Every page says which agency each number or picture comes from, and that the project isn&#x27;t endorsed by either.</p></div><div class="cs-dec reveal"><h3>Clean data by written rules</h3><p>Mars weather isn&#x27;t tidy. The rules for cleaning it are written down as documents, and the row counts are checked against NASA&#x27;s own labels.</p></div><div class="cs-dec reveal"><h3>Change the plan when the mock-up disappoints</h3><p>The first Image Explorer mock-up was a daily satellite map, with gaps between passes and no fine detail. I asked for a globe with pictures pinned to places on Earth and in the sky instead, and kept the daily map for following fires and storms.</p></div><div class="cs-dec reveal"><h3>One standard for automatic updates</h3><p>Every data job keeps the previous file when a source fails, and a daily health check reports problems in one place.</p></div></section><section class="cs-sec" id="s4"><h2 class="reveal"><span>04</span>What went wrong</h2><p class="reveal">Real data and real services kept surprising me. Each of these was found by checking, not by assuming:</p><ul class="cs-list reveal"><li><b>Choppy frames when zoomed in.</b> Lines that ran far off screen were still being drawn dash by dash. Cutting each line to the visible area fixed it.</li><li><b>Famous close passes looked wrong.</b> Simple orbit maths can't show them, because Earth's pull bends the asteroid's path. Precise positions from NASA/JPL Horizons are used instead.</li><li><b>A marker in the wrong place.</b> A check of the hand-listed sky positions found one real mistake: Rho Ophiuchi sat on the star, not on the cloud named after it.</li><li><b>Servers that say no.</b> JPL refuses an address after several hundred quick requests, so the monthly job asks one question a second.</li><li><b>Formats that change.</b> Objects catalogued since July 2026 no longer appear in the old orbit format, so Orbit Watch reads the newer one.</li></ul><div class="cs-lesson reveal"><span>The rule it created</span><p>Check facts about the data. Every address, field and limit is confirmed against the agency&#x27;s current documentation, and against the live service, before anything is built on it.</p></div></section><section class="cs-sec" id="s5"><h2 class="reveal"><span>05</span>How the work is done</h2><ul class="cs-list reveal"><li><b>One chat per tool,</b> each working inside its own folder, with a general chat for the shared files and one chat that owns every scheduled data job.</li><li><b>Mock-ups first.</b> New pages start as a mock-up I approve.</li><li><b>Shared parts only.</b> Every page is built from the same components, and automatic checks on GitHub refuse a page that breaks the rules.</li><li><b>Measured, not guessed.</b> Smoothness was measured throughout; two changes took the solar system map to 60 frames a second.</li></ul></section><section class="cs-sec" id="s6"><h2 class="reveal"><span>06</span>What I learned</h2><p class="reveal">Real data is never as clean as the examples in a tutorial, and showing it honestly matters as much as showing it beautifully: saying where a number comes from, what it leaves out, and how sure anyone can be. I also learned how fast an idea can become real when the brief is clear, since Orbit &amp; Space Watch went from my ideas list to four live tools in days.</p></section>
+        <div class="cs-end reveal">
+          <div class="d-links"><a class="btn" href="https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" target="_blank" rel="noopener">Website</a><a class="btn ghost" href="https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-watch/" target="_blank" rel="noopener">Orbit &amp; Space Watch</a></div>
+          <a class="case-link" href="simply-aerospace.html"><span>Next case study</span><b>How I built Simply Aerospace</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer class="footer"><div class="wrap foot"><span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a></span><a href="../">Back to the portfolio</a></div></footer>
+  <script>
+  (function () {
+    var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, els = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !reduce) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }); }, { rootMargin: "0px 0px -6% 0px" });
+      els.forEach(function (el) { io.observe(el); });
+    } else els.forEach(function (el) { el.classList.add("in"); });
+    var bar = document.querySelector(".progress"), toc = document.querySelectorAll(".cs-toc a"), secs = document.querySelectorAll(".cs-sec"), t = false;
+    addEventListener("scroll", function () {
+      if (t) return; t = true;
+      requestAnimationFrame(function () {
+        var h = document.documentElement.scrollHeight - innerHeight;
+        bar.style.transform = "scaleX(" + (h > 0 ? scrollY / h : 0) + ")";
+        var cur = 0;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top < innerHeight * .35) cur = i; });
+        toc.forEach(function (a, i) { a.classList.toggle("on", i === cur); });
+        t = false;
+      });
+    }, { passive: true });
+  })();
+  </script>
+</body>
+</html>

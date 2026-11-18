@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="assets/icon-180.png">
   <meta name="theme-color" content="#141B26">
   <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css?v=20261117l">
+  <link rel="stylesheet" href="assets/style.css?v=20261118b">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -33,6 +33,7 @@
       <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span></button>
       <nav id="nav" class="nav" aria-label="Sections">
         <a href="#featured">Featured</a>
+        <a href="#latest">Now</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#journey">Journey</a>
@@ -47,6 +48,7 @@
       <div class="sky" aria-hidden="true"></div>
       <canvas class="stars" aria-hidden="true"></canvas>
       <div class="twinkles" aria-hidden="true"></div>
+      <div class="shoot" aria-hidden="true"></div>
       <div class="orbit" aria-hidden="true">
         <svg viewBox="0 0 400 400">
           <circle cx="200" cy="200" r="190" class="o-ring faint"/>
@@ -92,6 +94,13 @@
       </div>
     </section>
 
+    <!-- Patch wall -->
+    <section class="wall" id="patches" aria-label="Mission patches">
+      <p class="wall-cap reveal">Every project flies its own mission patch. <span>Pick one.</span></p>
+      <div class="wall-row" id="wall-a"></div>
+      <div class="wall-row rev" id="wall-b"></div>
+    </section>
+
     <!-- Featured -->
     <section class="section" id="featured">
       <div class="wrap">
@@ -103,8 +112,17 @@
     <!-- Latest -->
     <section class="section slim" id="latest">
       <div class="wrap">
-        <div class="shead reveal"><h2>Latest</h2><span class="aside">Recent releases and milestones</span></div>
-        <ol class="news reveal" id="news"></ol>
+        <div class="shead reveal"><h2>Now</h2><span class="aside">On the workbench, and what just shipped</span></div>
+        <div class="deck">
+          <div class="reveal">
+            <h3 class="mini-h">On the workbench</h3>
+            <ul class="bench" id="bench"></ul>
+          </div>
+          <div class="reveal">
+            <h3 class="mini-h">Just shipped</h3>
+            <ol class="news" id="news"></ol>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -174,7 +192,7 @@
   <footer class="footer">
     <div class="wrap foot">
       <span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a> · <a href="tel:+14036791495">+1 (403) 679-1495</a></span>
-      <span class="muted"><span id="updated"></span> · <span class="tip">Tip: press <kbd>Ctrl K</kbd>, or type a squawk code</span></span>
+      <span class="muted"><span id="updated"></span> · <span class="tip">Tip: press <kbd>?</kbd> for shortcuts</span></span>
     </div>
   </footer>
 
@@ -195,15 +213,33 @@
     </div>
   </dialog>
 
+  <!-- Keyboard shortcuts -->
+  <dialog id="keys" class="keys" aria-labelledby="keys-h">
+    <div class="keys-in">
+      <button class="close" id="keys-close" aria-label="Close">×</button>
+      <p class="eyebrow">Shortcuts</p>
+      <h3 id="keys-h">Fly it from the keyboard</h3>
+      <dl>
+        <div><dt><kbd>Ctrl</kbd> <kbd>K</kbd></dt><dd>Search everything</dd></div>
+        <div><dt><kbd>/</kbd></dt><dd>Search the project list</dd></div>
+        <div><dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Previous or next project, when one is open</dd></div>
+        <div><dt><kbd>R</kbd></dt><dd>Open a random project</dd></div>
+        <div><dt><kbd>7700</kbd></dt><dd>Squawk emergency (<kbd>7600</kbd> radio failure, <kbd>1200</kbd> back to normal)</dd></div>
+        <div><dt><kbd>?</kbd></dt><dd>Show this list</dd></div>
+        <div><dt><kbd>Esc</kbd></dt><dd>Close whatever is open</dd></div>
+      </dl>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="squawk-banner" id="squawk-banner" aria-live="assertive"></div>
 
   <!-- One-page CV, shown only when printing -->
   <section id="cv" class="cv" aria-hidden="true"></section>
 
-  <script src="data/projects.js?v=20261117l"></script>
-  <script src="assets/patches.js?v=20261117l"></script>
-  <script src="assets/app.js?v=20261117l"></script>
-  <script src="assets/extras.js?v=20261117l"></script>
+  <script src="data/projects.js?v=20261118b"></script>
+  <script src="assets/patches.js?v=20261118b"></script>
+  <script src="assets/app.js?v=20261118b"></script>
+  <script src="assets/extras.js?v=20261118b"></script>
 </body>
 </html>

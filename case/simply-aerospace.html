@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How I built Simply Aerospace · Malcolm Syme</title>
+  <meta name="description" content="How a myth-busting Instagram channel became 24 explainers at three levels, a companion website and a set of interactive missions for kids.">
+  <meta name="author" content="Malcolm Syme">
+  <meta property="og:title" content="How I built Simply Aerospace · Malcolm Syme">
+  <meta property="og:description" content="How a myth-busting Instagram channel became 24 explainers at three levels, a companion website and a set of interactive missions for kids.">
+  <meta property="og:image" content="https://mcsyme11-byte.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#141B26">
+  <link rel="icon" href="../assets/emblem.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css?v=20261117d">
+</head>
+<body class="case">
+  <header class="topbar">
+    <div class="progress" aria-hidden="true"></div>
+    <div class="wrap bar">
+      <a class="brand" href="../" aria-label="Back to Malcolm Syme's portfolio">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true"><use href="../assets/emblem.svg#e"/></svg>
+        <span>Malcolm Syme</span>
+      </a>
+      <a class="back" href="../#featured"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H4M8 4L4 8l4 4"/></svg>Portfolio</a>
+    </div>
+  </header>
+  <main>
+    <section class="cs-hero">
+      <div class="wrap">
+        <img class="cs-logo reveal" src="../brand/patches/simply-aerospace-patch.svg" width="132" height="132" alt="">
+        <p class="eyebrow reveal">Case study · Education · Aerospace</p>
+        <h1 class="reveal">How I built Simply Aerospace</h1>
+        <p class="lede reveal">How a myth-busting Instagram channel became 24 explainers at three levels, a companion website and a set of interactive missions for kids.</p>
+        <dl class="cs-facts reveal"><div><dt>Role</dt><dd>Creator, writer and web developer</dd></div><div><dt>Timeline</dt><dd>2026; website 3.0 on Nov 17, 2026</dd></div><div><dt>Stack</dt><dd>SVG slides, CapCut, HTML, CSS and JavaScript</dd></div><div><dt>Status</dt><dd>Active</dd></div></dl>
+      </div>
+    </section>
+    <div class="wrap cs-body">
+      <nav class="cs-toc" aria-label="On this page"><p>On this page</p><a href="#s1"><span>01</span>The idea</a><a href="#s2"><span>02</span>What I built</a><a href="#s3"><span>03</span>Key decisions</a><a href="#s4"><span>04</span>What went wrong</a><a href="#s5"><span>05</span>What I learned</a></nav>
+      <article>
+        <div class="tiles cs-stats reveal"><div class="tile"><dd>24</dd><span class="note">explainers</span></div><div class="tile"><dd>3</dd><span class="note">levels, from no math to real equations</span></div><div class="tile"><dd>8</dd><span class="note">Mission Control missions</span></div><div class="tile"><dd>5</dd><span class="note">slides per explainer, under a minute</span></div></div>
+        <section class="cs-sec" id="s1"><h2 class="reveal"><span>01</span>The idea</h2><p class="reveal">Every explainer takes a common misconception (the <b>myth</b>) and replaces it with what actually happens (the <b>truth</b>), in under a minute. Each topic is pitched at one of three levels, so the same channel works for pure curiosity and for students who want the real maths.</p><ul class="cs-list reveal"><li><b>Junior Engineer:</b> no math.</li><li><b>Flight Engineer:</b> one equation.</li><li><b>Senior Engineer:</b> real equations and worked examples.</li></ul></section><section class="cs-sec" id="s2"><h2 class="reveal"><span>02</span>What I built</h2><div class="cs-grid reveal"><div><b>The explainers</b><p>24 short videos on aviation, space and propulsion, each a 5-slide deck: hook, myth, concept, payoff, outro.</p></div><div><b>The website</b><p>A small encyclopedia of the channel: every explainer has an article with the myth, the truth and a way to go deeper.</p></div><div><b>Mission Control</b><p>Stories for ages 7 to 11 with real choices: a briefing, decisions with consequences, then a debrief. Each teaches one skill.</p></div><div><b>Finding things</b><p>Search on every page, filters by topic and level, a myth index, a quiz and a glossary.</p></div></div></section><section class="cs-sec" id="s3"><h2 class="reveal"><span>03</span>Key decisions</h2><div class="cs-dec reveal"><h3>Three levels, one channel</h3><p>A level badge on every explainer tells people what to expect, from no math at all to worked examples.</p></div><div class="cs-dec reveal"><h3>Instagram first</h3><p>The channel started on YouTube and Instagram. YouTube was paused after music was flagged and Shorts were capped at 60 seconds, so Instagram became its main home.</p></div><div class="cs-dec reveal"><h3>A fixed five-slide format</h3><p>Hook, the myth, the concept, the payoff, the outro. Slides are drawn as SVG and rendered at 1080 × 1920, then assembled into a short video.</p></div><div class="cs-dec reveal"><h3>Pitch, then wait</h3><p>Topics are pitched two to four at a time, balanced across subjects and levels. Nothing is built until I approve it.</p></div><div class="cs-dec reveal"><h3>No mistakes</h3><p>Facts are checked before they&#x27;re stated, against primary sources such as NASA, NOAA and ESA.</p></div><div class="cs-dec reveal"><h3>One look across my projects</h3><p>Version 3.0 of the website moved to the same navy, brass and cream look as my other projects, using one typeface and no web fonts.</p></div></section><section class="cs-sec" id="s4"><h2 class="reveal"><span>04</span>What went wrong</h2><p class="reveal">Right after the redesign went live, the top bar scrolled away with the page, and the reading-progress line floated by itself. One line of CSS meant to stop sideways scrolling had quietly broken the sticky bar. Version 3.1.0 fixed it the same day.</p><div class="cs-lesson reveal"><span>What it taught me</span><p>Check the whole page after a redesign, not only the new parts. The website&#x27;s repository now runs an automatic site check, and every release follows a written checklist.</p></div></section><section class="cs-sec" id="s5"><h2 class="reveal"><span>05</span>What I learned</h2><p class="reveal">Explaining something at three levels shows me whether I really understand it: if I can't say it with no math, I don't. And a myth is a better hook than a fact, because people stay to find out why what they believed is wrong.</p></section>
+        <div class="cs-end reveal">
+          <div class="d-links"><a class="btn" href="https://mcsyme11-byte.github.io/SimplyAerospace/" target="_blank" rel="noopener">Website</a><a class="btn ghost" href="https://www.instagram.com/simplyaerospace" target="_blank" rel="noopener">Instagram</a><a class="btn ghost" href="https://www.youtube.com/@SimplyAerospace" target="_blank" rel="noopener">YouTube</a></div>
+          <a class="case-link" href="flight-deck-suite.html"><span>Next case study</span><b>How I built Flight Deck Suite</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer class="footer"><div class="wrap foot"><span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a></span><a href="../">Back to the portfolio</a></div></footer>
+  <script>
+  (function () {
+    var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, els = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !reduce) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }); }, { rootMargin: "0px 0px -6% 0px" });
+      els.forEach(function (el) { io.observe(el); });
+    } else els.forEach(function (el) { el.classList.add("in"); });
+    var bar = document.querySelector(".progress"), toc = document.querySelectorAll(".cs-toc a"), secs = document.querySelectorAll(".cs-sec"), t = false;
+    addEventListener("scroll", function () {
+      if (t) return; t = true;
+      requestAnimationFrame(function () {
+        var h = document.documentElement.scrollHeight - innerHeight;
+        bar.style.transform = "scaleX(" + (h > 0 ? scrollY / h : 0) + ")";
+        var cur = 0;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top < innerHeight * .35) cur = i; });
+        toc.forEach(function (a, i) { a.classList.toggle("on", i === cur); });
+        t = false;
+      });
+    }, { passive: true });
+  })();
+  </script>
+</body>
+</html>

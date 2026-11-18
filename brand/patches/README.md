@@ -24,6 +24,10 @@ The inner ring's colour shows the status when the patch was made: green for curr
 | A320 Landing Study | `a320-study-patch.*` | here (no repo yet) | drawn |
 | Ideas: Rocketry Lab, Orbit & Space Watch, Off-World Base, Living in Space, Small Spacecraft Mission, Greener Aviation, Drone Systems | `idea-*-patch.*` | here, until each idea becomes a project | drawn |
 
+`thumb/` holds 232 px pictures of the six official patches, used where a patch shows small (cards, the patch wall), because they draw much faster than the detailed vector files. Remake them whenever a logo changes.
+
+The Orbit & Space Watch idea became part of NASA and ESA Data Projects on Nov 17, 2026; its idea patch (`idea-orbit-watch-patch.*`) is kept for the record.
+
 All six projects adopted their patches as official logos on Nov 17, 2026. **Each project's repo is the master copy:** when a logo changes there, copy the new files here and keep the project's own size guide (`patchMin` in `data/projects.js`). Don't edit these copies.
 
 When a project adopts its patch as its official logo, copy its final files here from that project's repo and set `patchImage` (and `markImage`, for sizes under 64 px) on its entry in `data/projects.js`; the site then shows those files instead of drawing the patch.
