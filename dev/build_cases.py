@@ -90,7 +90,7 @@ CASES = [
   dict(
     slug="nasa-esa-data-projects", icon=PLANE, logo="nedap-patch.svg", eyebrow="Case study · Space · Data",
     title="NASA and ESA Data Projects",
-    lede="How three small learning projects on NASA's open data grew into ten live tools, a second space agency and a set of data jobs that keep themselves up to date.",
+    lede="How three small learning projects on NASA's open data grew into nine live tools, a second space agency and a set of data jobs that keep themselves up to date.",
     facts=[("Role", "Designer, tester and decision-maker. Built with Claude"), ("Timeline", "Started Nov 8, 2026; Orbit & Space Watch live Nov 17, 2026"),
            ("Stack", "JavaScript, Python, GitHub Actions, NASA and ESA data services"), ("Status", "Public, in active development")],
     stats=[("10", "projects and tools live"), ("43,000", "near-Earth objects on one turnable map"), ("4,843", "Mars days of Curiosity weather, cleaned"), ("60 fps", "measured on the solar system map")],

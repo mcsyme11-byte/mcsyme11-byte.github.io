@@ -137,7 +137,7 @@ window.PORTFOLIO = {
       featured: true,
       role: "Designer and developer (built with Claude)",
       summary:
-        "A website (short name NEDAP) that turns NASA's and ESA's public data into pages anyone can explore: near-Earth asteroids, the weather on Mars, the Earth from orbit, the satellites and junk circling the Earth, the Sun's storms, planets around other stars, and maps of the Moon and Mars. Ten projects and tools are live, each fed by automatic data updates.",
+        "A website (short name NEDAP) that turns NASA's and ESA's public data into pages anyone can explore: near-Earth asteroids, the weather on Mars, the Earth from orbit, the satellites and junk circling the Earth, the Sun's storms, planets around other stars, and maps of the Moon and Mars. Nine projects and tools are live, each fed by automatic data updates.",
       parts: [
         { name: "Asteroid Tracker", version: "Live", text: "The near-Earth objects passing Earth, a page and orbit diagram for each, a turnable map of all 43,000, and which ones a spacecraft could reach." },
         { name: "Mars Data", version: "Live", text: "Weather measured on Mars by Curiosity and Perseverance, cleaned by written rules and charted by Mars day, season and hour." },
@@ -408,6 +408,61 @@ window.PORTFOLIO = {
   ],
   destination: { fix: "UNIV", what: "Study aerospace engineering at university, and work toward a career in Canada's space industry." },
 
+  /* Rotating line in the hero. */
+  roles: ["Founder of Syme Skyworks", "Certified drone pilot", "Designer of 17 apps and tools", "Aerospace explainer", "Student air traffic controller", "Rocket builder"],
+
+  /* Experience, certifications and strengths (from Malcolm's resume, Nov 2026).
+     Public site: no town, school, grade, club or employer names. */
+  experience: [
+    { role: "Founder and President", org: "Syme Skyworks", when: "2023 – present", id: "syme-skyworks", points: [
+      "Founded and run a contracting and drone services company for residential and job-site clients",
+      "Drone services: aerial inspections and surveys, 4K photo and video, construction progress monitoring",
+      "Construction and labour: log stripping, yurt builds, foundation work, site labour and material runs",
+      "Hire, schedule and supervise a part-time worker; prepare client invoices and track payments" ] },
+    { role: "Software designer and developer", org: "Independent projects, built with Claude", when: "2026 – present", id: "flight-deck-suite", points: [
+      "Designed and tested the Flight Deck Suite: seven connected apps for flight simulation, with a public release, website and downloads",
+      "Built Hot Mic, a free on-device dictation app for Windows, now in public testing",
+      "Built NASA and ESA Data Projects: nine live tools fed by automatic data updates" ] },
+    { role: "Creator and writer", org: "Simply Aerospace", when: "2026 – present", id: "simply-aerospace", points: [
+      "24 myth-busting aerospace explainers at three levels, a companion website and interactive missions for kids" ] },
+    { role: "Assistant ski coach", org: "Youth cross-country ski program", when: "Nov 2025 – present", points: [
+      "Help coaches lead cross-country ski sessions for young children",
+      "Teach basic ski skills while keeping participants safe, engaged and supervised" ] },
+    { role: "Kitchen team", org: "Local restaurant", when: "Oct 2025 – Feb 2026", points: [
+      "Kept dishes, equipment and work areas clean and stocked through busy service",
+      "Worked as part of a fast-paced kitchen team and finished tasks on time" ] },
+    { role: "Construction help, snow removal and yard work", org: "Self-employed", when: "Dec 2019 – present", points: [
+      "Snow removal, yard care and construction help for local residents; safe operation of lawn and snow equipment" ] },
+    { role: "Land work and administration", org: "Family business", when: "Dec 2019 – 2026", points: [
+      "Prepared and managed purchase orders and invoices" ] }
+  ],
+  certs: [
+    { name: "Drone Pilot Certificate", detail: "Basic Operations", by: "Transport Canada", year: "2025", icon: "drone" },
+    { name: "First Aid Intermediate", detail: "With AED and CPR-C", by: "Canadian Red Cross", year: "2025", icon: "cross" },
+    { name: "Bronze Star, Medallion and Cross", detail: "Aquatic lifesaving", by: "", year: "2025", icon: "wave" },
+    { name: "TRUST", detail: "The Recreational UAS Safety Test", by: "Federal Aviation Administration", year: "2025", icon: "shield" },
+    { name: "Coaching courses", detail: "Cross-country skiing", by: "", year: "2025", icon: "ski" },
+    { name: "Babysitting course", detail: "", by: "", year: "2023", icon: "heart" }
+  ],
+  education: [
+    { name: "High school student, Alberta, Canada", detail: "Planning to study aerospace engineering" },
+    { name: "Makerspace course", detail: "Circuitry and electrical fundamentals; home of the winglets research paper and its 3D-printed model" },
+    { name: "Construction course", detail: "Safe and correct use of construction tools and machinery" }
+  ],
+  strengths: ["Teamwork and collaboration", "Clear communication", "Calm under pressure", "Attention to detail", "Time management", "Dependable work ethic", "Organization", "Technical aptitude", "Goal-oriented", "Positive attitude", "Multitasking", "Critical thinking"],
+
+  /* Idea Lab: the 30 ideas written down on Nov 15, 2026, in their seven groups. live: true once a group has shipped. */
+  ideaLab: [
+    { title: "Orbit & Space Watch", live: true, where: "NASA and ESA Data Projects", patchOf: "nasa-data", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-watch/",
+      ideas: ["Satellite debris tracker", "Satellite collision simulator", "Space junk cleanup", "Space weather dashboard", "Exoplanet detection tool", "Planetary mapping tool", "Asteroid mining feasibility"] },
+    { title: "Rocketry Lab", id: "idea-rocketry-lab", ideas: ["Model rocket design", "Rocket fuel comparison", "Reusable rocket study", "Rocket landing simulator"] },
+    { title: "Off-World Base", id: "idea-off-world-base", ideas: ["Mars habitat prototype", "Moon base blueprint", "Mars rover prototype", "Lunar farming system", "Space radiation shielding"] },
+    { title: "Living in Space", id: "idea-living-in-space", ideas: ["Zero gravity experiment", "Microgravity plant growth", "Space food experiment", "Astronaut health monitor", "Spacesuit redesign"] },
+    { title: "Small Spacecraft Mission", id: "idea-small-spacecraft", ideas: ["CubeSat mission design", "Solar sail prototype"] },
+    { title: "Greener Aviation", id: "idea-greener-aviation", ideas: ["Aircraft wing optimizer", "Electric aircraft concept", "Aircraft emissions calculator", "Airport noise mapping"] },
+    { title: "Drone Systems", id: "idea-drone-systems", ideas: ["Drone delivery system", "Drone swarm simulation", "Autonomous landing system"] }
+  ],
+
   /* "On the workbench": what is being worked on right now. state: "Building" | "Testing" | "Writing" | "Refining" | "In review" */
   bench: [
     { id: "nasa-data", state: "Refining", text: "Orbit & Space Watch: four new tools just went live and are being polished" },
@@ -420,6 +475,7 @@ window.PORTFOLIO = {
 
   /* "What's new". Newest first. Flight Deck Suite releases are also read live from its catalog. */
   news: [
+    { date: "2026-11-18", project: "Portfolio", text: "Four new pages: About, Experience, Idea Lab and Mission patches", url: "about/" },
     { date: "2026-11-18", project: "NASA and ESA Data Projects", text: "Space Weather now updates itself with a scheduled data job", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-weather/" },
     { date: "2026-11-17", project: "NASA and ESA Data Projects", text: "Orbit & Space Watch is live: Orbit Watch, Space Weather, Exoplanets and Planetary Maps", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-watch/" },
     { date: "2026-11-17", project: "All projects", text: "Six projects adopted their mission patches as official logos" },

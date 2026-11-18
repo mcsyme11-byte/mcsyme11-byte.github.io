@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="assets/icon-180.png">
   <meta name="theme-color" content="#141B26">
   <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css?v=20261118b">
+  <link rel="stylesheet" href="assets/style.css?v=20261118d">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -32,11 +32,12 @@
       <button class="kbtn" id="open-palette" aria-label="Search everything (Ctrl K)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Search</span><kbd>Ctrl K</kbd></button>
       <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span></button>
       <nav id="nav" class="nav" aria-label="Sections">
-        <a href="#featured">Featured</a>
+        <a href="#featured">Work</a>
         <a href="#latest">Now</a>
         <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#journey">Journey</a>
+        <a href="about/">About</a>
+        <a href="experience/">Experience</a>
+        <a href="ideas/">Idea Lab</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </nav>
     </div>
@@ -62,12 +63,12 @@
         <div class="o-arm a3"><span></span></div>
       </div>
       <div class="wrap hero-inner">
-        <p class="eyebrow reveal">Portfolio</p>
+        <p class="eyebrow reveal">Portfolio<span class="sep">·</span><span class="role" id="role"></span></p>
         <h1 class="reveal">Malcolm Syme</h1>
-        <p class="lede reveal">Aspiring aerospace engineer. I build software for pilots, explain aerospace to anyone who's curious, and run my own drone and construction company.</p>
+        <p class="lede reveal">I build things that fly, and things that explain flight: software for pilots, tools made from real space data, aerospace explainers, and a drone company of my own. Next stop: aerospace engineering.</p>
         <div class="hero-actions reveal">
           <a class="btn" href="#projects">See my projects</a>
-          <a class="btn ghost" href="#contact">Get in touch</a>
+          <a class="btn ghost" href="about/">About me</a>
         </div>
         <dl class="tiles reveal" id="stats" aria-label="At a glance"></dl>
         <div class="live" id="live" aria-label="Live from my projects" hidden></div>
@@ -81,8 +82,9 @@
         <div class="shead reveal"><h2>About</h2><span class="aside">Where the site meets the sky</span></div>
         <div class="about-grid">
           <div class="about-text reveal">
-            <p>I'm a student in Alberta, Canada, with a passion for aviation and space. Most of what I do starts with a question, like how a winglet saves fuel or how a controller keeps twenty aircraft apart, and turns into something I can build, test and share.</p>
-            <p>My goal is to study aerospace engineering and work in Canada's space industry. Until then, I'm learning by doing: writing real software, flying drones commercially, building rockets and teaching what I learn.</p>
+            <p>I'm a student in Alberta, Canada, a certified drone pilot and the founder of my own company. Most of what I do starts with a question, like how a winglet saves fuel or how a controller keeps twenty aircraft apart, and ends as something real that other people can use.</p>
+            <p>In 2026 alone that meant the Flight Deck Suite (seven connected flight-sim apps, with a public release), nine live tools built on NASA and ESA data, a dictation app that runs entirely on your own computer, and 24 aerospace explainers. The goal is aerospace engineering, then Canada's space industry. I'm not waiting to get started.</p>
+            <p><a class="xp-link" href="about/">More about me<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a></p>
           </div>
           <ul class="pillars reveal">
             <li><span class="p-label">Build</span>Desktop, phone and web apps used every day</li>
@@ -90,6 +92,13 @@
             <li><span class="p-label">Teach</span>Aerospace explained at three levels</li>
             <li><span class="p-label">Lead</span>Founder and President of Syme Skyworks</li>
           </ul>
+        </div>
+        <div class="cert-strip reveal" aria-label="Certifications">
+          <div class="cs-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5l7 7M15.5 8.5l-7 7M9 6a3 3 0 1 1-6 0a3 3 0 1 1 6 0M21 6a3 3 0 1 1-6 0a3 3 0 1 1 6 0M9 18a3 3 0 1 1-6 0a3 3 0 1 1 6 0M21 18a3 3 0 1 1-6 0a3 3 0 1 1 6 0"/></svg><div><b>Drone pilot certificate</b><span>Transport Canada, Basic Operations</span></div></div>
+          <div class="cs-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg><div><b>First aid and CPR-C</b><span>Canadian Red Cross</span></div></div>
+          <div class="cs-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8c2.500-2 4.500-2 7 0s4.500 2 7 0 4-2 6 0M2 13c2.500-2 4.500-2 7 0s4.500 2 7 0 4-2 6 0M2 18c2.500-2 4.500-2 7 0s4.500 2 7 0 4-2 6 0"/></svg><div><b>Aquatic lifesaving</b><span>Bronze Star, Medallion and Cross</span></div></div>
+          <div class="cs-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.500 8-8 9-4.500-1-8-4-8-9V6zM9 12l2 2 4-4"/></svg><div><b>FAA TRUST</b><span>Recreational UAS safety test</span></div></div>
+          <a class="cs-item" href="experience/">All experience →</a>
         </div>
       </div>
     </section>
@@ -166,6 +175,19 @@
       </div>
     </section>
 
+    <!-- Explore -->
+    <section class="section" id="explore">
+      <div class="wrap">
+        <div class="shead reveal"><h2>Explore</h2><span class="aside">There's more than one page now</span></div>
+        <div class="explore">
+          <a class="ex reveal" href="about/"><span class="ex-n">01</span><h3>About me</h3><p>The short version, how I work, and what I fly and build with.</p><span class="xp-link">Read it<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></span></a>
+          <a class="ex reveal" href="experience/"><span class="ex-n">02</span><h3>Experience</h3><p>Work, certifications and strengths, with a one-page CV.</p><span class="xp-link">See it<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></span></a>
+          <a class="ex reveal" href="ideas/"><span class="ex-n">03</span><h3>Idea Lab</h3><p>Thirty ideas, seven already live. Watch the rest become real.</p><span class="xp-link">Open the lab<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></span></a>
+          <a class="ex reveal" href="patches/"><span class="ex-n">04</span><h3>Mission patches</h3><p>Every project's patch, and what each part of one means.</p><span class="xp-link">Turn them over<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></span></a>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact -->
     <section class="section contact" id="contact">
       <div class="wrap">
@@ -237,9 +259,9 @@
   <!-- One-page CV, shown only when printing -->
   <section id="cv" class="cv" aria-hidden="true"></section>
 
-  <script src="data/projects.js?v=20261118b"></script>
-  <script src="assets/patches.js?v=20261118b"></script>
-  <script src="assets/app.js?v=20261118b"></script>
-  <script src="assets/extras.js?v=20261118b"></script>
+  <script src="data/projects.js?v=20261118d"></script>
+  <script src="assets/patches.js?v=20261118d"></script>
+  <script src="assets/app.js?v=20261118d"></script>
+  <script src="assets/extras.js?v=20261118d"></script>
 </body>
 </html>

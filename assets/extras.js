@@ -223,11 +223,16 @@
     var built = D.projects.filter(function (p) { return p.status !== "idea"; });
     var h = '<header><h1>Malcolm Syme</h1><p class="cv-sub">Aspiring aerospace engineer · software builder · founder of Syme Skyworks</p>' +
       "<p>mcsyme11@gmail.com · +1 (403) 679-1495 · mcsyme11-byte.github.io · linkedin.com/in/malcolm-syme-38177a3b6</p></header>";
-    h += "<h2>Projects</h2>" + built.map(function (p) {
+    if (D.experience) h += "<h2>Experience</h2>" + D.experience.map(function (x, i) {
+      return '<div class="cv-p"><div class="cv-row"><b>' + esc(x.role) + ", " + esc(x.org) + "</b><span>" + esc(x.when) + "</span></div>" + (i < 4 ? "<p>" + esc(x.points[0]) + ".</p>" : "") + "</div>";
+    }).join("");
+    if (D.certs) h += "<h2>Certifications</h2><p>" + D.certs.map(function (c) { return esc(c.name) + (c.detail ? " (" + esc(c.detail) + ")" : "") + (c.by ? ", " + esc(c.by) : "") + " " + esc(c.year); }).join(" · ") + "</p>";
+    h += "<h2>Projects</h2>" + built.filter(function (p) { return p.featured; }).map(function (p) {
       return '<div class="cv-p"><div class="cv-row"><b>' + esc(p.title) + "</b><span>" + esc(p.role || "") + (p.started ? " · " + esc(p.started) : "") + "</span></div>" +
-        "<p>" + esc(p.tagline) + (p.highlights && p.highlights[0] ? ". " + esc(p.highlights[0]) : "") + ".</p></div>";
+        "<p>" + esc(p.tagline) + ".</p></div>";
     }).join("");
     h += "<h2>Skills</h2>" + D.skills.map(function (g) { return "<p><b>" + esc(g.group) + ":</b> " + g.items.map(esc).join(", ") + "</p>"; }).join("");
+    if (D.strengths) h += "<p><b>Strengths:</b> " + D.strengths.slice(0, 8).map(esc).join(", ") + "</p>";
     if (D.destination) h += "<h2>Goal</h2><p>" + esc(D.destination.what) + "</p>";
     h += '<p class="cv-foot">Full portfolio, with links to every project: https://mcsyme11-byte.github.io/</p>';
     $("#cv").innerHTML = h;
@@ -286,7 +291,7 @@
   /* ---------- Greeting with the sky note ---------- */
   var GREET = hr < 5 ? "Clear skies tonight." : hr < 12 ? "Good morning." : hr < 17 ? "Good afternoon." : hr < 21 ? "Good evening." : "Clear skies tonight.";
   var note = $("#sky-note");
-  if (note) note.innerHTML = '<span class="sky-dot"></span>' + GREET + " The sky up here follows your local time: right now it's <b>" + SKYTEXT[sky] + "</b>.";
+  if (note) note.innerHTML = '<span class="sky-dot"></span><span>' + GREET + " The sky up here follows your local time: right now it's <b>" + SKYTEXT[sky] + "</b>.</span>";
 
   /* ---------- On the workbench ---------- */
   var benchEl = $("#bench");
@@ -376,6 +381,23 @@
   ENTRIES.push({ kind: "Action", label: "Show keyboard shortcuts", run: function () { keys.showModal(); } });
   ENTRIES.push({ kind: "Section", label: "Now: on the workbench", run: go("latest") });
   ENTRIES.push({ kind: "Section", label: "Mission patches", run: go("patches") });
+  [["about/", "About me"], ["experience/", "Experience and certifications"], ["ideas/", "Idea Lab"], ["patches/", "Mission patch gallery"]].forEach(function (pg) {
+    ENTRIES.push({ kind: "Page", label: pg[1], run: function () { location.href = pg[0]; } });
+  });
+
+  /* ---------- Rotating role line in the hero ---------- */
+  var roleEl = $("#role"), roles = D.roles || [];
+  if (roleEl && roles.length) {
+    var ri = 0; roleEl.textContent = roles[0];
+    if (!reduce && roles.length > 1) setInterval(function () {
+      if (document.hidden) return;
+      roleEl.classList.add("out");
+      setTimeout(function () { ri = (ri + 1) % roles.length; roleEl.textContent = roles[ri]; roleEl.classList.remove("out"); }, 360);
+    }, 2800);
+  }
+
+  /* ---------- "?cv=1": open straight into the printable CV (used by the Experience page) ---------- */
+  if (/[?&]cv=1/.test(location.search)) addEventListener("load", function () { buildCV(); setTimeout(function () { window.print(); }, 300); });
 
   /* ---------- "Latest code": the most recently updated public repository, from GitHub's public API ----------
    * One request per visit at most (kept for ten minutes in this tab). If it fails, the chip simply doesn't show. */
