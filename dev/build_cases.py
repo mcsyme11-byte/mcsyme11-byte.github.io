@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Builds the portfolio's "How I built it" pages from the content below. Facts come from each repo's docs/HISTORY.md."""
-import html, pathlib
+import html, pathlib, sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import shared as S
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "case"
 OUT.mkdir(exist_ok=True)
-V = "20261118e"
+V = "20261118f"
 e = html.escape
 
 PLANE = "M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"
@@ -296,12 +299,11 @@ for c in CASES:
         {secs}
         <div class="cs-end reveal">
           <div class="d-links">{links}</div>
-          <a class="case-link" href="{nslug}.html"><span>Next case study</span><b>How I built {e(ntitle)}</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a>
         </div>
       </article>
     </div>
   </main>
-  <footer class="footer"><div class="wrap foot"><span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a></span><a href="../">Back to the portfolio</a></div></footer>
+  {S.footer("../", case=c["slug"])}
   <script src="../assets/media.js?v={V}"></script>
   <script>
   (function () {{

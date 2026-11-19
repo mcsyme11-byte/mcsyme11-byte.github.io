@@ -104,41 +104,176 @@
 
   /* ---------- Flight log: drawn from Logbook's public data ---------- */
   if (page === "flights" && D.live && D.live.flight) {
-    var W = 1000, H = 460, LAT0 = 78, LAT1 = -52;                       // map window: 78°N to 52°S
-    var px = function (lon) { return (lon + 180) / 360 * W; };
-    var py = function (lat) { return (LAT0 - lat) / (LAT0 - LAT1) * H; };
     var num = function (n) { return Math.round(n).toLocaleString("en-CA"); };
     var rad = Math.PI / 180;
-    // Points along the great circle between two airports, split where the route crosses the date line.
-    function arc(a, b) {
-      var la1 = a[0] * rad, lo1 = a[1] * rad, la2 = b[0] * rad, lo2 = b[1] * rad;
-      var d = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin((la2 - la1) / 2), 2) + Math.cos(la1) * Math.cos(la2) * Math.pow(Math.sin((lo2 - lo1) / 2), 2)));
-      if (!d) return "";
-      var n = Math.max(8, Math.round(d / rad / 3)), path = "", prev = null;
+    // A point on the unit sphere for a latitude and longitude in degrees.
+    function vec(lat, lon) { var a = lat * rad, o = lon * rad, c = Math.cos(a); return [c * Math.sin(o), Math.sin(a), c * Math.cos(o)]; }
+    // Points along the great circle between two unit vectors.
+    function greatCircle(a, b, step) {
+      var dot = Math.max(-1, Math.min(1, a[0] * b[0] + a[1] * b[1] + a[2] * b[2])), d = Math.acos(dot), out = [];
+      if (d < 1e-6) return [a, b];
+      var n = Math.max(2, Math.ceil(d / (step * rad))), sd = Math.sin(d);
       for (var i = 0; i <= n; i++) {
-        var f = i / n, A = Math.sin((1 - f) * d) / Math.sin(d), B = Math.sin(f * d) / Math.sin(d);
-        var x = A * Math.cos(la1) * Math.cos(lo1) + B * Math.cos(la2) * Math.cos(lo2), y = A * Math.cos(la1) * Math.sin(lo1) + B * Math.cos(la2) * Math.sin(lo2), z = A * Math.sin(la1) + B * Math.sin(la2);
-        var lat = Math.atan2(z, Math.sqrt(x * x + y * y)) / rad, lon = Math.atan2(y, x) / rad;
-        path += (prev === null || Math.abs(lon - prev) > 180 ? "M" : "L") + px(lon).toFixed(1) + " " + py(lat).toFixed(1);
-        prev = lon;
+        var f = i / n, A = Math.sin((1 - f) * d) / sd, B = Math.sin(f * d) / sd;
+        out.push([A * a[0] + B * b[0], A * a[1] + B * b[1], A * a[2] + B * b[2]]);
       }
-      return path;
+      return out;
     }
-    function drawMap(c, land) {
-      var ap = c.routes.airports, g = "";
-      for (var m = -150; m <= 150; m += 30) g += "M" + px(m).toFixed(1) + " 0V" + H;
-      for (var l = 60; l >= -30; l -= 30) g += "M0 " + py(l).toFixed(1) + "H" + W;
-      var shapes = (land || []).map(function (poly) {
-        return "M" + poly.map(function (q) { return px(q[1]).toFixed(1) + " " + py(q[0]).toFixed(1); }).join("L") + "Z";
-      }).join("");
-      var routes = c.routes.pairs.map(function (r) { return ap[r[0]] && ap[r[1]] ? arc(ap[r[0]], ap[r[1]]) : ""; }).join("");
-      var dots = Object.keys(ap).map(function (k) {
-        var a = ap[k], big = a[2] >= 5;
-        return '<circle class="fm-dot' + (big ? " big" : "") + '" cx="' + px(a[1]).toFixed(1) + '" cy="' + py(a[0]).toFixed(1) + '" r="' + (big ? 4.5 : 3) + '"><title>' + esc(k) + ": " + a[2] + (a[2] === 1 ? " visit" : " visits") + "</title></circle>";
-      }).join("");
-      $("#fl-map").innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="World map of ' + c.routes.pairs.length + " routes between " + Object.keys(ap).length + ' airports">' +
-        '<path class="fm-grid" d="' + g + '"/><path class="fm-land" d="' + shapes + '"/><path class="fm-route" d="' + routes + '"/>' + dots + "</svg>";
-      $("#fl-map-note").textContent = c.routes.pairs.length + " routes between " + Object.keys(ap).length + " airports";
+    /* The globe: drawn on a canvas, turned by dragging, by the arrow keys or by picking an airport.
+       It is redrawn only while it is turning; nothing runs while the page scrolls. */
+    function Globe(el, c) {
+      var cv = document.createElement("canvas"), ctx = cv.getContext("2d");
+      var lat0 = 52, lon0 = -48, size = 0, R = 0, dpr = 1, queued = false, land = null, anim = null;
+      var ap = c.routes.airports, names = Object.keys(ap);
+      var airports = names.map(function (k) { return { k: k, v: vec(ap[k][0], ap[k][1]), n: ap[k][2] }; });
+      airports.sort(function (a, b) { return b.n - a.n; });          // busiest first, so they keep their labels
+      var routes = c.routes.pairs.filter(function (r) { return ap[r[0]] && ap[r[1]]; }).map(function (r) {
+        return greatCircle(vec(ap[r[0]][0], ap[r[0]][1]), vec(ap[r[1]][0], ap[r[1]][1]), 2.5);
+      });
+      var grid = [], g, t;
+      for (g = -150; g <= 180; g += 30) { var m = []; for (t = -80; t <= 80; t += 4) m.push(vec(t, g)); grid.push(m); }
+      for (g = -60; g <= 60; g += 30) { var q = []; for (t = -180; t <= 180; t += 4) q.push(vec(g, t)); grid.push(q); }
+      cv.tabIndex = 0;
+      cv.setAttribute("role", "img");
+      cv.setAttribute("aria-label", "Globe showing " + routes.length + " routes between " + names.length + " airports. Use the arrow keys to turn it.");
+      el.innerHTML = "";
+      el.appendChild(cv);
+
+      var M;                                       // the view: rotates the sphere so (lat0, lon0) faces the viewer
+      function setView() {
+        var a = lat0 * rad, o = lon0 * rad, ca = Math.cos(a), sa = Math.sin(a), co = Math.cos(o), so = Math.sin(o);
+        M = [co, 0, -so, -sa * so, ca, -sa * co, ca * so, sa, ca * co];
+      }
+      function px(v) { return [M[0] * v[0] + M[1] * v[1] + M[2] * v[2], M[3] * v[0] + M[4] * v[1] + M[5] * v[2], M[6] * v[0] + M[7] * v[1] + M[8] * v[2]]; }
+      function line(points, close) {
+        var pen = false, i, p;
+        for (i = 0; i < points.length; i++) {
+          p = px(points[i]);
+          if (p[2] <= 0) { pen = false; continue; }
+          if (pen) ctx.lineTo(size / 2 + R * p[0], size / 2 - R * p[1]); else ctx.moveTo(size / 2 + R * p[0], size / 2 - R * p[1]);
+          pen = true;
+        }
+        if (close) ctx.closePath();
+      }
+      function draw() {
+        queued = false;
+        var w = Math.min(el.clientWidth, 640);
+        if (!w) return;
+        if (w !== size) {
+          size = w; dpr = Math.min(window.devicePixelRatio || 1, 2);
+          cv.width = cv.height = Math.round(size * dpr);
+          cv.style.width = cv.style.height = size + "px";
+        }
+        R = size / 2 - 14;
+        setView();
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, size, size);
+        var cx = size / 2, cy = size / 2, i, j, p;
+        // glow, then the sea
+        var halo = ctx.createRadialGradient(cx, cy, R * .96, cx, cy, R + 14);
+        halo.addColorStop(0, "rgba(192,160,98,.28)"); halo.addColorStop(1, "rgba(192,160,98,0)");
+        ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, R + 14, 0, 7); ctx.fill();
+        var sea = ctx.createRadialGradient(cx - R * .35, cy - R * .4, R * .1, cx, cy, R);
+        sea.addColorStop(0, "#18233A"); sea.addColorStop(1, "#090D15");
+        ctx.fillStyle = sea; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
+        ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.clip();
+        // grid
+        ctx.strokeStyle = "rgba(90,104,128,.22)"; ctx.lineWidth = 1; ctx.beginPath();
+        for (i = 0; i < grid.length; i++) line(grid[i]);
+        ctx.stroke();
+        // land: each shape is cut at the horizon, and its cut ends are joined along the rim
+        if (land) {
+          ctx.fillStyle = "#243145"; ctx.strokeStyle = "#3B4A63"; ctx.lineWidth = .8; ctx.beginPath();
+          for (i = 0; i < land.length; i++) {
+            var poly = land[i], n = poly.length, pts = new Array(n), first = -1, hidden = 0;
+            for (j = 0; j < n; j++) { pts[j] = px(poly[j]); if (pts[j][2] > 0) { if (first < 0) first = j; } else hidden++; }
+            if (first < 0) continue;
+            if (!hidden) {
+              for (j = 0; j < n; j++) ctx[j ? "lineTo" : "moveTo"](cx + R * pts[j][0], cy - R * pts[j][1]);
+              ctx.closePath();
+              continue;
+            }
+            var prev = pts[first], out = 0, k;
+            ctx.moveTo(cx + R * prev[0], cy - R * prev[1]);
+            for (k = 1; k <= n; k++) {
+              var cur = pts[(first + k) % n];
+              if ((prev[2] > 0) !== (cur[2] > 0)) {                 // this edge crosses the horizon
+                var f = prev[2] / (prev[2] - cur[2]), ix = prev[0] + f * (cur[0] - prev[0]), iy = prev[1] + f * (cur[1] - prev[1]);
+                var ang = -Math.atan2(iy, ix);                         // angle on the rim, in canvas terms
+                if (prev[2] > 0) { ctx.lineTo(cx + R * Math.cos(ang), cy + R * Math.sin(ang)); out = ang; }
+                else {
+                  var sweep = ((ang - out) % 6.283185307 + 6.283185307) % 6.283185307;
+                  ctx.arc(cx, cy, R, out, ang, sweep > Math.PI);        // the shorter way round
+                }
+              }
+              if (cur[2] > 0) ctx.lineTo(cx + R * cur[0], cy - R * cur[1]);
+              prev = cur;
+            }
+            ctx.closePath();
+          }
+          ctx.fill(); ctx.stroke();
+        }
+        // routes: a soft wide stroke under a fine bright one
+        ctx.lineCap = "round"; ctx.lineJoin = "round";
+        ctx.beginPath(); for (i = 0; i < routes.length; i++) line(routes[i]);
+        ctx.strokeStyle = "rgba(226,200,142,.16)"; ctx.lineWidth = 4; ctx.stroke();
+        ctx.strokeStyle = "rgba(226,200,142,.9)"; ctx.lineWidth = 1.1; ctx.stroke();
+        // airports
+        ctx.font = "11px Georgia, serif"; ctx.textBaseline = "middle";
+        var placed = [];
+        for (i = 0; i < airports.length; i++) {
+          p = px(airports[i].v);
+          if (p[2] <= 0.02) continue;
+          var x = cx + R * p[0], y = cy - R * p[1], hub = airports[i].n >= 5;
+          ctx.beginPath(); ctx.arc(x, y, hub ? 4.2 : 2.6, 0, 7);
+          ctx.fillStyle = hub ? "#EDE6D3" : "#E2C88E"; ctx.fill();
+          ctx.strokeStyle = "#0C1119"; ctx.lineWidth = 1; ctx.stroke();
+          if (hub && p[2] > .25) {                 // name the busiest airports, skipping any label that would sit on another
+            var lx = x + 8, ly = y - 8, clear = true;
+            for (j = 0; j < placed.length; j++) if (Math.abs(placed[j][0] - lx) < 40 && Math.abs(placed[j][1] - ly) < 13) { clear = false; break; }
+            if (clear) { placed.push([lx, ly]); ctx.fillStyle = "rgba(237,230,211,.92)"; ctx.fillText(airports[i].k, lx, ly); }
+          }
+        }
+        ctx.restore();
+        ctx.strokeStyle = "rgba(192,160,98,.55)"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
+      }
+      function redraw() { if (!queued) { queued = true; requestAnimationFrame(draw); } }
+      function turn(dLon, dLat) { anim = null; lon0 = ((lon0 + dLon + 540) % 360) - 180; lat0 = Math.max(-75, Math.min(75, lat0 + dLat)); redraw(); }
+      function flyTo(lat, lon) {
+        var fromLat = lat0, fromLon = lon0, dLon = ((lon - fromLon + 540) % 360) - 180, start = null, me = {};
+        anim = me;
+        if (reduce) { lat0 = lat; lon0 = lon; redraw(); return; }
+        requestAnimationFrame(function step(ts) {
+          if (anim !== me) return;
+          if (start === null) start = ts;
+          var f = Math.min(1, (ts - start) / 900), e = f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2;
+          lat0 = fromLat + (Math.max(-75, Math.min(75, lat)) - fromLat) * e;
+          lon0 = ((fromLon + dLon * e + 540) % 360) - 180;
+          draw();
+          if (f < 1) requestAnimationFrame(step); else anim = null;
+        });
+      }
+      // dragging: sideways turns the globe; up and down tilts it with a mouse, and scrolls the page on a touch screen
+      var drag = null;
+      cv.addEventListener("pointerdown", function (e) { drag = { x: e.clientX, y: e.clientY, touch: e.pointerType === "touch" }; cv.setPointerCapture(e.pointerId); cv.classList.add("grabbing"); });
+      cv.addEventListener("pointermove", function (e) {
+        if (!drag) return;
+        var k = 140 / (R || 300);
+        turn(-(e.clientX - drag.x) * k * .45, drag.touch ? 0 : (e.clientY - drag.y) * k * .45);
+        drag.x = e.clientX; drag.y = e.clientY;
+      });
+      function drop() { drag = null; cv.classList.remove("grabbing"); }
+      cv.addEventListener("pointerup", drop); cv.addEventListener("pointercancel", drop);
+      cv.addEventListener("keydown", function (e) {
+        var d = { ArrowLeft: [-12, 0], ArrowRight: [12, 0], ArrowUp: [0, 8], ArrowDown: [0, -8] }[e.key];
+        if (d) { e.preventDefault(); turn(d[0], d[1]); }
+      });
+      if (window.ResizeObserver) new ResizeObserver(redraw).observe(el);
+      draw();
+      return {
+        setLand: function (polys) { land = polys.map(function (poly) { return poly.map(function (q) { return vec(q[0], q[1]); }); }); redraw(); },
+        flyTo: flyTo
+      };
     }
     fetch(D.live.flight, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
       var c = d.career;
@@ -150,8 +285,18 @@
       ].map(function (t) { return '<div class="tile"><dt>' + t[0] + "</dt><dd>" + t[1] + '</dd><span class="note">' + t[2] + "</span></div>"; }).join("");
       $("#fl-tiles").classList.add("in");
 
-      drawMap(c, null);
-      fetch(D.live.flightPage + "land.json").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (land) { drawMap(c, land); }).catch(function () {});
+      var globe = Globe($("#fl-map"), c);
+      $("#fl-map-note").textContent = c.routes.pairs.length + " routes between " + Object.keys(c.routes.airports).length + " airports";
+      fetch(D.live.flightPage + "land.json").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (land) { globe.setLand(land); }).catch(function () {});
+      var hubs = (c.topAirports || []).filter(function (h) { return c.routes.airports[h.icao]; });
+      $("#fl-hubs").innerHTML = '<span class="fh-hint">Drag the globe to turn it, or jump to an airport:</span>' + hubs.map(function (h) {
+        return '<button type="button" class="chip" data-icao="' + esc(h.icao) + '">' + esc(h.name.replace(/[- ]?(Intl|International)\b.*$/, "")) + ' <span class="n">' + h.visits + "</span></button>";
+      }).join("");
+      $("#fl-hubs").addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-icao]"); if (!b) return;
+        var a = c.routes.airports[b.getAttribute("data-icao")];
+        globe.flyTo(a[0], a[1]);
+      });
 
       // Landing rates, oldest to newest.
       var tr = c.landings.trend.slice().sort(function (a, b) { return a.landed < b.landed ? -1 : 1; });

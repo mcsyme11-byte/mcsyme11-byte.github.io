@@ -11,22 +11,19 @@ import pathlib, sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import pages_extra as X
+import shared as S
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-V = "20261118e"
+V = "20261118f"
 
 NAV = [("../", "Home", "home"), ("../about/", "About", "about"), ("../experience/", "Experience", "experience"),
        ("../studies/", "Studies", "studies"), ("../alpha/", "Project Alpha", "alpha"), ("../flights/", "Flight log", "flights")]
-# Every page, for the footer's site map.
-ALL = [("../", "Home"), ("../about/", "About"), ("../experience/", "Experience"), ("../admissions/", "For admissions"),
-       ("../studies/", "Studies"), ("../alpha/", "Project Alpha"), ("../flights/", "Flight log"), ("../lessons/", "Lessons learned"),
-       ("../ideas/", "Idea Lab"), ("../patches/", "Mission patches")]
+
 
 
 def shell(page, title, desc, body):
     cur = ' class="on" aria-current="page"'
     links = "".join('<a href="%s"%s>%s</a>' % (h, cur if k == page else "", t) for h, t, k in NAV)
-    sitemap = " · ".join('<a href="%s">%s</a>' % (h, t) for h, t in ALL)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,12 +57,7 @@ def shell(page, title, desc, body):
   <main id="main">
 {body}
   </main>
-  <footer class="footer">
-    <div class="wrap foot">
-      <span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a> · <a href="tel:+14036791495">+1 (403) 679-1495</a></span>
-      <span class="muted sitemap">{sitemap}</span>
-    </div>
-  </footer>
+  {S.footer("../", page)}
   <script>window.PATCH_BASE = "../";</script>
   <script src="../data/projects.js?v={V}"></script>
   <script src="../data/activity.js?v={V}"></script>
@@ -153,10 +145,6 @@ ABOUT = hero("About", "I build things that fly, and things that explain flight."
           <span class="p-label">Where this is going</span>
           <p>Aerospace engineering at university, then a career in Canada's space industry.</p>
         </div>
-        <div class="next-links reveal">
-          <a class="case-link" href="../experience/"><span>Next</span><b>Experience and certifications</b>{ARROW}</a>
-          <a class="case-link" href="../#contact"><span>Or</span><b>Get in touch</b>{ARROW}</a>
-        </div>
       </div>
     </section>
 
@@ -197,10 +185,6 @@ EXPERIENCE = hero("Experience", "Experience and certifications",
     <section class="section">
       <div class="wrap narrow">
         <p class="fine reveal">Proof of certifications and references are available on request.</p>
-        <div class="next-links reveal">
-          <a class="case-link" href="../#projects"><span>Next</span><b>See the projects</b>{ARROW}</a>
-          <a class="case-link" href="../about/"><span>Or</span><b>Read about me</b>{ARROW}</a>
-        </div>
       </div>
     </section>"""
 
@@ -222,10 +206,6 @@ IDEAS = hero("Idea Lab", "Thirty ideas. Seven already live.",
           <li class="reveal"><span>04</span><h3>Draw it first</h3><p>The design is drawn and judged before any of it is built.</p></li>
           <li class="reveal"><span>05</span><h3>Build, check, ship</h3><p>Sources checked against their documentation, pages tested at every size, then published. Four tools went live on November 17.</p></li>
         </ol>
-        <div class="next-links reveal">
-          <a class="case-link" href="../case/nasa-esa-data-projects.html"><span>Case study</span><b>How I built NASA and ESA Data Projects</b>{ARROW}</a>
-          <a class="case-link" href="../patches/"><span>Next</span><b>The mission patches</b>{ARROW}</a>
-        </div>
       </div>
     </section>"""
 
@@ -250,10 +230,6 @@ PATCHES = hero("Mission patches", "Every project flies its own patch.",
             <li class="reveal"><span>E</span><div><h3>The year, between two stars</h3><p>The year it started, or "IDEA" until it does.</p></div></li>
           </ol>
         </div>
-        <div class="next-links reveal">
-          <a class="case-link" href="../ideas/"><span>Next</span><b>The Idea Lab</b>{ARROW}</a>
-          <a class="case-link" href="../#projects"><span>Or</span><b>See every project</b>{ARROW}</a>
-        </div>
       </div>
     </section>"""
 
@@ -269,6 +245,8 @@ PAGES = [
     ("admissions", "For admissions", "Malcolm Syme in sixty seconds: research, engineering, hands-on work and a one-page CV.", X.ADMISSIONS),
 ]
 
+S.write_home_footer()
+print("wrote the home page's footer")
 for page, title, desc, body in PAGES:
     out = ROOT / page
     out.mkdir(exist_ok=True)

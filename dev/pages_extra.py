@@ -20,9 +20,9 @@ def hero(eyebrow, h1, lede, extra=""):
     </section>"""
 
 
-def nxt(*links):
-    return '<div class="next-links reveal">' + "".join(
-        f'<a class="case-link" href="{h}"><span>{k}</span><b>{t}</b>{ARROW}</a>' for k, t, h in links) + "</div>"
+def more(text, href):
+    """One plain link under a section. Page-to-page links live in the footer's pager (dev/shared.py)."""
+    return f'<p class="band-more reveal"><a class="xp-link" href="{href}">{text}{ARROW}</a></p>'
 
 
 def strip(inner, label, cls=""):
@@ -211,7 +211,6 @@ ALPHA = hero("Project Alpha · Build log", "Alpha I: a rocket designed from the 
       <div class="wrap narrow">
         <div class="shead reveal"><h2>Build log</h2><span class="aside">Done, in progress, next</span></div>
         <ol class="blog">{"".join(f'<li class="reveal {s}"><span class="bl-when">{w}</span><div><h3>{t}</h3><p>{d}</p></div></li>' for s, w, t, d in LOG)}</ol>
-        {nxt(("Next", "Studies and papers", "../studies/"), ("Or", "Lessons learned", "../lessons/"))}
       </div>
     </section>"""
 
@@ -280,7 +279,7 @@ STUDIES = hero("Studies", "Research, written down properly.",
           <p class="reveal big">Before any part of my rocket is built, its flight is worked out on paper: the air at the launch site, the motor, the speed off the rail, the rocket equation, the load on the airframe and the size of each parachute.</p>
           <p class="reveal">It is a first revision, and a second is under way. The worked calculations are laid out as cards on the Project Alpha page.</p>
         </div>
-        {nxt(("Open", "Alpha I flight math", "../alpha/#math"), ("Next", "Lessons learned", "../lessons/"))}
+        {more("Open the Alpha I flight math", "../alpha/#math")}
       </div>
     </section>"""
 
@@ -300,6 +299,8 @@ FLIGHTS = hero("Flight log", "Every flight, logged by software I designed.",
       <div class="wrap">
         <div class="shead reveal"><h2>Where I've flown</h2><span class="aside" id="fl-map-note">Every route, as the crow flies</span></div>
         <div class="fl-map reveal" id="fl-map"></div>
+        <div class="fl-hubs reveal" id="fl-hubs"></div>
+        {more("Watch a flight live on Share my flight", "/flight/")}
       </div>
     </section>
     <section class="section">
@@ -319,7 +320,6 @@ FLIGHTS = hero("Flight log", "Every flight, logged by software I designed.",
       <div class="wrap narrow">
         <div class="shead reveal"><h2>The fleet</h2><span class="aside">Hours by aircraft</span></div>
         <ul class="fl-fleet reveal" id="fl-fleet"></ul>
-        {nxt(("Live", "Share my flight", "/flight/"), ("Case study", "How I built the Flight Deck Suite", "../case/flight-deck-suite.html"))}
       </div>
     </section>"""
 
@@ -372,7 +372,6 @@ LESSONS = hero("Lessons learned", "What went wrong, and what I changed.",
           <div class="principle reveal"><span>02</span><h3>Turn the fix into a rule</h3><p>A fix solves it once. A written rule, or better an automatic check, stops it from happening again.</p></div>
           <div class="principle reveal"><span>03</span><h3>Say what went wrong</h3><p>Every project keeps a history that includes the bad days. That is where these come from.</p></div>
         </div>
-        {nxt(("Next", "Case studies: how each project was built", "../#featured"), ("Or", "About me", "../about/"))}
       </div>
     </section>"""
 
@@ -423,6 +422,5 @@ ADMISSIONS = hero("For admissions", "Malcolm Syme, in sixty seconds.",
           <span class="p-label">What I want to study</span>
           <p>Aerospace engineering, then a career in Canada's space industry.</p>
         </div>
-        {nxt(("More", "Experience and certifications", "../experience/"), ("Or", "The whole portfolio", "../"))}
       </div>
     </section>"""

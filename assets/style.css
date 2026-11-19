@@ -188,8 +188,6 @@ mark { background: rgba(192,160,98,.3); color: var(--ink); border-radius: 2px; p
 .contact-card .btn { text-transform: none; letter-spacing: .04em; font-size: 16px; }
 
 /* Footer */
-.footer { border-top: 1px solid var(--line); padding: 26px 0 34px; font-size: 14px; color: var(--ink2); }
-.foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 
 /* Detail dialog */
 dialog { width: min(760px, calc(100% - 24px)); max-height: calc(100% - 40px); padding: 0; border: 1px solid var(--line2); border-top: 2px solid var(--brass); border-radius: 14px; background: var(--card); color: var(--ink); }
@@ -787,9 +785,6 @@ a.cs-item:hover { background: rgba(192,160,98,.1); color: var(--brass-bright); }
    Photos, strips, Project Alpha, Studies, Flight log, Lessons, Admissions (added Nov 18, 2026)
    Only transform and opacity are animated; strips scroll natively.
    ================================================================================================== */
-.sitemap { flex-basis: 100%; line-height: 2; }
-.sitemap a { color: var(--ink2); text-decoration: none; }
-.sitemap a:hover { color: var(--brass-bright); }
 .explore.nine { grid-template-columns: repeat(3, 1fr); }
 .explore.nine .ex { min-height: 186px; }
 a.tile { text-decoration: none; color: var(--ink); transition: background-color .2s; }
@@ -914,13 +909,12 @@ a.tile:hover { background: var(--card2); color: var(--ink); }
 
 /* Flight log */
 .fl-wait { padding: 30px 0; }
-.fl-map { border: 1px solid var(--line); border-radius: var(--r); background: var(--deep); overflow: hidden; }
-.fl-map svg { display: block; width: 100%; height: auto; }
-.fm-grid { stroke: rgba(42,52,70,.6); stroke-width: 1; fill: none; }
-.fm-land { fill: #1D2838; stroke: #2F3C52; stroke-width: .6; }
-.fm-route { fill: none; stroke: var(--brass); stroke-width: 1.1; stroke-opacity: .7; stroke-linecap: round; }
-.fm-dot { fill: var(--brass-bright); stroke: var(--deep); stroke-width: 1; }
-.fm-dot.big { fill: var(--ink); }
+.fl-map { display: grid; place-items: center; min-height: 320px; padding: 26px 12px; border: 1px solid var(--line); border-radius: var(--r);
+  background: radial-gradient(520px 520px at 50% 50%, rgba(192,160,98,.07), transparent 70%), var(--deep); overflow: hidden; }
+.fl-map canvas { display: block; max-width: 100%; cursor: grab; touch-action: pan-y; border-radius: 50%; outline-offset: 6px; }
+.fl-map canvas.grabbing { cursor: grabbing; }
+.fl-hubs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+.fh-hint { color: var(--muted); font-style: italic; font-size: 15px; margin-right: 6px; }
 .fl-two { align-items: start; }
 .fl-trend svg { display: block; width: 100%; height: auto; }
 .ft-guide { stroke: var(--line); stroke-dasharray: 4 6; }
@@ -1026,3 +1020,67 @@ a.tile:hover { background: var(--card2); color: var(--ink); }
   .mcard { padding: 22px 20px 20px; }
 }
 .cs-body article, .strip-wrap, .deck-set { min-width: 0; }
+
+
+/* ==================================================================================================
+   Footer on every page (dev/shared.py): pager, seal, site map, project patches. Nov 18, 2026.
+   ================================================================================================== */
+/* Lower-case descenders (g, y, p) need room below the line for the gradient text to paint them. */
+h1 { padding-bottom: .14em; margin-bottom: calc(22px - .14em); }
+h1.split { padding-bottom: 0; margin-bottom: 22px; }
+h1.split .ltr { padding-bottom: .14em; margin-bottom: -.14em; }
+
+.footer { margin-top: 0; border-top: 1px solid var(--line); padding: 0 0 30px; font-size: 14.5px; color: var(--ink2);
+  background: linear-gradient(180deg, rgba(12,17,25,0), rgba(12,17,25,.75) 240px); }
+.pager { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+.pg { display: flex; align-items: center; gap: 20px; padding: 34px 0; text-decoration: none; color: var(--ink); min-width: 0; }
+.pg-next { justify-content: flex-end; text-align: right; border-left: 1px solid var(--line); padding-left: 24px; }
+.pg-prev { padding-right: 24px; }
+.pg small { display: block; color: var(--brass); font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; margin-bottom: 4px; }
+.pg b { display: block; font-weight: 400; font-size: clamp(19px, 2.5vw, 30px); line-height: 1.2; }
+.pg svg { flex: none; width: 20px; height: 20px; fill: none; stroke: var(--brass-bright); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .35s var(--ease); }
+.pg:hover { color: var(--brass-bright); }
+.pg-next:hover svg { transform: translateX(6px); }
+.pg-prev:hover svg { transform: translateX(-6px); }
+.ft-top { display: grid; grid-template-columns: minmax(280px, 1fr) 2.3fr; gap: 56px; padding: 52px 0 38px; }
+.ft-brand { display: flex; gap: 20px; align-items: flex-start; }
+.ft-seal { flex: none; position: relative; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; color: var(--brass-bright);
+  border: 1px solid var(--brass); background: radial-gradient(circle at 35% 30%, #24304a, var(--deep)); transition: transform .5s var(--ease); }
+.ft-seal::after { content: ""; position: absolute; inset: 5px; border-radius: 50%; border: 1px dashed var(--brass-dim); }
+.ft-seal svg { width: 44px; height: 44px; }
+.ft-seal:hover { transform: rotate(-10deg); }
+.ft-brand b { display: block; font-weight: 400; font-size: 25px; color: var(--ink); line-height: 1.2; }
+.ft-brand p { margin: 6px 0 0; color: var(--ink2); font-size: 15.5px; max-width: 30ch; }
+.ft-brand .ft-contact { margin-top: 14px; }
+.ft-contact a { display: block; width: fit-content; color: var(--brass-bright); text-decoration: none; line-height: 1.75; }
+.ft-contact a:hover { color: var(--ink); }
+.ft-cols { display: grid; grid-template-columns: repeat(5, auto); gap: 24px 34px; justify-content: space-between; }
+.ft-col h2 { margin: 0 0 14px; color: var(--brass); font-size: 10.5px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; }
+.ft-col ul { list-style: none; margin: 0; padding: 0; }
+.ft-col li { margin: 0 0 9px; }
+.ft-col a { color: var(--ink2); text-decoration: none; transition: color .2s; }
+.ft-col a:hover { color: var(--brass-bright); }
+.ft-col a[aria-current] { color: var(--ink); }
+.ft-col a[aria-current]::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--brass); margin-right: 8px; vertical-align: middle; }
+.ft-patches { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; padding: 24px 0; border-top: 1px solid var(--line); }
+.ft-patches a { display: block; border-radius: 50%; opacity: .78; transition: transform .4s var(--ease), opacity .3s; }
+.ft-patches img { display: block; width: 52px; height: 52px; border-radius: 50%; }
+.ft-patches a:hover, .ft-patches a:focus-visible { opacity: 1; transform: translateY(-4px) rotate(-8deg); }
+.ft-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; }
+.ft-base a { color: var(--ink2); }
+.ft-meta .tip kbd { margin: 0 2px; }
+@media (max-width: 1040px) {
+  .ft-top { grid-template-columns: 1fr; gap: 36px; }
+  .ft-cols { grid-template-columns: repeat(3, auto); justify-content: space-between; }
+}
+@media (max-width: 720px) {
+  .pg { padding: 24px 0; gap: 12px; } .pg svg { width: 16px; height: 16px; }
+  .pg-next { padding-left: 14px; } .pg-prev { padding-right: 14px; }
+  .pg small { letter-spacing: .2em; font-size: 10px; }
+  .ft-top { padding: 38px 0 28px; }
+  .ft-cols { grid-template-columns: 1fr 1fr; gap: 28px 20px; justify-content: stretch; }
+  .ft-patches { gap: 12px; } .ft-patches img { width: 44px; height: 44px; }
+  .ft-base { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) { .ft-seal, .ft-patches a, .pg svg { transition: none; } }
+@media print { .footer { display: none; } }
