@@ -917,10 +917,11 @@ a.tile:hover { background: var(--card2); color: var(--ink); }
 .fh-hint { color: var(--muted); font-style: italic; font-size: 15px; margin-right: 6px; }
 .fl-two { align-items: start; }
 .fl-trend svg { display: block; width: 100%; height: auto; }
-.ft-guide { stroke: var(--line); stroke-dasharray: 4 6; }
-.ft-ax { fill: var(--faint); font: 12px var(--font); }
+.ft-guide { stroke: var(--line); stroke-dasharray: 3 6; }
+.ft-ax { fill: var(--muted); font: 12px var(--font); }
 .ft-line { fill: none; stroke: var(--brass-bright); stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
 .ft-dot { fill: var(--bg); stroke: var(--brass-bright); stroke-width: 2; }
+.ft-dot.last { fill: var(--brass-bright); }
 .fl-cap { margin: 6px 0 18px; color: var(--muted); font-size: 14px; font-style: italic; }
 .fg-bar { display: flex; height: 10px; border-radius: 999px; overflow: hidden; gap: 2px; }
 .fg-key { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; color: var(--ink2); font-size: 14.5px; }
@@ -1084,3 +1085,17 @@ h1.split .ltr { padding-bottom: .14em; margin-bottom: -.14em; }
 }
 @media (prefers-reduced-motion: reduce) { .ft-seal, .ft-patches a, .pg svg { transition: none; } }
 @media print { .footer { display: none; } }
+
+/* The menu folds into the two-line button below 1060 px, where the links no longer fit on one line. */
+@media (max-width: 1060px) {
+  .menu-btn { display: block; }
+  .nav { position: fixed; inset: 64px 0 auto 0; box-shadow: 0 24px 40px -10px rgba(0,0,0,.6); flex-direction: column; align-items: stretch; gap: 0; padding: 8px var(--gutter) 20px;
+    background: var(--bg2); border-bottom: 1px solid var(--line); transform: translateY(-8px); opacity: 0; visibility: hidden; transition: transform .25s var(--ease), opacity .25s var(--ease), visibility .25s; }
+  .nav.open { transform: none; opacity: 1; visibility: visible; }
+  .nav a { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .nav a::after { display: none; }
+  .nav a.nav-cta { margin-top: 14px; text-align: center; border-radius: 999px; }
+  .kbtn { margin-left: auto; }
+  .topbar { background: var(--bg2); }
+}
+@media (max-width: 960px) { .steps li:last-child:nth-child(odd) { grid-column: 1 / -1; } }

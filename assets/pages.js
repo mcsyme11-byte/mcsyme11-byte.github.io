@@ -300,18 +300,20 @@
 
       // Landing rates, oldest to newest.
       var tr = c.landings.trend.slice().sort(function (a, b) { return a.landed < b.landed ? -1 : 1; });
-      var top = Math.max.apply(null, tr.map(function (x) { return x.rate; })), cw = 600, ch = 200, pad = 16;
-      top = Math.ceil(top / 100) * 100;
-      var X = function (i) { return pad + (cw - 2 * pad) * i / (tr.length - 1); }, Y = function (v) { return pad + (ch - 2 * pad) * v / top; };
+      // The scale is upside down on purpose: 0 fpm (the smoothest) is at the top. Labels sit in a gutter on the left.
+      var top = Math.max.apply(null, tr.map(function (x) { return x.rate; })), cw = 600, ch = 230, gl = 52, gr = 14, gt = 16, gb = 16;
+      top = Math.ceil((top + 20) / 100) * 100;
+      var X = function (i) { return gl + (cw - gl - gr) * i / Math.max(1, tr.length - 1); }, Y = function (v) { return gt + (ch - gt - gb) * v / top; };
       var line = tr.map(function (x, i) { return (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(x.rate).toFixed(1); }).join("");
-      var guide = [100, 300].filter(function (v) { return v < top; }).map(function (v) {
-        return '<path class="ft-guide" d="M' + pad + " " + Y(v).toFixed(1) + "H" + (cw - pad) + '"/><text class="ft-ax" x="' + (cw - pad) + '" y="' + (Y(v) - 6).toFixed(1) + '" text-anchor="end">' + v + " fpm</text>";
-      }).join("");
+      var every = top > 600 ? 200 : 100, guide = "";
+      for (var gv = 0; gv <= top; gv += every) {
+        guide += '<path class="ft-guide" d="M' + gl + " " + Y(gv).toFixed(1) + "H" + (cw - gr) + '"/><text class="ft-ax" x="' + (gl - 12) + '" y="' + (Y(gv) + 4).toFixed(1) + '" text-anchor="end">' + gv + "</text>";
+      }
       var pts = tr.map(function (x, i) {
-        return '<circle class="ft-dot" cx="' + X(i).toFixed(1) + '" cy="' + Y(x.rate).toFixed(1) + '" r="3.5"><title>' + esc(x.to) + ", " + esc(x.date) + ": " + x.rate + " fpm (" + esc(x.grade) + ")</title></circle>";
+        return '<circle class="ft-dot' + (i === tr.length - 1 ? " last" : "") + '" cx="' + X(i).toFixed(1) + '" cy="' + Y(x.rate).toFixed(1) + '" r="' + (i === tr.length - 1 ? 5 : 3.5) + '"><title>' + esc(x.to) + ", " + esc(x.date) + ": " + x.rate + " fpm (" + esc(x.grade) + ")</title></circle>";
       }).join("");
-      $("#fl-trend").innerHTML = '<svg viewBox="0 0 ' + cw + " " + ch + '" role="img" aria-label="Landing rate of the last ' + tr.length + ' landings">' + guide +
-        '<path class="ft-line" d="' + line + '"/>' + pts + '</svg><p class="fl-cap">The last ' + tr.length + " landings, oldest on the left. Smoother landings sit higher.</p>";
+      $("#fl-trend").innerHTML = '<svg viewBox="0 0 ' + cw + " " + ch + '" role="img" aria-label="Landing rate of the last ' + tr.length + ' landings, in feet per minute">' + guide +
+        '<path class="ft-line" d="' + line + '"/>' + pts + '</svg><p class="fl-cap">The last ' + tr.length + " landings in feet per minute, oldest on the left. Smoother landings sit higher; the filled dot is the latest.</p>";
       var total = c.landings.grades.reduce(function (s, g) { return s + g.n; }, 0);
       $("#fl-grades").innerHTML = '<div class="fg-bar">' + c.landings.grades.filter(function (g) { return g.n; }).map(function (g, i) {
         return '<span class="g' + i + '" style="flex:' + g.n + '" title="' + esc(g.g) + ": " + g.n + '"></span>';
