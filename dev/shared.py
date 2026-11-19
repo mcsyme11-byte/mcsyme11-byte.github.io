@@ -1,14 +1,14 @@
-"""The parts every page of the portfolio shares: the page order, and the footer with its pager.
+"""The parts every page of the portfolio shares: the page order, and the footer with its "Keep exploring" list.
 
 Used by dev/build_pages.py (extra pages and the home page's footer) and dev/build_cases.py (case studies).
-The footer holds everything that used to sit in boxes above it: one "Previous / Next" pager, the site map,
-the six project patches and the contact links. A new page is added to PAGES once and appears everywhere.
+The footer opens with a directory of the other pages (name, one line about it, arrow), then the seal, the
+project patches and the contact links. A new page is added to PAGES and ABOUT once and appears everywhere.
 """
 import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-# Reading order of the pages; the pager walks it and loops back to Home.
+# The pages, in the order the directory lists them.
 PAGES = [("", "Home", "home"), ("about/", "About me", "about"), ("experience/", "Experience", "experience"),
          ("admissions/", "For admissions", "admissions"), ("studies/", "Studies", "studies"),
          ("alpha/", "Project Alpha", "alpha"), ("flights/", "Flight log", "flights"),
@@ -16,6 +16,16 @@ PAGES = [("", "Home", "home"), ("about/", "About me", "about"), ("experience/", 
 
 CASES = [("flight-deck-suite", "Flight Deck Suite"), ("hot-mic", "Hot Mic"), ("nasa-esa-data-projects", "NASA and ESA Data Projects"),
          ("simply-aerospace", "Simply Aerospace"), ("syme-skyworks", "Syme Skyworks")]
+
+# One line about each page and case study, shown in the directory.
+ABOUT = {"home": "The home page and the full project list", "about": "The short version, and how I work",
+         "experience": "Work, certifications and strengths", "admissions": "Sixty seconds: what to open first, and a one-page CV",
+         "studies": "The winglets paper and its seven CAD wingtips", "alpha": "A rocket designed from the math up",
+         "flights": "Every flight on a globe, with landings and records", "lessons": "Nine mistakes, and the rule each one left behind",
+         "ideas": "Thirty ideas, seven already live", "patches": "Every project's patch, and what each part means",
+         "flight-deck-suite": "Seven connected apps for flight simulation", "hot-mic": "Private voice dictation for Windows",
+         "nasa-esa-data-projects": "Nine live tools built on real space data", "simply-aerospace": "Aerospace explained at three levels",
+         "syme-skyworks": "A drone services company of my own"}
 
 # The six projects whose mission patch is their official logo: (project id, thumbnail name, title).
 PATCHES = [("flight-deck-suite", "flight-deck-suite", "Flight Deck Suite"), ("hot-mic", "hot-mic", "Hot Mic"),
@@ -26,7 +36,6 @@ COLUMNS = [("Start here", ["home", "about", "experience", "admissions"]),
            ("The work", ["#projects", "studies", "alpha", "flights"]),
            ("Behind it", ["lessons", "ideas", "patches"])]
 
-LEFT = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H4M8 4L4 8l4 4"/></svg>'
 RIGHT = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg>'
 
 
@@ -38,22 +47,22 @@ def social():
     return re.findall(r'label: "([^"]+)", url: "([^"]+)"', block)
 
 
-def pager(base, key=None, case=None):
+def directory(base, key=None, case=None):
+    """The list of other pages at the top of the footer. The home page has none: its Explore section does the job."""
     if case:
-        i = [c[0] for c in CASES].index(case)
-        prev, nxt = CASES[i - 1], CASES[(i + 1) % len(CASES)]
-        a = (f"{base}case/{prev[0]}.html", "Previous case study", prev[1])
-        b = (f"{base}case/{nxt[0]}.html", "Next case study", nxt[1])
+        rows = [(f"{base}case/{c}.html", "How I built " + t, ABOUT[c]) for c, t in CASES if c != case]
+        head, note = "More case studies", "Four more, and the way back"
     elif key and key != "home":
-        i = [p[2] for p in PAGES].index(key)
-        prev, nxt = PAGES[i - 1], PAGES[(i + 1) % len(PAGES)]
-        a = (base + prev[0], "Previous", prev[1])
-        b = (base + nxt[0], "Next", nxt[1])
+        rows = [(base + h, t, ABOUT[k]) for h, t, k in PAGES if k not in (key, "home")]
+        head, note = "Keep exploring", f"{len(rows)} more pages"
     else:
         return ""
-    return (f'<nav class="pager" aria-label="Previous and next page">'
-            f'<a class="pg pg-prev" href="{a[0] or "./"}">{LEFT}<span><small>{a[1]}</small><b>{a[2]}</b></span></a>'
-            f'<a class="pg pg-next" href="{b[0] or "./"}"><span><small>{b[1]}</small><b>{b[2]}</b></span>{RIGHT}</a></nav>')
+    rows.append((base + "#projects", "All projects", ABOUT["home"]))
+    rows.append((base + "#contact", "Get in touch", "Email, phone and profiles"))
+    items = "".join(f'<li><a href="{h}"><span class="dir-n">{i:02d}</span><b>{t}</b><small>{d}</small>{RIGHT}</a></li>'
+                    for i, (h, t, d) in enumerate(rows, 1))
+    return (f'<nav class="keep" aria-label="{head}"><div class="keep-head"><h2>{head}</h2><span>{note}</span></div>'
+            f'<ul class="dir">{items}</ul></nav>')
 
 
 def footer(base, key=None, case=None, home=False):
@@ -66,20 +75,24 @@ def footer(base, key=None, case=None, home=False):
         cur = ' aria-current="page"' if k == key else ""
         return f'<li><a href="{base + h or "./"}"{cur}>{t}</a></li>'
 
-    cols = "".join(f'<div class="ft-col"><h2>{name}</h2><ul>{"".join(link(k) for k in keys)}</ul></div>' for name, keys in COLUMNS)
-    here = ' aria-current="page"'
-    cols += ('<div class="ft-col"><h2>Case studies</h2><ul>' + "".join(
-        f'<li><a href="{base}case/{s}.html"{here if s == case else ""}>{t}</a></li>' for s, t in CASES) + "</ul></div>")
+    # The directory above already lists the other pages (or, on a case study, the other case studies),
+    # so the columns below it carry only what it does not.
+    cols, here = "", ' aria-current="page"'
+    if home or case:
+        cols += "".join(f'<div class="ft-col"><h2>{name}</h2><ul>{"".join(link(k) for k in keys)}</ul></div>' for name, keys in COLUMNS)
+    if not case:
+        cols += ('<div class="ft-col"><h2>Case studies</h2><ul>' + "".join(
+            f'<li><a href="{base}case/{s}.html"{here if s == case else ""}>{t}</a></li>' for s, t in CASES) + "</ul></div>")
     cols += ('<div class="ft-col"><h2>Elsewhere</h2><ul>' + "".join(
         f'<li><a href="{u}" target="_blank" rel="noopener">{l}</a></li>' for l, u in social()) + "</ul></div>")
     patches = "".join(
         f'<a href="{base}#p/{pid}" title="{t}"><img src="{base}brand/patches/thumb/{img}-112.webp" width="56" height="56" loading="lazy" alt="{t} mission patch"></a>'
         for pid, img, t in PATCHES)
     extra = ('<span class="ft-meta"><span id="updated"></span><span class="tip"> · Press <kbd>?</kbd> for shortcuts</span></span>' if home
-             else f'<span class="ft-meta"><a href="{base}#contact">Get in touch</a></span>')
+             else '<span class="ft-meta"><a href="#">Back to top</a></span>')
     return f"""<footer class="footer">
     <div class="wrap">
-      {pager(base, key, case)}
+      {directory(base, key, case)}
       <div class="ft-top">
         <div class="ft-brand">
           <a class="ft-seal" href="{base or "./"}" aria-label="Malcolm Syme, home"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="{base}assets/emblem.svg#e"/></svg></a>

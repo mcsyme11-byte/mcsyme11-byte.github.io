@@ -14,7 +14,7 @@ import pages_extra as X
 import shared as S
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-V = "20261118g"
+V = "20261118h"
 
 NAV = [("../", "Home", "home"), ("../about/", "About", "about"), ("../experience/", "Experience", "experience"),
        ("../studies/", "Studies", "studies"), ("../alpha/", "Project Alpha", "alpha"), ("../flights/", "Flight log", "flights")]

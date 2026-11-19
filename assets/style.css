@@ -1024,7 +1024,7 @@ a.tile:hover { background: var(--card2); color: var(--ink); }
 
 
 /* ==================================================================================================
-   Footer on every page (dev/shared.py): pager, seal, site map, project patches. Nov 18, 2026.
+   Footer on every page (dev/shared.py): Keep exploring list, seal, links, project patches. Nov 18, 2026.
    ================================================================================================== */
 /* Lower-case descenders (g, y, p) need room below the line for the gradient text to paint them. */
 h1 { padding-bottom: .14em; margin-bottom: calc(22px - .14em); }
@@ -1033,16 +1033,21 @@ h1.split .ltr { padding-bottom: .14em; margin-bottom: -.14em; }
 
 .footer { margin-top: 0; border-top: 1px solid var(--line); padding: 0 0 30px; font-size: 14.5px; color: var(--ink2);
   background: linear-gradient(180deg, rgba(12,17,25,0), rgba(12,17,25,.75) 240px); }
-.pager { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
-.pg { display: flex; align-items: center; gap: 20px; padding: 34px 0; text-decoration: none; color: var(--ink); min-width: 0; }
-.pg-next { justify-content: flex-end; text-align: right; border-left: 1px solid var(--line); padding-left: 24px; }
-.pg-prev { padding-right: 24px; }
-.pg small { display: block; color: var(--brass); font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; margin-bottom: 4px; }
-.pg b { display: block; font-weight: 400; font-size: clamp(19px, 2.5vw, 30px); line-height: 1.2; }
-.pg svg { flex: none; width: 20px; height: 20px; fill: none; stroke: var(--brass-bright); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .35s var(--ease); }
-.pg:hover { color: var(--brass-bright); }
-.pg-next:hover svg { transform: translateX(6px); }
-.pg-prev:hover svg { transform: translateX(-6px); }
+.keep { padding: 52px 0 6px; }
+.keep-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.keep-head h2 { font-size: clamp(26px, 3.2vw, 36px); color: var(--ink); }
+.keep-head span { color: var(--muted); font-style: italic; font-size: 15px; }
+.dir { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; border-top: 1px solid var(--line); }
+.dir li { border-bottom: 1px solid var(--line); }
+.dir a { position: relative; display: grid; grid-template-columns: 38px 1fr 22px; align-items: center; gap: 4px 10px; padding: 17px 6px 17px 0; text-decoration: none; color: var(--ink); transition: color .2s; }
+.dir a::before { content: ""; position: absolute; left: -16px; top: 12px; bottom: 12px; width: 2px; background: var(--brass); transform: scaleY(0); transition: transform .3s var(--ease); }
+.dir-n { color: var(--brass-dim); font-size: 13px; letter-spacing: .1em; }
+.dir b { font-weight: 400; font-size: 21px; line-height: 1.25; }
+.dir small { grid-column: 2; color: var(--muted); font-size: 14.5px; }
+.dir svg { grid-row: 1 / span 2; grid-column: 3; width: 16px; height: 16px; fill: none; stroke: var(--brass-dim); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s var(--ease); }
+.dir a:hover, .dir a:focus-visible { color: var(--brass-bright); }
+.dir a:hover::before, .dir a:focus-visible::before { transform: scaleY(1); }
+.dir a:hover svg, .dir a:focus-visible svg { stroke: var(--brass-bright); transform: translateX(5px); }
 .ft-top { display: grid; grid-template-columns: minmax(280px, 1fr) 2.3fr; gap: 56px; padding: 52px 0 38px; }
 .ft-brand { display: flex; gap: 20px; align-items: flex-start; }
 .ft-seal { flex: none; position: relative; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; color: var(--brass-bright);
@@ -1055,7 +1060,7 @@ h1.split .ltr { padding-bottom: .14em; margin-bottom: -.14em; }
 .ft-brand .ft-contact { margin-top: 14px; }
 .ft-contact a { display: block; width: fit-content; color: var(--brass-bright); text-decoration: none; line-height: 1.75; }
 .ft-contact a:hover { color: var(--ink); }
-.ft-cols { display: grid; grid-template-columns: repeat(5, auto); gap: 24px 34px; justify-content: space-between; }
+.ft-cols { display: grid; grid-auto-flow: column; grid-auto-columns: auto; gap: 24px 48px; justify-content: end; }
 .ft-col h2 { margin: 0 0 14px; color: var(--brass); font-size: 10.5px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; }
 .ft-col ul { list-style: none; margin: 0; padding: 0; }
 .ft-col li { margin: 0 0 9px; }
@@ -1072,18 +1077,17 @@ h1.split .ltr { padding-bottom: .14em; margin-bottom: -.14em; }
 .ft-meta .tip kbd { margin: 0 2px; }
 @media (max-width: 1040px) {
   .ft-top { grid-template-columns: 1fr; gap: 36px; }
-  .ft-cols { grid-template-columns: repeat(3, auto); justify-content: space-between; }
+  .ft-cols { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); justify-content: stretch; }
 }
 @media (max-width: 720px) {
-  .pg { padding: 24px 0; gap: 12px; } .pg svg { width: 16px; height: 16px; }
-  .pg-next { padding-left: 14px; } .pg-prev { padding-right: 14px; }
-  .pg small { letter-spacing: .2em; font-size: 10px; }
+  .keep { padding-top: 38px; } .keep-head { flex-direction: column; gap: 2px; }
+  .dir { grid-template-columns: 1fr; } .dir a { padding: 15px 4px 15px 0; } .dir a::before { display: none; }
   .ft-top { padding: 38px 0 28px; }
-  .ft-cols { grid-template-columns: 1fr 1fr; gap: 28px 20px; justify-content: stretch; }
+  .ft-cols { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
   .ft-patches { gap: 12px; } .ft-patches img { width: 44px; height: 44px; }
   .ft-base { flex-direction: column; }
 }
-@media (prefers-reduced-motion: reduce) { .ft-seal, .ft-patches a, .pg svg { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .ft-seal, .ft-patches a, .dir svg, .dir a::before { transition: none; } }
 @media print { .footer { display: none; } }
 
 /* The menu folds into the two-line button below 1060 px, where the links no longer fit on one line. */
