@@ -1,23 +1,32 @@
 #!/usr/bin/env python3
-"""Builds the portfolio's extra pages: about/, experience/, ideas/ and patches/.
+"""Builds the portfolio's extra pages: about/, experience/, ideas/, patches/, alpha/, studies/, flights/, lessons/ and admissions/.
 
 Run:  python3 dev/build_pages.py
-The text of the About page is written here. The Experience, Idea Lab and Patches pages are shells:
-their content is drawn in the browser by assets/pages.js from data/projects.js, so there is one source.
-Public site: no town, school, grade, club or employer names.
+The text of the About page is written here; Project Alpha, Studies, Lessons and Admissions are in dev/pages_extra.py.
+The Experience, Idea Lab, Patches and Flight log pages are shells: their content is drawn in the browser by
+assets/pages.js (from data/projects.js, or Logbook's public data), so there is one source.
+Public site: no town, school, grade, club or employer names. All text is written for visitors.
 """
-import pathlib
+import pathlib, sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import pages_extra as X
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-V = "20261118d"
+V = "20261118e"
 
 NAV = [("../", "Home", "home"), ("../about/", "About", "about"), ("../experience/", "Experience", "experience"),
-       ("../ideas/", "Idea Lab", "ideas"), ("../patches/", "Patches", "patches")]
+       ("../studies/", "Studies", "studies"), ("../alpha/", "Project Alpha", "alpha"), ("../flights/", "Flight log", "flights")]
+# Every page, for the footer's site map.
+ALL = [("../", "Home"), ("../about/", "About"), ("../experience/", "Experience"), ("../admissions/", "For admissions"),
+       ("../studies/", "Studies"), ("../alpha/", "Project Alpha"), ("../flights/", "Flight log"), ("../lessons/", "Lessons learned"),
+       ("../ideas/", "Idea Lab"), ("../patches/", "Mission patches")]
 
 
 def shell(page, title, desc, body):
     cur = ' class="on" aria-current="page"'
     links = "".join('<a href="%s"%s>%s</a>' % (h, cur if k == page else "", t) for h, t, k in NAV)
+    sitemap = " · ".join('<a href="%s">%s</a>' % (h, t) for h, t in ALL)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,12 +63,14 @@ def shell(page, title, desc, body):
   <footer class="footer">
     <div class="wrap foot">
       <span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a> · <a href="tel:+14036791495">+1 (403) 679-1495</a></span>
-      <span class="muted"><a href="../">Home</a> · <a href="../about/">About</a> · <a href="../experience/">Experience</a> · <a href="../ideas/">Idea Lab</a> · <a href="../patches/">Patches</a></span>
+      <span class="muted sitemap">{sitemap}</span>
     </div>
   </footer>
   <script>window.PATCH_BASE = "../";</script>
   <script src="../data/projects.js?v={V}"></script>
+  <script src="../data/activity.js?v={V}"></script>
   <script src="../assets/patches.js?v={V}"></script>
+  <script src="../assets/media.js?v={V}"></script>
   <script src="../assets/pages.js?v={V}"></script>
 </body>
 </html>
@@ -101,7 +112,7 @@ ABOUT = hero("About", "I build things that fly, and things that explain flight."
           <div class="tile"><dt>Explainers</dt><dd>24</dd><span class="note">on Simply Aerospace</span></div>
           <div class="tile"><dt>Sim flights</dt><dd id="st-flights">61</dd><span class="note" id="st-hours">logged automatically</span></div>
           <div class="tile"><dt>Certifications</dt><dd>6</dd><span class="note">drone, first aid, lifesaving</span></div>
-          <div class="tile"><dt>Case studies</dt><dd>4</dd><span class="note">how each was built</span></div>
+          <div class="tile"><dt>Case studies</dt><dd>5</dd><span class="note">how each was built</span></div>
           <div class="tile"><dt>Working since</dt><dd>2019</dd><span class="note">first paid jobs</span></div>
         </dl>
       </div>
@@ -109,10 +120,10 @@ ABOUT = hero("About", "I build things that fly, and things that explain flight."
 
     <section class="section">
       <div class="wrap">
-        <div class="shead reveal"><h2>How I work</h2><span class="aside">Rules I actually follow</span></div>
+        <div class="shead reveal"><h2>How I work</h2><span class="aside">Six rules behind every project</span></div>
         <div class="principles">
-          <div class="principle reveal"><span>01</span><h3>Plan first, build on "go"</h3><p>Questions get answered before anything changes. Nothing is built, installed or published until I say go.</p></div>
-          <div class="principle reveal"><span>02</span><h3>Mock-ups before pixels</h3><p>Every new page starts as a mock-up I approve. If it disappoints, the plan changes, not my standards.</p></div>
+          <div class="principle reveal"><span>01</span><h3>Plan first, then build</h3><p>A written plan comes before any code: what the thing should do, what it must never do, and how it will be checked.</p></div>
+          <div class="principle reveal"><span>02</span><h3>Mock-ups before pixels</h3><p>Every new page starts as a drawing. If the drawing disappoints, the plan changes, not the standard.</p></div>
           <div class="principle reveal"><span>03</span><h3>Nothing untested near the simulator</h3><p>After one bad day in October 2026, every request an app sends to the sim is tried safely by itself first.</p></div>
           <div class="principle reveal"><span>04</span><h3>Every fact from a named source</h3><p>Runways from the current chart. Data from the agency's own documentation. Anything unconfirmed is marked, never guessed.</p></div>
           <div class="principle reveal"><span>05</span><h3>Write it down</h3><p>Each project keeps a roadmap, a change log, a history and a project record that rebuilds itself after every change.</p></div>
@@ -126,7 +137,7 @@ ABOUT = hero("About", "I build things that fly, and things that explain flight."
         <div class="shead reveal"><h2>The flight deck</h2><span class="aside">What I fly and build with</span></div>
         <div class="gear">
           <div class="gear-card reveal"><h3>Simulator cockpit</h3><ul><li>Side stick, throttle quadrant and rudder pedals <em>Thrustmaster</em></li><li>Autopilot panel (FCU), MCDU and overhead panel <em>WinWing</em></li><li>Microsoft Flight Simulator 2024, flown on VATSIM</li></ul></div>
-          <div class="gear-card reveal"><h3>In the air</h3><ul><li>DJI Air 3S <em>inspections, surveys, 4K video</em></li><li>Transport Canada drone pilot certificate <em>Basic Operations</em></li><li>Project Alpha <em>3-inch fibreglass rocket, in build</em></li></ul></div>
+          <div class="gear-card reveal"><h3>In the air</h3><ul><li>DJI Air 3S <em>inspections, surveys, 4K video</em></li><li>Transport Canada drone pilot certificate <em>Basic Operations</em></li><li>Project Alpha <em>3-inch fibreglass rocket, in design</em></li></ul></div>
           <div class="gear-card reveal"><h3>Workshop</h3><ul><li>Claude <em>building, studying, reviewing</em></li><li>GitHub <em>every project, with automatic checks</em></li><li>Blender, CAD and 3D printing <em>scenery and models</em></li></ul></div>
         </div>
       </div>
@@ -146,6 +157,13 @@ ABOUT = hero("About", "I build things that fly, and things that explain flight."
           <a class="case-link" href="../experience/"><span>Next</span><b>Experience and certifications</b>{ARROW}</a>
           <a class="case-link" href="../#contact"><span>Or</span><b>Get in touch</b>{ARROW}</a>
         </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="shead reveal"><h2>Build activity</h2><span class="aside" id="heat-note">Changes saved per day, all repositories</span></div>
+        <div class="heat reveal" id="heat"></div>
       </div>
     </section>"""
 
@@ -187,7 +205,7 @@ EXPERIENCE = hero("Experience", "Experience and certifications",
     </section>"""
 
 IDEAS = hero("Idea Lab", "Thirty ideas. Seven already live.",
-             "One evening in November 2026 I wrote down thirty project ideas, then grouped them into seven bigger projects. This page tracks which ones have become real.") + f"""
+             "One evening in November 2026 I wrote down thirty project ideas, then grouped them into seven bigger projects. Two days later, the first seven were live.") + f"""
     <section class="section">
       <div class="wrap">
         <div class="idea-meter reveal" id="idea-meter"></div>
@@ -200,8 +218,8 @@ IDEAS = hero("Idea Lab", "Thirty ideas. Seven already live.",
         <ol class="steps">
           <li class="reveal"><span>01</span><h3>Write it down</h3><p>Thirty ideas on one list, on November 15, 2026.</p></li>
           <li class="reveal"><span>02</span><h3>Group it</h3><p>Similar ideas combine into bigger projects, and each finds a home in something that already exists.</p></li>
-          <li class="reveal"><span>03</span><h3>Write the brief</h3><p>What it should show and teach, where the data comes from, and what it must reuse.</p></li>
-          <li class="reveal"><span>04</span><h3>Approve the mock-up</h3><p>Nothing is built until the mock-up looks right.</p></li>
+          <li class="reveal"><span>03</span><h3>Plan it</h3><p>What it should show and teach, and which official source each number comes from.</p></li>
+          <li class="reveal"><span>04</span><h3>Draw it first</h3><p>The design is drawn and judged before any of it is built.</p></li>
           <li class="reveal"><span>05</span><h3>Build, check, ship</h3><p>Sources checked against their documentation, pages tested at every size, then published. Four tools went live on November 17.</p></li>
         </ol>
         <div class="next-links reveal">
@@ -212,7 +230,7 @@ IDEAS = hero("Idea Lab", "Thirty ideas. Seven already live.",
     </section>"""
 
 PATCHES = hero("Mission patches", "Every project flies its own patch.",
-               "Like real space missions, each of my projects has a mission patch. Six are now the official logos of their projects. Select one to turn it over.") + f"""
+               "Like real space missions, each of my projects has a mission patch, and six projects use theirs as their official logo. Select one to turn it over.") + f"""
     <section class="section">
       <div class="wrap">
         <div class="gal-filter reveal" id="gal-filter"></div>
@@ -244,6 +262,11 @@ PAGES = [
     ("experience", "Experience and certifications", "Work experience, certifications and strengths of Malcolm Syme.", EXPERIENCE),
     ("ideas", "Idea Lab", "Thirty project ideas, grouped into seven projects, and which ones are live.", IDEAS),
     ("patches", "Mission patches", "The mission patch of every project by Malcolm Syme.", PATCHES),
+    ("alpha", "Project Alpha", "Alpha I: a 3-inch fibreglass rocket designed from the math up. Build log, drawing and flight mathematics.", X.ALPHA),
+    ("studies", "Studies", "Winglets and Induced Drag, a research paper with a 1:35 CAD model, and the flight mathematics of Alpha I.", X.STUDIES),
+    ("flights", "Flight log", "Flights logged automatically by Logbook: routes, landings, records and aircraft.", X.FLIGHTS),
+    ("lessons", "Lessons learned", "What went wrong across Malcolm Syme's projects, and the rule each mistake left behind.", X.LESSONS),
+    ("admissions", "For admissions", "Malcolm Syme in sixty seconds: research, engineering, hands-on work and a one-page CV.", X.ADMISSIONS),
 ]
 
 for page, title, desc, body in PAGES:

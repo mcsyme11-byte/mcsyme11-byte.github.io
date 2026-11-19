@@ -247,7 +247,7 @@
     .forEach(function (s) { ENTRIES.push({ kind: "Section", label: s[1], run: go(s[0]) }); });
   D.projects.forEach(function (p) {
     ENTRIES.push({ kind: p.status === "idea" ? "Idea" : "Project", label: p.title, hint: p.tagline, run: function () { PF.open(p.id); } });
-    if (p.caseStudy) ENTRIES.push({ kind: "Case study", label: "How I built " + p.title, run: function () { location.href = p.caseStudy; } });
+    if (p.caseStudy) ENTRIES.push({ kind: p.caseKind || "Case study", label: p.caseKind ? p.title + ": " + p.caseLabel : "How I built " + p.title, run: function () { location.href = p.caseStudy; } });
     (p.links || []).forEach(function (l) { ENTRIES.push({ kind: "Link", label: p.title + ": " + l.label, run: function () { open(l.url, "_blank", "noopener"); } }); });
   });
   (D.social || []).forEach(function (l) { ENTRIES.push({ kind: "Profile", label: l.label, run: function () { open(l.url, "_blank", "noopener"); } }); });
@@ -381,7 +381,7 @@
   ENTRIES.push({ kind: "Action", label: "Show keyboard shortcuts", run: function () { keys.showModal(); } });
   ENTRIES.push({ kind: "Section", label: "Now: on the workbench", run: go("latest") });
   ENTRIES.push({ kind: "Section", label: "Mission patches", run: go("patches") });
-  [["about/", "About me"], ["experience/", "Experience and certifications"], ["ideas/", "Idea Lab"], ["patches/", "Mission patch gallery"]].forEach(function (pg) {
+  [["about/", "About me"], ["experience/", "Experience and certifications"], ["admissions/", "For admissions"], ["studies/", "Studies and papers"], ["alpha/", "Project Alpha build log"], ["flights/", "Flight log"], ["lessons/", "Lessons learned"], ["ideas/", "Idea Lab"], ["patches/", "Mission patch gallery"]].forEach(function (pg) {
     ENTRIES.push({ kind: "Page", label: pg[1], run: function () { location.href = pg[0]; } });
   });
 

@@ -193,17 +193,20 @@ window.PORTFOLIO = {
       id: "project-alpha",
       icon: "rocket",
       title: "Project Alpha",
-      tagline: "Designing and building a high-power model rocket",
+      tagline: "Designing a high-power rocket from the math up",
+      caseStudy: "alpha/", caseKind: "Build log", caseLabel: "Drawing, flight math and progress",
       status: "current",
       categories: ["Space"],
       started: "2026",
       featured: true,
       role: "Designer and builder",
       summary:
-        "A hands-on rocketry project. The first build, Alpha I, is a 3-inch fibreglass rocket with dual-deploy recovery (a small drogue chute at the top of the flight, then the main parachute closer to the ground). A larger Alpha II is planned.",
+        "A hands-on rocketry project. The first build, Alpha I, is a 3-inch fibreglass rocket with dual-deploy recovery (a small drogue chute at the top of the flight, then the main parachute closer to the ground). It is in the design phase: the airframe is drawn and its flight is worked out on paper, while the motor and the launch plan are still being settled. A larger Alpha II is planned.",
       highlights: [
-        "3-inch fibreglass airframe",
-        "Dual-deploy recovery system",
+        "3-inch fibreglass airframe, 1.28 m long, drawn in OpenRocket",
+        "Dual-deploy recovery: a drogue at apogee, then the main parachute",
+        "Flight mathematics worked out before any part is built",
+        "First revision of the design; a second is under way",
         "Alpha II planned as the next, larger build"
       ],
       skills: ["Rocketry", "Physics", "Hands-on building", "Engineering design"],
@@ -219,12 +222,14 @@ window.PORTFOLIO = {
       categories: ["Research", "Aviation"],
       started: "Fall 2026",
       featured: false,
-      role: "Author and builder (Makerspace course)",
+      caseStudy: "studies/#winglets", caseKind: "Paper", caseLabel: "Read it, and see the seven wingtips",
+      role: "Author and designer (Makerspace course)",
       summary:
-        "A formal research paper on winglets and induced drag, written for a self-directed Makerspace technology course. It is paired with a CAD-designed, 3D-printed display model of wingtip shapes, including an A350-style winglet.",
+        "A formal research paper on winglets and induced drag, written for a self-directed Makerspace technology course. It is paired with a 1:35 display model designed in CAD for 3D printing: one wing section and seven wingtips that swap by hand, including an A350-style winglet.",
       highlights: [
-        "Formal paper built on published, proven research",
-        "CAD design and 3D printing of a wingtip display model"
+        "14-page paper built on 13 published sources, from NASA to Airbus and Boeing",
+        "Seven wingtip designs modelled in CAD at 1:35, each sized from published figures",
+        "Designed to print on a 180 mm bed, with tips that swap by hand"
       ],
       skills: ["Aerodynamics", "Technical writing", "Research", "CAD", "3D printing"],
       links: []
@@ -273,6 +278,8 @@ window.PORTFOLIO = {
       icon: "drone",
       title: "Syme Skyworks",
       tagline: "My own drone services and construction support company",
+      caseStudy: "case/syme-skyworks.html",
+      photos: [["lake-below-peaks", "Lake below the peaks"], ["golden-hour", "Golden hour"], ["first-snow", "First snow"]],
       status: "current",
       categories: ["Business"],
       started: "2023",
@@ -396,10 +403,11 @@ window.PORTFOLIO = {
     { fix: "IDEAS", when: "2020", what: "First ideas for Syme Skyworks" },
     { fix: "SKYWK", when: "2023", what: "Founded Syme Skyworks: drone services and construction support" },
     { fix: "SMPLA", when: "2026", what: "Launched Simply Aerospace, now with 24 explainers and Mission Control" },
+    { fix: "ALPHA", when: "Jun 2026", what: "Designed Alpha I, the first Project Alpha rocket, and worked out its flight on paper" },
     { fix: "CZEGG", when: "Sep 2026", what: "Started VATSIM air traffic control training in the Edmonton FIR" },
     { fix: "FDECK", when: "Oct 2026", what: "Built the Flight Deck Suite (Squawk, Logbook, Playback, Ramp, Vantage, Hangar)" },
     { fix: "HOTMC", when: "Oct 2026", what: "Built Hot Mic, a free on-device dictation app for Windows" },
-    { fix: "WNGLT", when: "Fall 2026", what: "Began the winglets research paper and Project Alpha rocket" },
+    { fix: "WNGLT", when: "Oct 2026", what: "Wrote the winglets research paper and designed its seven-wingtip model" },
     { fix: "NEDAP", when: "Nov 2026", what: "Launched NASA and ESA Data Projects and started Airport Scenery" },
     { fix: "PUBLC", when: "Nov 10, 2026", what: "First public release of the Flight Deck Suite" },
     { fix: "TESTG", when: "Nov 15, 2026", what: "Started public testing of Hot Mic" },
@@ -470,12 +478,13 @@ window.PORTFOLIO = {
     { id: "hot-mic", state: "Testing", text: "Public testing: fixing what testers report" },
     { id: "airport-scenery", state: "In review", text: "Springbank (CYBW): the airport layout, with the first buildings modelled" },
     { id: "winglets", state: "Writing", text: "The research paper, and a 3D-printed wingtip display model" },
-    { id: "project-alpha", state: "Building", text: "Alpha I: a 3-inch fibreglass, dual-deploy rocket" }
+    { id: "project-alpha", state: "Designing", text: "Alpha I: second revision of the design under way" }
   ],
 
   /* "What's new". Newest first. Flight Deck Suite releases are also read live from its catalog. */
   news: [
-    { date: "2026-11-18", project: "Portfolio", text: "Four new pages: About, Experience, Idea Lab and Mission patches", url: "about/" },
+    { date: "2026-11-18", project: "Winglets Research Paper", text: "The paper and its seven CAD wingtips can now be read on the Studies page", url: "studies/" },
+    { date: "2026-11-18", project: "Project Alpha", text: "Build log opened: the rocket drawn to scale, with its first-revision flight math", url: "alpha/" },
     { date: "2026-11-18", project: "NASA and ESA Data Projects", text: "Space Weather now updates itself with a scheduled data job", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-weather/" },
     { date: "2026-11-17", project: "NASA and ESA Data Projects", text: "Orbit & Space Watch is live: Orbit Watch, Space Weather, Exoplanets and Planetary Maps", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-watch/" },
     { date: "2026-11-17", project: "All projects", text: "Six projects adopted their mission patches as official logos" },

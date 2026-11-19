@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Alpha · Malcolm Syme</title>
+  <meta name="description" content="Alpha I: a 3-inch fibreglass rocket designed from the math up. Build log, drawing and flight mathematics.">
+  <meta name="author" content="Malcolm Syme">
+  <meta property="og:title" content="Project Alpha · Malcolm Syme">
+  <meta property="og:description" content="Alpha I: a 3-inch fibreglass rocket designed from the math up. Build log, drawing and flight mathematics.">
+  <meta property="og:image" content="https://mcsyme11-byte.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#141B26">
+  <link rel="icon" href="../assets/emblem.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/icon-180.png">
+  <link rel="stylesheet" href="../assets/style.css?v=20261118e">
+</head>
+<body class="sub" data-page="alpha">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="progress" aria-hidden="true"></div>
+    <div class="wrap bar">
+      <a class="brand" href="../" aria-label="Malcolm Syme, home">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true"><use href="../assets/emblem.svg#e"/></svg>
+        <span>Malcolm Syme</span>
+      </a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span></button>
+      <nav id="nav" class="nav" aria-label="Pages"><a href="../">Home</a><a href="../about/">About</a><a href="../experience/">Experience</a><a href="../studies/">Studies</a><a href="../alpha/" class="on" aria-current="page">Project Alpha</a><a href="../flights/">Flight log</a><a href="../#contact" class="nav-cta">Contact</a></nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="cs-hero pg-hero">
+      <div class="wrap">
+        <p class="eyebrow reveal">Project Alpha · Build log</p>
+        <h1 class="reveal">Alpha I: a rocket designed from the math up.</h1>
+        <p class="lede reveal">A 3-inch fibreglass rocket with two-stage parachute recovery. This is the first revision of the design. The motor, the recovery sizes and the launch plan are still being worked out, so the numbers here will change.</p>
+        <div class="revnote reveal"><span class="rev-dot"></span><b>Phase 1 · Revision 1</b><span>Design, June 2026 · Updated as the project moves</span></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="shead reveal"><h2>The rocket</h2><span class="aside">Drawn to scale from the design file</span></div>
+        <div class="rocket-fig reveal"><svg class="rocket" viewBox="0 0 1399 436" role="img" aria-label="Side view of Alpha I, drawn to scale: nose cone, parachute bay, avionics bay and fin can with three fins and a 54 millimetre motor mount.">
+  <path class="rk-axis" d="M30 190H1369"/>
+  <path class="rk-fin" d="M1199 152 L1231.5 62 L1296.5 62 L1329 152Z"/><path class="rk-fin" d="M1199 228 L1231.5 318 L1296.5 318 L1329 228Z"/>
+  <path class="rk-fin rk-fin-mid" d="M1199 187H1329V193H1199Z"/>
+  <rect class="rk-mount" x="1009" y="163" width="325" height="54" rx="2"/>
+  <path class="rk-body" d="M60 190 Q185.95000000000002 150 289 152 V228 Q185.95000000000002 230 60 190Z"/>
+  <rect class="rk-body" x="289" y="152" width="430" height="76"/>
+  <rect class="rk-body" x="719" y="152" width="200" height="76"/>
+  <rect class="rk-body" x="919" y="152" width="420" height="76"/>
+  <path class="rk-join" d="M289 152V228M719 152V228M919 152V228"/>
+  <rect class="rk-chute" x="409" y="166" width="190" height="48" rx="24"/><rect class="rk-chute" x="837" y="174" width="62" height="32" rx="16"/><rect class="rk-elec" x="741" y="170" width="78" height="40" rx="4"/><path class="rk-elec-l" d="M753 182h54M753 192h40M753 202h48"/>
+  <g class="rk-tag"><circle cx="180" cy="118" r="13"/><text x="180" y="122.5" text-anchor="middle">1</text></g><g class="rk-tag"><circle cx="504" cy="118" r="13"/><text x="504" y="122.5" text-anchor="middle">2</text></g><g class="rk-tag"><circle cx="819" cy="118" r="13"/><text x="819" y="122.5" text-anchor="middle">3</text></g><g class="rk-tag"><circle cx="1029" cy="118" r="13"/><text x="1029" y="122.5" text-anchor="middle">4</text></g><g class="rk-tag"><circle cx="1261.5" cy="36" r="13"/><text x="1261.5" y="40.5" text-anchor="middle">5</text></g><g class="rk-tag"><circle cx="1159" cy="190" r="13"/><text x="1159" y="194.5" text-anchor="middle">6</text></g>
+  <g class="rk-dim"><path d="M60 340V352M289 340V352M60 346H289"/><text x="174.5" y="368" text-anchor="middle">229 mm</text></g><g class="rk-dim"><path d="M289 340V352M719 340V352M289 346H719"/><text x="504.0" y="368" text-anchor="middle">430 mm</text></g><g class="rk-dim"><path d="M719 340V352M919 340V352M719 346H919"/><text x="819.0" y="368" text-anchor="middle">200 mm</text></g><g class="rk-dim"><path d="M919 340V352M1339 340V352M919 346H1339"/><text x="1129.0" y="368" text-anchor="middle">420 mm</text></g>
+  <g class="rk-dim"><path d="M60 382V394M1339 382V394M60 388H1339"/><text x="699.5" y="410" text-anchor="middle">1,279 mm overall · 76 mm diameter</text></g>
+</svg></div>
+        <ol class="rk-legend reveal"><li><span>1</span><div><b>Nose cone</b><small>Fibreglass ogive, 229 mm</small></div></li><li><span>2</span><div><b>Parachute bay</b><small>Holds the 24-inch main parachute</small></div></li><li><span>3</span><div><b>Avionics bay</b><small>Flight computer and the 12-inch drogue</small></div></li><li><span>4</span><div><b>Fin can</b><small>Carries the fins and the motor mount</small></div></li><li><span>5</span><div><b>Fins</b><small>Three, cut from 3.2 mm G10 fibreglass</small></div></li><li><span>6</span><div><b>Motor mount</b><small>54 mm tube, 325 mm long</small></div></li></ol>
+        <dl class="tiles six reveal">
+          <div class="tile"><dt>Length</dt><dd>1.28 m</dd><span class="note">nose tip to tail</span></div>
+          <div class="tile"><dt>Diameter</dt><dd>76 mm</dd><span class="note">3-inch fibreglass tube</span></div>
+          <div class="tile"><dt>Fins</dt><dd>3</dd><span class="note">G10 fibreglass</span></div>
+          <div class="tile"><dt>Motor mount</dt><dd>54 mm</dd><span class="note">I-class motor</span></div>
+          <div class="tile"><dt>Recovery</dt><dd>2 stage</dd><span class="note">drogue, then main</span></div>
+          <div class="tile"><dt>Predicted apogee</dt><dd>5,700 ft</dd><span class="note">revision 1 estimate</span></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="math">
+      <div class="wrap">
+        <div class="shead reveal"><h2>Flight math</h2><span class="aside">Revision 1 · eight cards</span></div>
+        <div class="strip-wrap reveal"><div class="strip deck" tabindex="0" role="group" aria-label="Flight mathematics, eight cards"><article class="mcard"><span class="mc-n">01</span><h3>The air at the launch site</h3><p class="mc-why">The design conditions are 1,340 m above sea level and 22 °C. Thinner air means less drag.</p><p class="mc-eq">P = 101,325 × (1 − 0.0065 × 1,340 ÷ 288.15)<sup>5.256</sup></p><p class="mc-eq">ρ = P ÷ (R × T) = 86,230 ÷ (287.058 × 295.15)</p><p class="mc-res">ρ = 1.018 kg/m³</p><p class="mc-note">83% of sea-level density. Speed of sound: 344 m/s.</p></article><article class="mcard"><span class="mc-n">02</span><h3>How efficient the motor is</h3><p class="mc-why">Specific impulse is a motor's fuel economy: thrust delivered per unit of propellant.</p><p class="mc-eq">I<sub>sp</sub> = I<sub>total</sub> ÷ (m<sub>prop</sub> × g) = 585 ÷ (0.310 × 9.807)</p><p class="mc-eq">v<sub>e</sub> = I<sub>sp</sub> × g = 192.4 × 9.807</p><p class="mc-res">I<sub>sp</sub> = 192 s · v<sub>e</sub> = 1,887 m/s</p><p class="mc-note">Revision 1 baseline: an I-class motor, 585 N·s, 195 N average thrust, 3.0 s burn.</p></article><article class="mcard"><span class="mc-n">03</span><h3>Leaving the rail</h3><p class="mc-why">A rocket has to be moving fast enough for its fins to work before it leaves the launch rail.</p><p class="mc-eq">TWR = T ÷ (m × g) = 195 ÷ (1.51 × 9.807) = 13.2</p><p class="mc-eq">a = (195 − 14.81) ÷ 1.51 = 119 m/s² (12.2 g)</p><p class="mc-eq">v = √(2 × a × s) = √(2 × 119.3 × 2.44)</p><p class="mc-res">24 m/s off a 2.44 m rail</p><p class="mc-note">Comfortably above the 15 m/s usually asked for.</p></article><article class="mcard"><span class="mc-n">04</span><h3>The rocket equation</h3><p class="mc-why">Tsiolkovsky's equation gives the speed the motor could add with no gravity and no air.</p><p class="mc-eq">Δv = v<sub>e</sub> × ln(m<sub>0</sub> ÷ m<sub>1</sub>) = 1,887 × ln(1.51 ÷ 1.20)</p><p class="mc-eq">Ideal Δv = 434 m/s</p><p class="mc-eq">Gravity loss = g × t = 9.807 × 3.0 = 29 m/s</p><p class="mc-eq">Drag loss ≈ 108 m/s</p><p class="mc-res">296 m/s at burnout (Mach 0.86)</p><p class="mc-note">Drag takes a quarter of the ideal Δv. The flight stays subsonic.</p></article><article class="mcard"><span class="mc-n">05</span><h3>Maximum dynamic pressure</h3><p class="mc-why">Max-Q is the moment the air pushes hardest on the airframe, just before burnout.</p><p class="mc-eq">q = ½ × ρ × v² = 0.5 × 0.974 × 299²</p><p class="mc-eq">Drag = q × C<sub>d</sub> × A = 43,555 × 0.50 × 0.004536</p><p class="mc-res">43.6 kPa · 99 N of drag</p><p class="mc-note">At 473 m above the ground, 2.9 s into the flight.</p></article><article class="mcard"><span class="mc-n">06</span><h3>Sizing the drogue</h3><p class="mc-why">The small parachute opens at apogee and brings the rocket down fast, so it doesn't drift far.</p><p class="mc-eq">A = 2 × m × g ÷ (ρ × C<sub>d</sub> × v²)</p><p class="mc-eq">A = 2 × 1.2 × 9.807 ÷ (0.862 × 0.75 × 25²) = 0.058 m²</p><p class="mc-eq">D = √(4A ÷ π) = 0.27 m</p><p class="mc-res">12-inch drogue · 25 m/s</p><p class="mc-note">Rounded up to the nearest standard size.</p></article><article class="mcard"><span class="mc-n">07</span><h3>Sizing the main</h3><p class="mc-why">The main parachute opens at 800 ft and slows the rocket to a gentle landing.</p><p class="mc-eq">A = 2 × 1.2 × 9.807 ÷ (0.995 × 2.2 × 6²) = 0.30 m²</p><p class="mc-eq">D = √(4A ÷ π) = 0.62 m</p><p class="mc-eq">KE = ½ × m × v² = 0.5 × 1.2 × 6²</p><p class="mc-res">24-inch main · 6 m/s · 22 J</p><p class="mc-note">A landing energy well under the 100 J usually taken as the limit.</p></article><article class="mcard mcard-open"><span class="mc-n">08</span><h3>Still to redo</h3><p class="mc-why">Revision 2 starts from one set of dimensions and recalculates what depends on them.</p><ul><li>The final motor, and everything that follows from its thrust curve</li><li>Stability: centre of pressure and centre of gravity</li><li>Fin flutter margin</li><li>Parachute sizes against the final mass</li></ul><p class="mc-note">Numbers on the earlier cards will change with it.</p></article></div><div class="strip-nav"><button type="button" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H4M8 4L4 8l4 4"/></svg></button><span class="strip-count" aria-hidden="true"></span><button type="button" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></button></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="shead reveal"><h2>The flight, second by second</h2><span class="aside">Predicted, not yet flown</span></div>
+        <div class="profile-fig reveal"><svg class="profile" viewBox="0 0 1000 420" role="img" aria-label="Predicted flight profile: 494 metres at motor burnout after 3 seconds, 1,735 metres at apogee after 16.3 seconds, main parachute at 244 metres after 76 seconds, landing after 117 seconds.">
+  <path class="pf-grid" d="M70 368.0H980"/><text class="pf-ax" x="60" y="372.0" text-anchor="end">0 m</text><path class="pf-grid" d="M70 279.1H980"/><text class="pf-ax" x="60" y="283.1" text-anchor="end">500 m</text><path class="pf-grid" d="M70 190.1H980"/><text class="pf-ax" x="60" y="194.1" text-anchor="end">1,000 m</text><path class="pf-grid" d="M70 101.2H980"/><text class="pf-ax" x="60" y="105.2" text-anchor="end">1,500 m</text><text class="pf-ax" x="70.0" y="392" text-anchor="middle">0 s</text><text class="pf-ax" x="297.5" y="392" text-anchor="middle">30 s</text><text class="pf-ax" x="525.0" y="392" text-anchor="middle">60 s</text><text class="pf-ax" x="752.5" y="392" text-anchor="middle">90 s</text><text class="pf-ax" x="980.0" y="392" text-anchor="middle">120 s</text>
+  <path class="pf-line" d="M70.0 368.0 C71.9 363.0 77.6 352.4 81.4 337.8 C85.2 323.1 87.1 305.0 92.8 280.1 C98.4 255.2 107.9 214.6 115.5 188.3 C123.1 162.1 130.7 140.3 138.2 122.5 C145.8 104.7 154.0 91.4 161.0 81.6 C168.0 71.8 174.5 67.5 180.0 63.8 C185.4 60.1 191.3 60.1 193.6 59.4 L646.3 324.6 L957.2 368.0"/>
+  <circle class="pf-dot" cx="70.0" cy="368.0" r="5"/><text class="pf-lab" x="60.0" y="356.0" text-anchor="end">Liftoff</text><circle class="pf-dot" cx="92.8" cy="280.1" r="5"/><text class="pf-lab" x="106.8" y="286.1" text-anchor="start">Burnout · 3.0 s</text><circle class="pf-dot" cx="193.6" cy="59.4" r="5"/><text class="pf-lab" x="207.6" y="49.4" text-anchor="start">Apogee · 16.3 s</text><circle class="pf-dot" cx="646.3" cy="324.6" r="5"/><text class="pf-lab" x="636.3" y="350.6" text-anchor="end">Main parachute · 76 s</text><circle class="pf-dot" cx="957.2" cy="368.0" r="5"/><text class="pf-lab" x="961.2" y="334.0" text-anchor="end">Landing · 117 s</text><text class="pf-leg" x="403.7" y="174.1" text-anchor="start">Under the drogue: 25 m/s</text><text class="pf-leg" x="707.0" y="296.8" text-anchor="start">Under the main: 6 m/s</text>
+</svg></div>
+        <dl class="tiles reveal">
+          <div class="tile"><dt>Burnout</dt><dd>296 m/s</dd><span class="note">Mach 0.86 at 494 m</span></div>
+          <div class="tile"><dt>Apogee</dt><dd>1,735 m</dd><span class="note">16.3 s after liftoff</span></div>
+          <div class="tile"><dt>Peak load</dt><dd>12.4 g</dd><span class="note">near the end of the burn</span></div>
+          <div class="tile"><dt>Whole flight</dt><dd>117 s</dd><span class="note">about two minutes</span></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap narrow">
+        <div class="shead reveal"><h2>Build log</h2><span class="aside">Done, in progress, next</span></div>
+        <ol class="blog"><li class="reveal done"><span class="bl-when">June 2026</span><div><h3>Design drawn</h3><p>The airframe was laid out in OpenRocket: four sections, three fins, a 54 mm motor mount.</p></div></li><li class="reveal done"><span class="bl-when">June 2026</span><div><h3>Flight math written</h3><p>Atmosphere, motor, rail exit, rocket equation, flight profile and recovery, worked by hand and by simulation.</p></div></li><li class="reveal done"><span class="bl-when">November 2026</span><div><h3>Parts list drafted</h3><p>Every component matched to a real part, with substitutes where the first choice wasn't available.</p></div></li><li class="reveal now"><span class="bl-when">In progress</span><div><h3>Revision 2</h3><p>Settling the motor, reconciling the design file with the math, and redoing stability and recovery.</p></div></li><li class="reveal now"><span class="bl-when">In progress</span><div><h3>Launch plan</h3><p>Still being sorted out: where, when and under whose supervision Alpha I flies.</p></div></li><li class="reveal next"><span class="bl-when">Next</span><div><h3>Build</h3><p>Airframe, fin can, avionics bay and recovery harness.</p></div></li><li class="reveal next"><span class="bl-when">Later</span><div><h3>Ground tests</h3><p>Electronics and recovery checked on the bench before anything flies.</p></div></li><li class="reveal next"><span class="bl-when">Later</span><div><h3>First flight</h3><p>Then Alpha II, a larger build, using what Alpha I teaches.</p></div></li></ol>
+        <div class="next-links reveal"><a class="case-link" href="../studies/"><span>Next</span><b>Studies and papers</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a><a class="case-link" href="../lessons/"><span>Or</span><b>Lessons learned</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap foot">
+      <span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a> · <a href="tel:+14036791495">+1 (403) 679-1495</a></span>
+      <span class="muted sitemap"><a href="../">Home</a> · <a href="../about/">About</a> · <a href="../experience/">Experience</a> · <a href="../admissions/">For admissions</a> · <a href="../studies/">Studies</a> · <a href="../alpha/">Project Alpha</a> · <a href="../flights/">Flight log</a> · <a href="../lessons/">Lessons learned</a> · <a href="../ideas/">Idea Lab</a> · <a href="../patches/">Mission patches</a></span>
+    </div>
+  </footer>
+  <script>window.PATCH_BASE = "../";</script>
+  <script src="../data/projects.js?v=20261118e"></script>
+  <script src="../data/activity.js?v=20261118e"></script>
+  <script src="../assets/patches.js?v=20261118e"></script>
+  <script src="../assets/media.js?v=20261118e"></script>
+  <script src="../assets/pages.js?v=20261118e"></script>
+</body>
+</html>

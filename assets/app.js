@@ -127,8 +127,11 @@
     if (p.role) h += '<p class="d-role">' + esc(p.role) + "</p>";
     h += '<h3 id="d-title">' + esc(p.title) + "</h3>";
     h += '<p class="d-tagline">' + esc(p.tagline) + "</p></div></div>";
-    if (p.caseStudy) h += '<a class="case-link" href="' + esc(p.caseStudy) + '"><span>Case study</span><b>How I built it</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a>';
+    if (p.caseStudy) h += '<a class="case-link" href="' + esc(p.caseStudy) + '"><span>' + esc(p.caseKind || "Case study") + "</span><b>" + esc(p.caseLabel || "How I built it") + "</b>" + '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a>';
     h += '<p class="d-summary">' + esc(p.summary) + "</p>";
+    if (p.photos) h += '<div class="d-photos">' + p.photos.map(function (x) {
+      return '<img src="assets/photos/' + esc(x[0]) + '-640.webp" width="640" height="480" loading="lazy" alt="' + esc(x[1]) + ', photographed by drone">';
+    }).join("") + "</div>";
     if (p.parts) {
       h += '<div class="d-section"><h4>' + (idea ? "Includes" : "What's inside") + '</h4><div class="parts">' +
         p.parts.map(function (x) {

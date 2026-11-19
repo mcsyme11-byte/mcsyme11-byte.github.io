@@ -4,7 +4,7 @@ import html, pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "case"
 OUT.mkdir(exist_ok=True)
-V = "20261118d"
+V = "20261118e"
 e = html.escape
 
 PLANE = "M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"
@@ -141,11 +141,15 @@ CASES = [
       ("What I built", [
         "grid:The explainers|24 short videos on aviation, space and propulsion, each a 5-slide deck: hook, myth, concept, payoff, outro.;The website|A small encyclopedia of the channel: every explainer has an article with the myth, the truth and a way to go deeper.;Mission Control|Stories for ages 7 to 11 with real choices: a briefing, decisions with consequences, then a debrief. Each teaches one skill.;Finding things|Search on every page, filters by topic and level, a myth index, a quiz and a glossary.",
       ]),
+      ("Three sample explainers", [
+        "p:One from each level. Each explainer is five slides: the hook, the myth, the idea, the payoff and the sign-off.",
+        "decks:11|Junior Engineer|Why don't satellites fall down?;16|Flight Engineer|How do planes fly upside down?;24|Senior Engineer|How do rockets land themselves?",
+      ]),
       ("Key decisions", [
         "dec:Three levels, one channel|A level badge on every explainer tells people what to expect, from no math at all to worked examples.",
         "dec:Instagram first|The channel started on YouTube and Instagram. YouTube was paused after music was flagged and Shorts were capped at 60 seconds, so Instagram became its main home.",
         "dec:A fixed five-slide format|Hook, the myth, the concept, the payoff, the outro. Slides are drawn as SVG and rendered at 1080 × 1920, then assembled into a short video.",
-        "dec:Pitch, then wait|Topics are pitched two to four at a time, balanced across subjects and levels. Nothing is built until I approve it.",
+        "dec:Topics in small batches|Topics are chosen two to four at a time and balanced across subjects and levels, so no level is left behind and each one gets checked properly.",
         "dec:No mistakes|Facts are checked before they're stated, against primary sources such as NASA, NOAA and ESA.",
         "dec:One look across my projects|Version 3.0 of the website moved to the same navy, brass and cream look as my other projects, using one typeface and no web fonts.",
       ]),
@@ -158,6 +162,46 @@ CASES = [
       ]),
     ],
     links=[("Website", "https://mcsyme11-byte.github.io/SimplyAerospace/"), ("Instagram", "https://www.instagram.com/simplyaerospace"), ("YouTube", "https://www.youtube.com/@SimplyAerospace")],
+    next=("syme-skyworks", "Syme Skyworks"),
+  ),
+  dict(
+    slug="syme-skyworks", icon=PLANE, logo="syme-skyworks-patch.svg", eyebrow="Case study · Business · Drones",
+    title="Syme Skyworks",
+    lede="How shovelling snow for neighbours turned into a drone services and construction support company with its own pilot certificate, brand and website.",
+    facts=[("Role", "Founder and President"), ("Timeline", "First ideas 2020, founded 2023"),
+           ("Aircraft", "DJI Air 3S"), ("Status", "Operating")],
+    stats=[("2023", "founded"), ("2+ years", "of flight experience"), ("4K", "photo and video"), ("12", "aerial photos in the gallery")],
+    sections=[
+      ("Where it started", [
+        "p:I've been earning my own money since 2019: snow removal, yard care and construction help for local residents. The first ideas for a company of my own came in 2020, and <b>Syme Skyworks</b> was founded in 2023.",
+        "p:The name says what it does. The tagline is “Where the site meets the sky”: work on the ground, and work from the air above it.",
+      ]),
+      ("What the company does", [
+        "grid:In the air|Drone inspections of structures, rooftops and hard-to-reach areas.;Surveys and progress|Aerial surveys, mapping and construction progress monitoring.;Photo and video|Aerial photography and 4K video for real estate, marketing and events.;On the ground|Construction labour and site support, log stripping, yurt builds, foundation help and material runs.",
+        "p:I run the jobs as well as fly them: I hire, schedule and supervise a part-time worker, prepare client invoices and track payments.",
+      ]),
+      ("Flying it properly", [
+        "p:Commercial drone work has rules. I hold Transport Canada's Drone Pilot Certificate for Basic Operations, and the FAA's recreational safety certificate (TRUST) as well.",
+        "p:The aircraft is a DJI Air 3S, used for inspections, surveys and 4K photo and video.",
+      ]),
+      ("From the air", [
+        "p:A few of my own aerial photographs. Select one to see it larger.",
+        "gallery:river-and-ridge|River and ridge line;valley-panorama|Valley panorama;golden-hour|Golden hour;valley-road|Above the valley road;last-light|Last light;spring-river|Spring along the river;first-snow|First snow;lake-top-down|A lake, straight down;twilight-ridge|Twilight ridge line;lake-below-peaks|Lake below the peaks;meadow-and-lake|Meadow and lake;valley-overview|The valley from above",
+      ]),
+      ("The brand and the website", [
+        "p:In November 2026 the company adopted a mission patch as its logo, with simpler versions for small sizes, and the website was redesigned in the same navy, brass and cream look as my other projects.",
+        "dec:One page, no frameworks|The site is a single fast page with no build step and no web fonts: services, pricing, a gallery, questions and answers, and a contact form.",
+        "dec:Photos that load when needed|Gallery photos load lazily from small thumbnails, and a viewer opens the full picture.",
+      ]),
+      ("What went wrong", [
+        "p:The first website kept all twelve photos inside its one HTML file, which made the page about 4.2 MB before anything could appear.",
+        "lesson:What it taught me|A page should load what the visitor is looking at, not everything it owns. The photos moved into separate files with thumbnails, four duplicates were removed, and the gallery now loads small thumbnails first.",
+      ]),
+      ("What I learned", [
+        "p:A company is mostly not the exciting part. The flying is a small share of the work; the rest is showing up, quoting clearly, invoicing, and doing the job the way I said I would.",
+      ]),
+    ],
+    links=[("Visit the website", "https://mcsyme11-byte.github.io/SymeSkyWorks/")],
     next=("flight-deck-suite", "Flight Deck Suite"),
   ),
 ]
@@ -176,6 +220,22 @@ def block(b):
         return f'<div class="cs-dec reveal"><h3>{e(t)}</h3><p>{e(d)}</p></div>'
     if kind == "quote":
         return f'<blockquote class="reveal">“{e(body)}”</blockquote>'
+    if kind == "gallery":
+        cells = [c.split("|", 1) for c in body.split(";")]
+        return '<div class="pgrid reveal">' + "".join(
+            f'<a href="../assets/photos/{n}.webp" data-full="../assets/photos/{n}.webp" data-cap="{e(t)}"><img src="../assets/photos/{n}-640.webp" width="640" height="480" loading="lazy" alt="{e(t)}, photographed by drone"><span>{e(t)}</span></a>'
+            for n, t in cells) + "</div>"
+    if kind == "decks":
+        out = ""
+        for c in body.split(";"):
+            n, lvl, title = c.split("|", 2)
+            slides = "".join(f'<figure class="sl"><img src="../assets/decks/{n}-{i}.webp" width="540" height="960" loading="lazy" alt="{e(title)}, slide {i} of 5"></figure>' for i in range(1, 6))
+            out += (f'<div class="deck-set reveal"><div class="deck-head"><span class="lvl lvl-{lvl.split()[0].lower()}">{e(lvl)}</span><b>{e(title)}</b></div>'
+                    f'<div class="strip-wrap"><div class="strip slides" tabindex="0" role="group" aria-label="{e(title)}, five slides">{slides}</div>'
+                    '<div class="strip-nav"><button type="button" data-dir="-1" aria-label="Previous slide"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H4M8 4L4 8l4 4"/></svg></button>'
+                    '<span class="strip-count" aria-hidden="true"></span>'
+                    '<button type="button" data-dir="1" aria-label="Next slide"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></button></div></div></div>')
+        return out
     if kind == "lesson":
         t, d = body.split("|", 1)
         return f'<div class="cs-lesson reveal"><span>{e(t)}</span><p>{e(d)}</p></div>'
@@ -242,6 +302,7 @@ for c in CASES:
     </div>
   </main>
   <footer class="footer"><div class="wrap foot"><span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a></span><a href="../">Back to the portfolio</a></div></footer>
+  <script src="../assets/media.js?v={V}"></script>
   <script>
   (function () {{
     var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, els = document.querySelectorAll(".reveal");

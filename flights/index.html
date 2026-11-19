@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flight log · Malcolm Syme</title>
+  <meta name="description" content="Flights logged automatically by Logbook: routes, landings, records and aircraft.">
+  <meta name="author" content="Malcolm Syme">
+  <meta property="og:title" content="Flight log · Malcolm Syme">
+  <meta property="og:description" content="Flights logged automatically by Logbook: routes, landings, records and aircraft.">
+  <meta property="og:image" content="https://mcsyme11-byte.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#141B26">
+  <link rel="icon" href="../assets/emblem.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/icon-180.png">
+  <link rel="stylesheet" href="../assets/style.css?v=20261118e">
+</head>
+<body class="sub" data-page="flights">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="progress" aria-hidden="true"></div>
+    <div class="wrap bar">
+      <a class="brand" href="../" aria-label="Malcolm Syme, home">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true"><use href="../assets/emblem.svg#e"/></svg>
+        <span>Malcolm Syme</span>
+      </a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span></button>
+      <nav id="nav" class="nav" aria-label="Pages"><a href="../">Home</a><a href="../about/">About</a><a href="../experience/">Experience</a><a href="../studies/">Studies</a><a href="../alpha/">Project Alpha</a><a href="../flights/" class="on" aria-current="page">Flight log</a><a href="../#contact" class="nav-cta">Contact</a></nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="cs-hero pg-hero">
+      <div class="wrap">
+        <p class="eyebrow reveal">Flight log</p>
+        <h1 class="reveal">Every flight, logged by software I designed.</h1>
+        <p class="lede reveal">I fly airliners in Microsoft Flight Simulator 2024 on VATSIM, a network with live air traffic control. Logbook, one of my own apps, records each flight by itself. This page is drawn from its public data.</p>
+        
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <dl class="tiles six reveal" id="fl-tiles"></dl>
+        <p class="fine fl-wait" id="fl-wait">Reading the logbook…</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="shead reveal"><h2>Where I've flown</h2><span class="aside" id="fl-map-note">Every route, as the crow flies</span></div>
+        <div class="fl-map reveal" id="fl-map"></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap two-col fl-two">
+        <div>
+          <div class="shead reveal"><h2>Landings</h2><span class="aside">Feet per minute at touchdown; lower is smoother</span></div>
+          <div class="fl-trend reveal" id="fl-trend"></div>
+          <div class="fl-grades reveal" id="fl-grades"></div>
+        </div>
+        <div>
+          <div class="shead reveal"><h2>Records</h2><span class="aside">Personal bests</span></div>
+          <ul class="fl-records reveal" id="fl-records"></ul>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap narrow">
+        <div class="shead reveal"><h2>The fleet</h2><span class="aside">Hours by aircraft</span></div>
+        <ul class="fl-fleet reveal" id="fl-fleet"></ul>
+        <div class="next-links reveal"><a class="case-link" href="/flight/"><span>Live</span><b>Share my flight</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a><a class="case-link" href="../case/flight-deck-suite.html"><span>Case study</span><b>How I built the Flight Deck Suite</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap foot">
+      <span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a> · <a href="tel:+14036791495">+1 (403) 679-1495</a></span>
+      <span class="muted sitemap"><a href="../">Home</a> · <a href="../about/">About</a> · <a href="../experience/">Experience</a> · <a href="../admissions/">For admissions</a> · <a href="../studies/">Studies</a> · <a href="../alpha/">Project Alpha</a> · <a href="../flights/">Flight log</a> · <a href="../lessons/">Lessons learned</a> · <a href="../ideas/">Idea Lab</a> · <a href="../patches/">Mission patches</a></span>
+    </div>
+  </footer>
+  <script>window.PATCH_BASE = "../";</script>
+  <script src="../data/projects.js?v=20261118e"></script>
+  <script src="../data/activity.js?v=20261118e"></script>
+  <script src="../assets/patches.js?v=20261118e"></script>
+  <script src="../assets/media.js?v=20261118e"></script>
+  <script src="../assets/pages.js?v=20261118e"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 /* Malcolm Syme · Portfolio · © 2026 Malcolm Syme · mcsyme11@gmail.com
- * The extra pages (About, Experience, Idea Lab, Patches): menu, reveal on scroll, reading progress, and the
- * content drawn from data/projects.js. No per-frame work; scroll work is one requestAnimationFrame per burst.
+ * The extra pages (About, Experience, Idea Lab, Patches, Flight log and the rest): menu, reveal on scroll, reading
+ * progress, and the content drawn from data/projects.js or, for the Flight log, from Logbook's public data. No per-frame work; scroll work is one requestAnimationFrame per burst.
  */
 (function () {
   "use strict";
@@ -94,12 +94,101 @@
   }
 
   /* ---------- About: live flight totals ---------- */
-  if (page === "about" && D.live && D.live.flight) {
+  if ((page === "about" || page === "admissions") && D.live && D.live.flight) {
     fetch(D.live.flight, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
       if (!d || !d.career) return;
       $("#st-flights").textContent = d.career.flights;
-      $("#st-hours").textContent = Math.round(d.career.minutes / 60) + " hours, " + d.career.airports + " airports";
+      $("#st-hours").textContent = Math.round(d.career.airborneMin / 60) + " hours aloft, " + d.career.airports + " airports";
     }).catch(function () {});
+  }
+
+  /* ---------- Flight log: drawn from Logbook's public data ---------- */
+  if (page === "flights" && D.live && D.live.flight) {
+    var W = 1000, H = 460, LAT0 = 78, LAT1 = -52;                       // map window: 78°N to 52°S
+    var px = function (lon) { return (lon + 180) / 360 * W; };
+    var py = function (lat) { return (LAT0 - lat) / (LAT0 - LAT1) * H; };
+    var num = function (n) { return Math.round(n).toLocaleString("en-CA"); };
+    var rad = Math.PI / 180;
+    // Points along the great circle between two airports, split where the route crosses the date line.
+    function arc(a, b) {
+      var la1 = a[0] * rad, lo1 = a[1] * rad, la2 = b[0] * rad, lo2 = b[1] * rad;
+      var d = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin((la2 - la1) / 2), 2) + Math.cos(la1) * Math.cos(la2) * Math.pow(Math.sin((lo2 - lo1) / 2), 2)));
+      if (!d) return "";
+      var n = Math.max(8, Math.round(d / rad / 3)), path = "", prev = null;
+      for (var i = 0; i <= n; i++) {
+        var f = i / n, A = Math.sin((1 - f) * d) / Math.sin(d), B = Math.sin(f * d) / Math.sin(d);
+        var x = A * Math.cos(la1) * Math.cos(lo1) + B * Math.cos(la2) * Math.cos(lo2), y = A * Math.cos(la1) * Math.sin(lo1) + B * Math.cos(la2) * Math.sin(lo2), z = A * Math.sin(la1) + B * Math.sin(la2);
+        var lat = Math.atan2(z, Math.sqrt(x * x + y * y)) / rad, lon = Math.atan2(y, x) / rad;
+        path += (prev === null || Math.abs(lon - prev) > 180 ? "M" : "L") + px(lon).toFixed(1) + " " + py(lat).toFixed(1);
+        prev = lon;
+      }
+      return path;
+    }
+    function drawMap(c, land) {
+      var ap = c.routes.airports, g = "";
+      for (var m = -150; m <= 150; m += 30) g += "M" + px(m).toFixed(1) + " 0V" + H;
+      for (var l = 60; l >= -30; l -= 30) g += "M0 " + py(l).toFixed(1) + "H" + W;
+      var shapes = (land || []).map(function (poly) {
+        return "M" + poly.map(function (q) { return px(q[1]).toFixed(1) + " " + py(q[0]).toFixed(1); }).join("L") + "Z";
+      }).join("");
+      var routes = c.routes.pairs.map(function (r) { return ap[r[0]] && ap[r[1]] ? arc(ap[r[0]], ap[r[1]]) : ""; }).join("");
+      var dots = Object.keys(ap).map(function (k) {
+        var a = ap[k], big = a[2] >= 5;
+        return '<circle class="fm-dot' + (big ? " big" : "") + '" cx="' + px(a[1]).toFixed(1) + '" cy="' + py(a[0]).toFixed(1) + '" r="' + (big ? 4.5 : 3) + '"><title>' + esc(k) + ": " + a[2] + (a[2] === 1 ? " visit" : " visits") + "</title></circle>";
+      }).join("");
+      $("#fl-map").innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="World map of ' + c.routes.pairs.length + " routes between " + Object.keys(ap).length + ' airports">' +
+        '<path class="fm-grid" d="' + g + '"/><path class="fm-land" d="' + shapes + '"/><path class="fm-route" d="' + routes + '"/>' + dots + "</svg>";
+      $("#fl-map-note").textContent = c.routes.pairs.length + " routes between " + Object.keys(ap).length + " airports";
+    }
+    fetch(D.live.flight, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+      var c = d.career;
+      $("#fl-wait").remove();
+      $("#fl-tiles").innerHTML = [
+        ["Flights", num(c.flights), c.online === c.flights ? "all on VATSIM" : num(c.online) + " on VATSIM"], ["In the air", num(c.airborneMin / 60) + " h", "wheels up to wheels down"],
+        ["Distance", num(c.distanceNm), "nautical miles"], ["Airports", num(c.airports), "in " + c.countries + " countries"],
+        ["Aircraft types", num(c.types), "mostly Airbus"], ["Average landing", num(c.landings.avg), "feet per minute"]
+      ].map(function (t) { return '<div class="tile"><dt>' + t[0] + "</dt><dd>" + t[1] + '</dd><span class="note">' + t[2] + "</span></div>"; }).join("");
+      $("#fl-tiles").classList.add("in");
+
+      drawMap(c, null);
+      fetch(D.live.flightPage + "land.json").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (land) { drawMap(c, land); }).catch(function () {});
+
+      // Landing rates, oldest to newest.
+      var tr = c.landings.trend.slice().sort(function (a, b) { return a.landed < b.landed ? -1 : 1; });
+      var top = Math.max.apply(null, tr.map(function (x) { return x.rate; })), cw = 600, ch = 200, pad = 16;
+      top = Math.ceil(top / 100) * 100;
+      var X = function (i) { return pad + (cw - 2 * pad) * i / (tr.length - 1); }, Y = function (v) { return pad + (ch - 2 * pad) * v / top; };
+      var line = tr.map(function (x, i) { return (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(x.rate).toFixed(1); }).join("");
+      var guide = [100, 300].filter(function (v) { return v < top; }).map(function (v) {
+        return '<path class="ft-guide" d="M' + pad + " " + Y(v).toFixed(1) + "H" + (cw - pad) + '"/><text class="ft-ax" x="' + (cw - pad) + '" y="' + (Y(v) - 6).toFixed(1) + '" text-anchor="end">' + v + " fpm</text>";
+      }).join("");
+      var pts = tr.map(function (x, i) {
+        return '<circle class="ft-dot" cx="' + X(i).toFixed(1) + '" cy="' + Y(x.rate).toFixed(1) + '" r="3.5"><title>' + esc(x.to) + ", " + esc(x.date) + ": " + x.rate + " fpm (" + esc(x.grade) + ")</title></circle>";
+      }).join("");
+      $("#fl-trend").innerHTML = '<svg viewBox="0 0 ' + cw + " " + ch + '" role="img" aria-label="Landing rate of the last ' + tr.length + ' landings">' + guide +
+        '<path class="ft-line" d="' + line + '"/>' + pts + '</svg><p class="fl-cap">The last ' + tr.length + " landings, oldest on the left. Smoother landings sit higher.</p>";
+      var total = c.landings.grades.reduce(function (s, g) { return s + g.n; }, 0);
+      $("#fl-grades").innerHTML = '<div class="fg-bar">' + c.landings.grades.filter(function (g) { return g.n; }).map(function (g, i) {
+        return '<span class="g' + i + '" style="flex:' + g.n + '" title="' + esc(g.g) + ": " + g.n + '"></span>';
+      }).join("") + '</div><ul class="fg-key">' + c.landings.grades.filter(function (g) { return g.n; }).map(function (g, i) {
+        return '<li><i class="g' + i + '"></i>' + esc(g.g) + " <b>" + g.n + "</b></li>";
+      }).join("") + "</ul>";
+
+      var R = c.records, rec = [];
+      if (R.smoothest) rec.push(["Smoothest landing", R.smoothest.rate + " fpm", R.smoothest.aircraft + " at " + R.smoothest.airport]);
+      if (R.longest) rec.push(["Longest flight", num(R.longest.nm) + " nm", R.longest.from + " to " + R.longest.to + ", " + R.longest.aircraft]);
+      if (R.longestTime) rec.push(["Longest time aloft", Math.floor(R.longestTime.min / 60) + " h " + (R.longestTime.min % 60) + " min", R.longestTime.from + " to " + R.longestTime.to]);
+      if (R.highest) rec.push(["Highest cruise", num(R.highest.ft) + " ft", R.highest.from + " to " + R.highest.to]);
+      if (d.last) rec.push(["Most recent flight", d.last.from + " → " + d.last.to, d.last.aircraft + ", " + d.last.grade + " landing at " + Math.abs(d.last.rate) + " fpm"]);
+      $("#fl-records").innerHTML = rec.map(function (r) { return "<li><span>" + esc(r[0]) + "</span><b>" + esc(r[1]) + "</b><small>" + esc(r[2]) + "</small></li>"; }).join("");
+
+      var most = Math.max.apply(null, c.aircraft.map(function (a) { return a.airborneMin; }));
+      $("#fl-fleet").innerHTML = c.aircraft.map(function (a) {
+        return '<li><div class="ff-top"><b>' + esc(a.name.replace(/^Fenix(?=A)/, "Fenix ")) + "</b><span>" + a.flights + (a.flights === 1 ? " flight" : " flights") + " · " + num(a.airborneMin / 60) + ' h</span></div><div class="ff-bar"><i style="transform:scaleX(' + (a.airborneMin / most).toFixed(3) + ')"></i></div></li>';
+      }).join("");
+    }).catch(function () {
+      var w = $("#fl-wait"); if (w) w.textContent = "The logbook can't be reached right now. The live flight page has the same numbers.";
+    });
   }
 
   /* ---------- Reveal on scroll ---------- */

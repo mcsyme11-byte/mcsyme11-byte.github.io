@@ -13,7 +13,7 @@
   <meta name="theme-color" content="#141B26">
   <link rel="icon" href="../assets/emblem.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/icon-180.png">
-  <link rel="stylesheet" href="../assets/style.css?v=20261118d">
+  <link rel="stylesheet" href="../assets/style.css?v=20261118e">
 </head>
 <body class="sub" data-page="about">
   <a class="skip" href="#main">Skip to content</a>
@@ -25,7 +25,7 @@
         <span>Malcolm Syme</span>
       </a>
       <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span></button>
-      <nav id="nav" class="nav" aria-label="Pages"><a href="../">Home</a><a href="../about/" class="on" aria-current="page">About</a><a href="../experience/">Experience</a><a href="../ideas/">Idea Lab</a><a href="../patches/">Patches</a><a href="../#contact" class="nav-cta">Contact</a></nav>
+      <nav id="nav" class="nav" aria-label="Pages"><a href="../">Home</a><a href="../about/" class="on" aria-current="page">About</a><a href="../experience/">Experience</a><a href="../studies/">Studies</a><a href="../alpha/">Project Alpha</a><a href="../flights/">Flight log</a><a href="../#contact" class="nav-cta">Contact</a></nav>
     </div>
   </header>
   <main id="main">
@@ -56,7 +56,7 @@
           <div class="tile"><dt>Explainers</dt><dd>24</dd><span class="note">on Simply Aerospace</span></div>
           <div class="tile"><dt>Sim flights</dt><dd id="st-flights">61</dd><span class="note" id="st-hours">logged automatically</span></div>
           <div class="tile"><dt>Certifications</dt><dd>6</dd><span class="note">drone, first aid, lifesaving</span></div>
-          <div class="tile"><dt>Case studies</dt><dd>4</dd><span class="note">how each was built</span></div>
+          <div class="tile"><dt>Case studies</dt><dd>5</dd><span class="note">how each was built</span></div>
           <div class="tile"><dt>Working since</dt><dd>2019</dd><span class="note">first paid jobs</span></div>
         </dl>
       </div>
@@ -64,10 +64,10 @@
 
     <section class="section">
       <div class="wrap">
-        <div class="shead reveal"><h2>How I work</h2><span class="aside">Rules I actually follow</span></div>
+        <div class="shead reveal"><h2>How I work</h2><span class="aside">Six rules behind every project</span></div>
         <div class="principles">
-          <div class="principle reveal"><span>01</span><h3>Plan first, build on "go"</h3><p>Questions get answered before anything changes. Nothing is built, installed or published until I say go.</p></div>
-          <div class="principle reveal"><span>02</span><h3>Mock-ups before pixels</h3><p>Every new page starts as a mock-up I approve. If it disappoints, the plan changes, not my standards.</p></div>
+          <div class="principle reveal"><span>01</span><h3>Plan first, then build</h3><p>A written plan comes before any code: what the thing should do, what it must never do, and how it will be checked.</p></div>
+          <div class="principle reveal"><span>02</span><h3>Mock-ups before pixels</h3><p>Every new page starts as a drawing. If the drawing disappoints, the plan changes, not the standard.</p></div>
           <div class="principle reveal"><span>03</span><h3>Nothing untested near the simulator</h3><p>After one bad day in October 2026, every request an app sends to the sim is tried safely by itself first.</p></div>
           <div class="principle reveal"><span>04</span><h3>Every fact from a named source</h3><p>Runways from the current chart. Data from the agency's own documentation. Anything unconfirmed is marked, never guessed.</p></div>
           <div class="principle reveal"><span>05</span><h3>Write it down</h3><p>Each project keeps a roadmap, a change log, a history and a project record that rebuilds itself after every change.</p></div>
@@ -81,7 +81,7 @@
         <div class="shead reveal"><h2>The flight deck</h2><span class="aside">What I fly and build with</span></div>
         <div class="gear">
           <div class="gear-card reveal"><h3>Simulator cockpit</h3><ul><li>Side stick, throttle quadrant and rudder pedals <em>Thrustmaster</em></li><li>Autopilot panel (FCU), MCDU and overhead panel <em>WinWing</em></li><li>Microsoft Flight Simulator 2024, flown on VATSIM</li></ul></div>
-          <div class="gear-card reveal"><h3>In the air</h3><ul><li>DJI Air 3S <em>inspections, surveys, 4K video</em></li><li>Transport Canada drone pilot certificate <em>Basic Operations</em></li><li>Project Alpha <em>3-inch fibreglass rocket, in build</em></li></ul></div>
+          <div class="gear-card reveal"><h3>In the air</h3><ul><li>DJI Air 3S <em>inspections, surveys, 4K video</em></li><li>Transport Canada drone pilot certificate <em>Basic Operations</em></li><li>Project Alpha <em>3-inch fibreglass rocket, in design</em></li></ul></div>
           <div class="gear-card reveal"><h3>Workshop</h3><ul><li>Claude <em>building, studying, reviewing</em></li><li>GitHub <em>every project, with automatic checks</em></li><li>Blender, CAD and 3D printing <em>scenery and models</em></li></ul></div>
         </div>
       </div>
@@ -103,16 +103,25 @@
         </div>
       </div>
     </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="shead reveal"><h2>Build activity</h2><span class="aside" id="heat-note">Changes saved per day, all repositories</span></div>
+        <div class="heat reveal" id="heat"></div>
+      </div>
+    </section>
   </main>
   <footer class="footer">
     <div class="wrap foot">
       <span>© 2026 Malcolm Syme · <a href="mailto:mcsyme11@gmail.com">mcsyme11@gmail.com</a> · <a href="tel:+14036791495">+1 (403) 679-1495</a></span>
-      <span class="muted"><a href="../">Home</a> · <a href="../about/">About</a> · <a href="../experience/">Experience</a> · <a href="../ideas/">Idea Lab</a> · <a href="../patches/">Patches</a></span>
+      <span class="muted sitemap"><a href="../">Home</a> · <a href="../about/">About</a> · <a href="../experience/">Experience</a> · <a href="../admissions/">For admissions</a> · <a href="../studies/">Studies</a> · <a href="../alpha/">Project Alpha</a> · <a href="../flights/">Flight log</a> · <a href="../lessons/">Lessons learned</a> · <a href="../ideas/">Idea Lab</a> · <a href="../patches/">Mission patches</a></span>
     </div>
   </footer>
   <script>window.PATCH_BASE = "../";</script>
-  <script src="../data/projects.js?v=20261118d"></script>
-  <script src="../assets/patches.js?v=20261118d"></script>
-  <script src="../assets/pages.js?v=20261118d"></script>
+  <script src="../data/projects.js?v=20261118e"></script>
+  <script src="../data/activity.js?v=20261118e"></script>
+  <script src="../assets/patches.js?v=20261118e"></script>
+  <script src="../assets/media.js?v=20261118e"></script>
+  <script src="../assets/pages.js?v=20261118e"></script>
 </body>
 </html>
