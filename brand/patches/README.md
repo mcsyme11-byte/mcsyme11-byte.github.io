@@ -18,8 +18,8 @@ The inner ring's colour shows the status when the patch was made: green for curr
 | Airport Scenery (MSFS 2024) | `airport-scenery-patch-outlined.svg`, `-1024.png`, `-small.svg`, `-mark.svg` | Airport-Scenery-Profile-Development-MSFS2024 repo, `brand/` | patch from 128 px, small version below |
 | Syme Skyworks | `syme-skyworks-patch.png` / `.svg`, `syme-skyworks-mark.svg`, `-mark-small.svg` | SymeSkyWorks repo, `brand/` | the PNG from 64 px (its SVG still needs a font), mark below |
 | Project Alpha (the program) | `project-alpha-patch.svg` / `.png` | Project-Alpha repo, `brand/` (adopted Nov 18, 2026) | the PNG from 64 px |
-| Alpha I (Project Alpha's current build) | `alpha-i-patch.svg` (lettering as outlines), `alpha-i-patch-1024.png`, `-512`, `-256`, `-128`, `alpha-i-mark.svg`, `alpha-i-mark-128.png`, `-64` | here, drawn by `dev/build_alpha_patches.py` (Nov 19, 2026), until the Project-Alpha repo adopts it | patch from 64 px, mark below |
-| Alpha II (Project Alpha's next build, a concept) | `alpha-ii-patch.svg`, `alpha-ii-patch-1024.png`, `-512`, `-256`, `-128`, `alpha-ii-mark.svg`, `alpha-ii-mark-128.png`, `-64` | here, as Alpha I | patch from 64 px, mark below |
+| Alpha I (Project Alpha's current build) | `alpha-i-patch.svg` (lettering as outlines), `alpha-i-patch-1024.png`, `-512`, `-256`, `-128`, `alpha-i-mark.svg`, `alpha-i-mark-128.png`, `-64` | Project-Alpha repo, `brand/` (drawn here Nov 19, 2026 and adopted there the same day) | patch from 64 px, mark below |
+| Alpha II (Project Alpha's next build, a concept) | `alpha-ii-patch.svg`, `alpha-ii-patch-1024.png`, `-512`, `-256`, `-128`, `alpha-ii-mark.svg`, `alpha-ii-mark-128.png`, `-64` | Project-Alpha repo, `brand/` (as Alpha I) | patch from 64 px, mark below |
 | Winglets Research Paper | `winglets-patch.*` | here (no repo yet) | drawn |
 | VATSIM ATC Training | `vatsim-atc-patch.*` | here (no repo yet) | drawn |
 | ATC Recordings | `atc-recordings-patch.*` | here (no repo yet) | drawn |
@@ -48,5 +48,5 @@ The patch layout (rings, stitching, text and stars) is original. Some centre sym
 The two builds of Project Alpha each have a patch in the program's family: the same brass rim and stitching and "PROJECT ALPHA" on the ring, the build's name between two stars at the bottom, and an inner ring in the status colour (green for Alpha I, the current build; brass for Alpha II, a concept). The centre is original line art drawn for each build (a rocket and its numeral), not taken from an icon set, and the lettering is converted to outlines from Gelasio, so the SVGs look the same on every device.
 
 - **Sizes:** the patch at 64 px and larger; the mark (no ring lettering) from about 32 to 63 px.
-- **To change them:** edit `dev/build_alpha_patches.py`, run it with a Gelasio regular font file, and render the PNGs again from the SVGs. Never edit the files by hand.
+- **To change them:** the Project-Alpha repo is the master copy since Nov 19, 2026. A change is made there (`brand/build_alpha_patches.py`), and the new files are copied here; they are never edited or redrawn here.
 - © 2026 Malcolm Syme · mcsyme11@gmail.com. Project Alpha, Alpha I, Alpha II and their patches are marks of Malcolm Syme.

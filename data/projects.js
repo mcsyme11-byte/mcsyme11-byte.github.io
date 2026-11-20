@@ -203,7 +203,7 @@ window.PORTFOLIO = {
       featured: true,
       role: "Designer and builder",
       summary:
-        "A long-term rocketry program under Syme Skyworks: each rocket is designed from first principles, checked in simulation and documented from the first equation to the flight. The first build, Alpha I, is a 3-inch rocket on a 54 mm I-class motor with dual-deploy recovery (a small drogue chute at the top of the flight, then the main parachute closer to the ground). Its first version is designed, hand-calculated, simulated and priced; nothing has been bought or built yet. The build is planned for January 2027 and the first flight for a spring 2027 club launch. Alpha II, a larger 4-inch rocket, is an early concept.",
+        "A long-term rocketry program: each rocket is designed from first principles, checked in simulation and documented from the first equation to the flight. The first build, Alpha I, is a 3-inch rocket on a 54 mm I-class motor with dual-deploy recovery (a small drogue chute at the top of the flight, then the main parachute closer to the ground). Its first version is designed, hand-calculated, simulated and priced; nothing has been bought or built yet. The build is planned for January 2027 and the first flight for a spring 2027 club launch. Alpha II, a larger 4-inch rocket, is an early concept.",
       parts: [
         { name: "Alpha I", text: "Current build: 3-inch, 1.49 m long, 2.69 kg at lift-off, simulated to 982 m (3,223 ft) above ground." },
         { name: "Alpha II", text: "Early concept: 4-inch fibreglass, K-class motor, about 3,000 m (10,000 ft)." }
@@ -486,12 +486,12 @@ window.PORTFOLIO = {
     { id: "hot-mic", state: "Testing", text: "Public testing: fixing what testers report" },
     { id: "airport-scenery", state: "In review", text: "Springbank (CYBW): the airport layout, with the first buildings modelled" },
     { id: "winglets", state: "Writing", text: "The research paper, and a 3D-printed wingtip display model" },
-    { id: "project-alpha", state: "Designed", text: "Alpha I: first version designed, simulated and priced; open questions before anything is ordered" }
+    { id: "project-alpha", state: "Designed", text: "Alpha I: first version designed, simulated and priced; a final design review before anything is ordered" }
   ],
 
   /* "What's new". Newest first. Flight Deck Suite releases are also read live from its catalog. */
   news: [
-    { date: "2026-11-19", project: "Project Alpha", text: "Alpha I and Alpha II each have their own mission patch", url: "alpha/" },
+    { date: "2026-11-19", project: "Project Alpha", text: "Alpha I and Alpha II each have their own official mission patch", url: "alpha/" },
     { date: "2026-11-19", project: "NASA and ESA Data Projects", text: "Site search, keyboard shortcuts and a CHEOPS light curve of the exoplanet WASP-189 b", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
     { date: "2026-11-19", project: "Project Alpha", text: "Build manual written for the first version of Alpha I", url: "alpha/" },
     { date: "2026-11-18", project: "Project Alpha", text: "Alpha I redesigned after a review: new motor, resized recovery, and a budget", url: "alpha/" },
@@ -509,11 +509,12 @@ window.PORTFOLIO = {
     { date: "2026-11-07", project: "Airport Scenery", text: "Research started for Springbank (CYBW) and Red Deer (CYQF)" }
   ],
 
-  /* Patches of builds inside a project, shown in the patch gallery after their project. */
+  /* Patches of builds inside a project, shown in the patch gallery after their project.
+     official: the project's repo has adopted the patch (Alpha I and Alpha II: Project-Alpha, brand/, Nov 19, 2026). */
   buildPatches: [
-    { after: "project-alpha", id: "alpha-i", title: "Alpha I", tagline: "Project Alpha's current build: a 3-inch rocket on an I-class motor", status: "current",
+    { after: "project-alpha", official: true, id: "alpha-i", title: "Alpha I", tagline: "Project Alpha's current build: a 3-inch rocket on an I-class motor", status: "current",
       patchImage: "brand/patches/alpha-i-patch.svg", markImage: "brand/patches/alpha-i-mark.svg", thumbImage: "brand/patches/thumb/alpha-i-232.png", link: "alpha/", linkText: "Open the build log" },
-    { after: "project-alpha", id: "alpha-ii", title: "Alpha II", tagline: "Project Alpha's next build, an early concept: 4-inch, K-class motor", status: "idea",
+    { after: "project-alpha", official: true, id: "alpha-ii", title: "Alpha II", tagline: "Project Alpha's next build, an early concept: 4-inch, K-class motor", status: "idea",
       patchImage: "brand/patches/alpha-ii-patch.svg", markImage: "brand/patches/alpha-ii-mark.svg", thumbImage: "brand/patches/thumb/alpha-ii-232.png", link: "alpha/", linkText: "Open the build log" }
   ],
 

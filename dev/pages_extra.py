@@ -166,12 +166,13 @@ LOG = [("done", "June 2026", "The idea, and a first design", "A long-term rocket
        ("done", "November 18, 2026", "A review that changed the design", "Checked against certification data, the motor figures in my hand calculations were wrong and the simulated motor was out of production. A new motor was chosen and the recovery resized."),
        ("done", "November 18, 2026", "First version, designed to a budget", "Pricing every part and itemising every mass changed the airframe, the nose cone, the parachutes and the fins. The hand calculation, now a script, agrees with the simulation within 4%."),
        ("done", "November 19, 2026", "Build manual written", "The step-by-step build, rewritten for the first version."),
-       ("now", "In progress", "Open questions", "Certification and launch rules, the parachutes' real drag, and next season's launch dates are being confirmed before anything is ordered."),
+       ("done", "November 19, 2026", "Open questions researched", "The certification route is confirmed, and the parachutes turned out to have about twice the drag the recovery was sized with, so the landing should be gentler than calculated. Next season's launch dates are not out yet."),
+       ("now", "In progress", "Final review", "The parts are being settled, then the whole design is reviewed once more before anything is ordered."),
        ("next", "January 2027", "Build", "Airframe, fin can, avionics bay and recovery harness."),
        ("next", "Spring 2027", "First flight", "Planned for a club launch in Alberta, once certification and launch authorization are in place."),
        ("next", "Later", "Alpha II", "A larger 4-inch build, using what Alpha I teaches.")]
 
-BUILDS = [("project-alpha", "Project Alpha", "The program", "A long-term rocketry program under Syme Skyworks. Each rocket is designed from first principles, checked in simulation and documented from the first equation to the flight."),
+BUILDS = [("project-alpha", "Project Alpha", "The program", "A long-term rocketry program. Each rocket is designed from first principles, checked in simulation and documented from the first equation to the flight."),
           ("alpha-i", "Alpha I", "Current build", "A 3-inch rocket on a 54 mm I-class motor, kept subsonic and simple so the first flight is a clean, reliable one."),
           ("alpha-ii", "Alpha II", "Early concept", "A 4-inch fibreglass rocket on a K-class motor, for about 3,000 m. It was the program's first design, set aside for the smaller Alpha I.")]
 

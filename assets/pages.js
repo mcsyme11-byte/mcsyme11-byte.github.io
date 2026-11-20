@@ -72,7 +72,7 @@
       patches.push(p);
       (D.buildPatches || []).forEach(function (b) { if (b.after === p.id) patches.push(b); });
     });
-    var official = function (p) { return !!p.patchImage && !p.after; };
+    var official = function (p) { return !!p.patchImage && (!p.after || p.official); };
     var drawGallery = function () {
       $("#gallery").innerHTML = patches.filter(function (p) { return filter === "all" || (filter === "official" ? official(p) : p.status === filter); }).map(function (p, i) {
         return '<button class="flip reveal in" style="--d:' + Math.min(i, 10) * 30 + 'ms" aria-label="' + esc(p.title) + ': turn the patch over"><span class="flip-in">' +
