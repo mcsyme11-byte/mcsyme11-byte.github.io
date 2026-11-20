@@ -1105,3 +1105,14 @@ h1.split .ltr { padding-bottom: .14em; margin-bottom: -.14em; }
 }
 @media (max-width: 960px) { .steps li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 @media (max-width: 900px) and (min-width: 721px) { .ft-cols { grid-template-columns: repeat(3, max-content); } }
+
+/* Project Alpha: the program and its two builds, each with its patch */
+.builds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.build { display: flex; gap: 18px; align-items: flex-start; padding: 22px; border: 1px solid var(--line); border-top-color: var(--brass-dim); border-radius: var(--r); background: linear-gradient(180deg, var(--card2), var(--card)); }
+.build img { flex: none; width: 92px; height: 92px; border-radius: 50%; }
+.build h3 { font-size: 23px; color: var(--ink); margin: 6px 0 6px; }
+.build p { margin: 0; color: var(--ink2); font-size: 15px; }
+@media (max-width: 1060px) { .builds { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .build img { width: 72px; height: 72px; } .build { padding: 18px; gap: 14px; } }
+.mc-eq { white-space: normal; }
+.tiles + .fine { margin-top: 18px; }

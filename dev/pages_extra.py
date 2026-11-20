@@ -2,8 +2,9 @@
 
 Imported by dev/build_pages.py. Everything here is written for visitors, in Malcolm Syme's own voice.
 Public site: no town, school, grade, club or employer names, and no launch-site location.
-Project Alpha figures come from the design file and the flight-math reference (revision 1, June 2026); only
-calculations that were re-checked are shown. The propellant mix and ejection-charge amounts are left out.
+Project Alpha figures come from the Project Alpha repository (alpha-i/README.md, SIMULATION.md and
+math/results.json, first version, Nov 18-19, 2026); each calculation shown was re-checked. The launch site,
+purchasing details, the propellant mix and ejection-charge amounts are left out.
 """
 
 ARROW = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg>'
@@ -37,11 +38,12 @@ def strip(inner, label, cls=""):
 # ---------------------------------------------------------------------------------------------------------
 # Project Alpha
 # ---------------------------------------------------------------------------------------------------------
-# Dimensions in millimetres, from the design file (AlphaI_ProjectAlpha.ork).
-NOSE, BAY1, BAY2, FINCAN, R = 229, 430, 200, 420, 38
-TOTAL = NOSE + BAY1 + BAY2 + FINCAN            # 1279
-FIN_ROOT, FIN_TIP, FIN_H, FIN_SWEEP, FIN_AFT = 130, 65, 90, 32.5, 10
-MOUNT_LEN, MOUNT_R, MOUNT_AFT = 325, 27, 5
+# Dimensions in millimetres, from the Project Alpha repository (alpha-i/README.md and sim/alpha-i.ork, first version,
+# Nov 18, 2026). When the design changes there, change them here.
+NOSE, BAY1, BAY2, FINCAN, R = 337, 430, 200, 520, 40
+TOTAL = NOSE + BAY1 + BAY2 + FINCAN            # 1487
+FIN_ROOT, FIN_TIP, FIN_H, FIN_SWEEP, FIN_AFT = 130, 65, 70, 32.5, 10
+MOUNT_LEN, MOUNT_R, MOUNT_AFT = 250, 29, 5
 
 
 def rocket_svg():
@@ -68,11 +70,11 @@ def rocket_svg():
     fin_up = f'M{fr0} {top} L{ft0} {top - FIN_H} L{ft1} {top - FIN_H} L{fr1} {top}Z'
     fin_dn = f'M{fr0} {bot} L{ft0} {bot + FIN_H} L{ft1} {bot + FIN_H} L{fr1} {bot}Z'
     # Parachutes drawn as packed bundles; electronics as a sled.
-    main = f'<rect class="rk-chute" x="{xa + 120}" y="{cy - 24}" width="190" height="48" rx="24"/>'
-    drogue = f'<rect class="rk-chute" x="{xb + 118}" y="{cy - 16}" width="62" height="32" rx="16"/>'
-    sled = f'<rect class="rk-elec" x="{xb + 22}" y="{cy - 20}" width="78" height="40" rx="4"/>' \
-           f'<path class="rk-elec-l" d="M{xb + 34} {cy - 8}h54M{xb + 34} {cy + 2}h40M{xb + 34} {cy + 12}h48"/>'
-    return f"""<svg class="rocket" viewBox="0 0 {x0 * 2 + TOTAL} 436" role="img" aria-label="Side view of Alpha I, drawn to scale: nose cone, parachute bay, avionics bay and fin can with three fins and a 54 millimetre motor mount.">
+    main = f'<rect class="rk-chute" x="{xa + 70}" y="{cy - 27}" width="290" height="54" rx="27"/>'
+    drogue = f'<rect class="rk-chute" x="{xc + 26}" y="{cy - 18}" width="120" height="36" rx="18"/>'
+    sled = f'<rect class="rk-elec" x="{xb + 40}" y="{cy - 20}" width="120" height="40" rx="4"/>' \
+           f'<path class="rk-elec-l" d="M{xb + 56} {cy - 8}h86M{xb + 56} {cy + 2}h62M{xb + 56} {cy + 12}h74"/>'
+    return f"""<svg class="rocket" viewBox="0 0 {x0 * 2 + TOTAL} 436" role="img" aria-label="Side view of Alpha I, drawn to scale: nose cone, main parachute bay, avionics bay and fin can with the drogue parachute, three fins and a 54 millimetre motor mount.">
   <path class="rk-axis" d="M{x0 - 30} {cy}H{xe + 30}"/>
   <path class="rk-fin" d="{fin_up}"/><path class="rk-fin" d="{fin_dn}"/>
   <path class="rk-fin rk-fin-mid" d="M{fr0} {cy - 3}H{fr1}V{cy + 3}H{fr0}Z"/>
@@ -83,20 +85,20 @@ def rocket_svg():
   <rect class="rk-body" x="{xc}" y="{top}" width="{FINCAN}" height="{R * 2}"/>
   <path class="rk-join" d="M{xa} {top}V{bot}M{xb} {top}V{bot}M{xc} {top}V{bot}"/>
   {main}{drogue}{sled}
-  {tag(1, x0 + 120, top - 34)}{tag(2, xa + 215, top - 34)}{tag(3, xb + 100, top - 34)}{tag(4, xc + 110, top - 34)}{tag(5, ft0 + 30, top - FIN_H - 26)}{tag(6, mx0 + 150, cy)}
+  {tag(1, x0 + 120, top - 34)}{tag(2, xa + 215, top - 34)}{tag(3, xb + 100, top - 34)}{tag(4, xc + 86, top - 34)}{tag(5, ft0 + 30, top - FIN_H - 26)}{tag(6, mx0 + 150, cy)}
   {dim(x0, xa, bot + 118, f'{NOSE} mm')}{dim(xa, xb, bot + 118, f'{BAY1} mm')}{dim(xb, xc, bot + 118, f'{BAY2} mm')}{dim(xc, xe, bot + 118, f'{FINCAN} mm')}
-  {dim(x0, xe, bot + 160, f'{TOTAL:,} mm overall · 76 mm diameter')}
+  {dim(x0, xe, bot + 160, f'{TOTAL:,} mm overall · 79 mm diameter')}
 </svg>"""
 
 
 def profile_svg():
-    # Revision 1 flight profile: time (s) against height above ground (m).
+    # First-version flight profile from the simulation: time (s) against height above ground (m).
     W, H, L, B, T = 1000, 420, 70, 52, 30
-    tmax, hmax = 120.0, 1900.0
+    tmax, hmax = 105.0, 1100.0
     X = lambda t: L + (W - L - 20) * t / tmax
     Y = lambda h: H - B - (H - B - T) * h / hmax
-    # Ascent: a smooth curve through liftoff, burnout and apogee; descent in two straight legs.
-    pts = [(0, 0), (1.5, 170), (3.0, 494), (6, 1010), (9, 1380), (12, 1610), (14.5, 1710), (16.3, 1735)]
+    # Ascent: a smooth curve through lift-off, burnout and apogee; descent in two straight legs.
+    pts = [(0, 0), (1.1, 60), (2.25, 198), (4.5, 470), (7, 700), (10, 880), (12.5, 962), (14.1, 982)]
     P = [(X(t), Y(h)) for t, h in pts]
     d = f"M{P[0][0]:.1f} {P[0][1]:.1f}"
     for i in range(len(P) - 1):                # a smooth curve through the points (Catmull-Rom as Bézier segments)
@@ -104,17 +106,17 @@ def profile_svg():
         c1 = (p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6)
         c2 = (p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6)
         d += f" C{c1[0]:.1f} {c1[1]:.1f} {c2[0]:.1f} {c2[1]:.1f} {p2[0]:.1f} {p2[1]:.1f}"
-    d += f" L{X(76):.1f} {Y(244):.1f} L{X(117):.1f} {Y(0):.1f}"
-    marks = [(0, 0, "Liftoff", "end", -10, -12), (3.0, 494, "Burnout · 3.0 s", "start", 14, 6), (16.3, 1735, "Apogee · 16.3 s", "start", 14, -10),
-             (76, 244, "Main parachute · 76 s", "end", -10, 26), (117, 0, "Landing · 117 s", "end", 4, -34)]
+    d += f" L{X(54):.1f} {Y(244):.1f} L{X(98):.1f} {Y(0):.1f}"
+    marks = [(0, 0, "Lift-off", "end", -10, -12), (2.25, 198, "Burnout · 2.3 s", "start", 14, 6), (14.1, 982, "Apogee · 14.1 s", "start", 14, -10),
+             (54, 244, "Main parachute · 244 m", "end", -10, 26), (98, 0, "Landing · 98 s", "end", 4, -34)]
     grid = "".join(f'<path class="pf-grid" d="M{L} {Y(h):.1f}H{W - 20}"/><text class="pf-ax" x="{L - 10}" y="{Y(h) + 4:.1f}" text-anchor="end">{h:,} m</text>'
-                   for h in (0, 500, 1000, 1500))
-    ticks = "".join(f'<text class="pf-ax" x="{X(t):.1f}" y="{H - B + 24}" text-anchor="middle">{t} s</text>' for t in (0, 30, 60, 90, 120))
+                   for h in (0, 250, 500, 750, 1000))
+    ticks = "".join(f'<text class="pf-ax" x="{X(t):.1f}" y="{H - B + 24}" text-anchor="middle">{t} s</text>' for t in (0, 25, 50, 75, 100))
     dots = "".join(f'<circle class="pf-dot" cx="{X(t):.1f}" cy="{Y(h):.1f}" r="5"/><text class="pf-lab" x="{X(t) + dx:.1f}" y="{Y(h) + dy:.1f}" text-anchor="{a}">{n}</text>'
                    for t, h, n, a, dx, dy in marks)
-    drogue = f'<text class="pf-leg" x="{X(44):.1f}" y="{Y(1090):.1f}" text-anchor="start">Under the drogue: 25 m/s</text>'
-    main = f'<text class="pf-leg" x="{X(84):.1f}" y="{Y(400):.1f}" text-anchor="start">Under the main: 6 m/s</text>'
-    return f"""<svg class="profile" viewBox="0 0 {W} {H}" role="img" aria-label="Predicted flight profile: 494 metres at motor burnout after 3 seconds, 1,735 metres at apogee after 16.3 seconds, main parachute at 244 metres after 76 seconds, landing after 117 seconds.">
+    drogue = f'<text class="pf-leg" x="{X(36):.1f}" y="{Y(640):.1f}" text-anchor="start">Under the drogue: 18 m/s</text>'
+    main = f'<text class="pf-leg" x="{X(68):.1f}" y="{Y(300):.1f}" text-anchor="start">Under the main: 5 m/s</text>'
+    return f"""<svg class="profile" viewBox="0 0 {W} {H}" role="img" aria-label="Simulated flight profile: 198 metres at motor burnout after 2.3 seconds, 982 metres at apogee after 14.1 seconds, main parachute at 244 metres, landing after 98 seconds.">
   {grid}{ticks}
   <path class="pf-line" d="{d}"/>
   {dots}{drogue}{main}
@@ -128,82 +130,107 @@ def mcard(n, title, why, lines, result, note=""):
 
 
 MATH = "".join([
-    mcard(1, "The air at the launch site", "The design conditions are 1,340 m above sea level and 22 °C. Thinner air means less drag.",
-          ["P = 101,325 × (1 − 0.0065 × 1,340 ÷ 288.15)<sup>5.256</sup>", "ρ = P ÷ (R × T) = 86,230 ÷ (287.058 × 295.15)"],
-          "ρ = 1.018 kg/m³", "83% of sea-level density. Speed of sound: 344 m/s."),
-    mcard(2, "How efficient the motor is", "Specific impulse is a motor's fuel economy: thrust delivered per unit of propellant.",
-          ["I<sub>sp</sub> = I<sub>total</sub> ÷ (m<sub>prop</sub> × g) = 585 ÷ (0.310 × 9.807)", "v<sub>e</sub> = I<sub>sp</sub> × g = 192.4 × 9.807"],
-          "I<sub>sp</sub> = 192 s · v<sub>e</sub> = 1,887 m/s", "Revision 1 baseline: an I-class motor, 585 N·s, 195 N average thrust, 3.0 s burn."),
+    mcard(1, "The air at the launch site", "The design case is a club field at 800 m above sea level on a cold spring day, −5 °C. Cold air is dense air, and that means more drag.",
+          ["P = 101,325 × (1 − 0.0065 × 800 ÷ 288.15)<sup>5.256</sup> = 92,076 Pa", "ρ = P ÷ (R × T) = 92,076 ÷ (287.058 × 268.15)"],
+          "ρ = 1.196 kg/m³", "Speed of sound: 328 m/s."),
+    mcard(2, "How efficient the motor is", "Specific impulse is a motor's fuel economy: thrust delivered per unit of propellant. The data comes from the motor's certification.",
+          ["I<sub>sp</sub> = I<sub>total</sub> ÷ (m<sub>prop</sub> × g) = 492.3 ÷ (0.230 × 9.807)", "v<sub>e</sub> = I<sub>sp</sub> × g = 218.3 × 9.807"],
+          "I<sub>sp</sub> = 218 s · v<sub>e</sub> = 2,140 m/s", "A 54 mm I-class motor: 491 N·s, 218 N average thrust, 2.3 s burn."),
     mcard(3, "Leaving the rail", "A rocket has to be moving fast enough for its fins to work before it leaves the launch rail.",
-          ["TWR = T ÷ (m × g) = 195 ÷ (1.51 × 9.807) = 13.2", "a = (195 − 14.81) ÷ 1.51 = 119 m/s² (12.2 g)", "v = √(2 × a × s) = √(2 × 119.3 × 2.44)"],
-          "24 m/s off a 2.44 m rail", "Comfortably above the 15 m/s usually asked for."),
+          ["TWR = T ÷ (m × g) = 218.6 ÷ (2.687 × 9.807)", "Limit: at least 5", "Rail exit, stepped through the thrust curve on a 1.83 m rail"],
+          "TWR 8.3 · 17 m/s off the rail", "Above the 15 m/s the design must reach. The simulation gives 17.8 m/s."),
     mcard(4, "The rocket equation", "Tsiolkovsky's equation gives the speed the motor could add with no gravity and no air.",
-          ["Δv = v<sub>e</sub> × ln(m<sub>0</sub> ÷ m<sub>1</sub>) = 1,887 × ln(1.51 ÷ 1.20)", "Ideal Δv = 434 m/s", "Gravity loss = g × t = 9.807 × 3.0 = 29 m/s", "Drag loss ≈ 108 m/s"],
-          "296 m/s at burnout (Mach 0.86)", "Drag takes a quarter of the ideal Δv. The flight stays subsonic."),
-    mcard(5, "Maximum dynamic pressure", "Max-Q is the moment the air pushes hardest on the airframe, just before burnout.",
-          ["q = ½ × ρ × v² = 0.5 × 0.974 × 299²", "Drag = q × C<sub>d</sub> × A = 43,555 × 0.50 × 0.004536"],
-          "43.6 kPa · 99 N of drag", "At 473 m above the ground, 2.9 s into the flight."),
-    mcard(6, "Sizing the drogue", "The small parachute opens at apogee and brings the rocket down fast, so it doesn't drift far.",
-          ["A = 2 × m × g ÷ (ρ × C<sub>d</sub> × v²)", "A = 2 × 1.2 × 9.807 ÷ (0.862 × 0.75 × 25²) = 0.058 m²", "D = √(4A ÷ π) = 0.27 m"],
-          "12-inch drogue · 25 m/s", "Rounded up to the nearest standard size."),
-    mcard(7, "Sizing the main", "The main parachute opens at 800 ft and slows the rocket to a gentle landing.",
-          ["A = 2 × 1.2 × 9.807 ÷ (0.995 × 2.2 × 6²) = 0.30 m²", "D = √(4A ÷ π) = 0.62 m", "KE = ½ × m × v² = 0.5 × 1.2 × 6²"],
-          "24-inch main · 6 m/s · 22 J", "A landing energy well under the 100 J usually taken as the limit."),
-    ('<article class="mcard mcard-open"><span class="mc-n">08</span><h3>Still to redo</h3>'
-     '<p class="mc-why">Revision 2 starts from one set of dimensions and recalculates what depends on them.</p>'
-     '<ul><li>The final motor, and everything that follows from its thrust curve</li><li>Stability: centre of pressure and centre of gravity</li>'
-     '<li>Fin flutter margin</li><li>Parachute sizes against the final mass</li></ul><p class="mc-note">Numbers on the earlier cards will change with it.</p></article>'),
+          ["Δv = v<sub>e</sub> × ln(m<sub>0</sub> ÷ m<sub>1</sub>) = 2,140 × ln(2.687 ÷ 2.457)", "Ideal Δv = 192 m/s", "Gravity and drag take 35 m/s"],
+          "156 m/s at burnout (Mach 0.48)", "The flight stays well below the speed of sound."),
+    mcard(5, "Staying pointed the right way", "The centre of pressure has to sit behind the centre of gravity, by one to two body diameters.",
+          ["Centre of gravity: 945 mm from the nose tip", "Centre of pressure (Barrowman): 1,082 mm", "Margin = (1,082 − 945) ÷ 79.4"],
+          "1.7 calibres", "Inside the 1.0 to 2.0 limit, with the motor loaded."),
+    mcard(6, "Maximum dynamic pressure", "Max-Q is the moment the air pushes hardest on the airframe, just before burnout.",
+          ["q = ½ × ρ × v² = 0.5 × 1.173 × 157.2²", "Fin flutter speed: 618 m/s"],
+          "14.5 kPa at 187 m", "The fins would flutter at about four times the rocket's top speed."),
+    mcard(7, "Sizing the drogue", "The small parachute opens at apogee and brings the rocket down fast, so it doesn't drift far.",
+          ["v = √(2 × m × g ÷ (ρ × C<sub>d</sub> × A))", "A = π × 0.229² = 0.164 m² (18 in)", "v = √(2 × 2.457 × 9.807 ÷ (1.166 × 0.75 × 0.164))"],
+          "18-inch drogue · 18 m/s", "Sized with a cautious drag coefficient of 0.75."),
+    mcard(8, "Sizing the main", "The main parachute opens at 244 m (800 ft) and slows the rocket to a gentle landing.",
+          ["A = π × 0.762² = 1.824 m² (60 in)", "v = √(2 × 2.457 × 9.807 ÷ (1.196 × 0.75 × 1.824)) = 5.4 m/s", "KE = ½ × m × v² = 0.5 × 2.457 × 5.43²"],
+          "60-inch main · 5.4 m/s · 36 J", "Under the 6 m/s landing limit. The simulation gives 5.2 m/s."),
 ])
 
-PARTS = [("1", "Nose cone", "Fibreglass ogive, 229 mm"), ("2", "Parachute bay", "Holds the 24-inch main parachute"),
-         ("3", "Avionics bay", "Flight computer and the 12-inch drogue"), ("4", "Fin can", "Carries the fins and the motor mount"),
-         ("5", "Fins", "Three, cut from 3.2 mm G10 fibreglass"), ("6", "Motor mount", "54 mm tube, 325 mm long")]
+PARTS = [("1", "Nose cone", "Plastic ogive, 337 mm"), ("2", "Main parachute bay", "Holds the 60-inch main parachute"),
+         ("3", "Avionics bay", "Altimeter, battery and switch in a fibreglass coupler"), ("4", "Fin can", "The drogue, the fins and the motor mount"),
+         ("5", "Fins", "Three, cut from 3.2 mm G10 fibreglass"), ("6", "Motor mount", "54 mm tube, 250 mm long")]
 
-LOG = [("done", "June 2026", "Design drawn", "The airframe was laid out in OpenRocket: four sections, three fins, a 54 mm motor mount."),
-       ("done", "June 2026", "Flight math written", "Atmosphere, motor, rail exit, rocket equation, flight profile and recovery, worked by hand and by simulation."),
-       ("done", "November 2026", "Parts list drafted", "Every component matched to a real part, with substitutes where the first choice wasn't available."),
-       ("now", "In progress", "Revision 2", "Settling the motor, reconciling the design file with the math, and redoing stability and recovery."),
-       ("now", "In progress", "Launch plan", "Still being sorted out: where, when and under whose supervision Alpha I flies."),
-       ("next", "Next", "Build", "Airframe, fin can, avionics bay and recovery harness."),
-       ("next", "Later", "Ground tests", "Electronics and recovery checked on the bench before anything flies."),
-       ("next", "Later", "First flight", "Then Alpha II, a larger build, using what Alpha I teaches.")]
+LOG = [("done", "June 2026", "The idea, and a first design", "A long-term rocketry program, starting with a rocket to learn on. The first design was a 4-inch rocket, now the Alpha II concept."),
+       ("done", "June 2026", "Alpha I drawn and simulated", "A smaller 3-inch first build, worked by hand and flown in OpenRocket."),
+       ("done", "July 2026", "Parts researched", "Every component matched to a real part and priced. Nothing bought."),
+       ("done", "November 18, 2026", "A review that changed the design", "Checked against certification data, the motor figures in my hand calculations were wrong and the simulated motor was out of production. A new motor was chosen and the recovery resized."),
+       ("done", "November 18, 2026", "First version, designed to a budget", "Pricing every part and itemising every mass changed the airframe, the nose cone, the parachutes and the fins. The hand calculation, now a script, agrees with the simulation within 4%."),
+       ("done", "November 19, 2026", "Build manual written", "The step-by-step build, rewritten for the first version."),
+       ("now", "In progress", "Open questions", "Certification and launch rules, the parachutes' real drag, and next season's launch dates are being confirmed before anything is ordered."),
+       ("next", "January 2027", "Build", "Airframe, fin can, avionics bay and recovery harness."),
+       ("next", "Spring 2027", "First flight", "Planned for a club launch in Alberta, once certification and launch authorization are in place."),
+       ("next", "Later", "Alpha II", "A larger 4-inch build, using what Alpha I teaches.")]
+
+BUILDS = [("project-alpha", "Project Alpha", "The program", "A long-term rocketry program under Syme Skyworks. Each rocket is designed from first principles, checked in simulation and documented from the first equation to the flight."),
+          ("alpha-i", "Alpha I", "Current build", "A 3-inch rocket on a 54 mm I-class motor, kept subsonic and simple so the first flight is a clean, reliable one."),
+          ("alpha-ii", "Alpha II", "Early concept", "A 4-inch fibreglass rocket on a K-class motor, for about 3,000 m. It was the program's first design, set aside for the smaller Alpha I.")]
 
 ALPHA = hero("Project Alpha · Build log", "Alpha I: a rocket designed from the math up.",
-             "A 3-inch fibreglass rocket with two-stage parachute recovery. This is the first revision of the design. The motor, the recovery sizes and the launch plan are still being worked out, so the numbers here will change.",
-             '<div class="revnote reveal"><span class="rev-dot"></span><b>Phase 1 · Revision 1</b><span>Design, June 2026 · Updated as the project moves</span></div>') + f"""
+             "A 3-inch rocket with two-stage parachute recovery, worked out by hand, checked in simulation and priced to a budget before a single part is bought.",
+             '<div class="revnote reveal"><span class="rev-dot"></span><b>First version · designed and simulated</b><span>Nothing bought or built yet · Updated November 19, 2026</span></div>') + f"""
     <section class="section">
       <div class="wrap">
-        <div class="shead reveal"><h2>The rocket</h2><span class="aside">Drawn to scale from the design file</span></div>
+        <div class="shead reveal"><h2>The program</h2><span class="aside">One program, two builds, three patches</span></div>
+        <div class="builds">{"".join(f'<article class="build reveal"><img src="../brand/patches/thumb/{k}-232.png" width="116" height="116" alt="{n} mission patch"><div><span class="p-label">{tag_}</span><h3>{n}</h3><p>{d}</p></div></article>' for k, n, tag_, d in BUILDS)}</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="shead reveal"><h2>The rocket</h2><span class="aside">Alpha I, drawn to scale from the design file</span></div>
         <div class="rocket-fig reveal">{rocket_svg()}</div>
         <ol class="rk-legend reveal">{"".join(f'<li><span>{n}</span><div><b>{t}</b><small>{d}</small></div></li>' for n, t, d in PARTS)}</ol>
         <dl class="tiles six reveal">
-          <div class="tile"><dt>Length</dt><dd>1.28 m</dd><span class="note">nose tip to tail</span></div>
-          <div class="tile"><dt>Diameter</dt><dd>76 mm</dd><span class="note">3-inch fibreglass tube</span></div>
-          <div class="tile"><dt>Fins</dt><dd>3</dd><span class="note">G10 fibreglass</span></div>
-          <div class="tile"><dt>Motor mount</dt><dd>54 mm</dd><span class="note">I-class motor</span></div>
-          <div class="tile"><dt>Recovery</dt><dd>2 stage</dd><span class="note">drogue, then main</span></div>
-          <div class="tile"><dt>Predicted apogee</dt><dd>5,700 ft</dd><span class="note">revision 1 estimate</span></div>
+          <div class="tile"><dt>Length</dt><dd>1.49 m</dd><span class="note">nose tip to tail</span></div>
+          <div class="tile"><dt>Diameter</dt><dd>79 mm</dd><span class="note">3-inch phenolic tube</span></div>
+          <div class="tile"><dt>Lift-off mass</dt><dd>2.69 kg</dd><span class="note">itemised estimate</span></div>
+          <div class="tile"><dt>Motor</dt><dd>I-class</dd><span class="note">54 mm, 491 N·s</span></div>
+          <div class="tile"><dt>Recovery</dt><dd>2 stage</dd><span class="note">18 in drogue, 60 in main</span></div>
+          <div class="tile"><dt>Simulated apogee</dt><dd>982 m</dd><span class="note">3,223 ft above ground</span></div>
         </dl>
       </div>
     </section>
 
     <section class="section" id="math">
       <div class="wrap">
-        <div class="shead reveal"><h2>Flight math</h2><span class="aside">Revision 1 · eight cards</span></div>
+        <div class="shead reveal"><h2>Flight math</h2><span class="aside">First version · eight cards</span></div>
         {strip(MATH, "Flight mathematics, eight cards", "deck")}
       </div>
     </section>
 
     <section class="section">
       <div class="wrap">
-        <div class="shead reveal"><h2>The flight, second by second</h2><span class="aside">Predicted, not yet flown</span></div>
+        <div class="shead reveal"><h2>The flight, second by second</h2><span class="aside">Simulated, not yet flown</span></div>
         <div class="profile-fig reveal">{profile_svg()}</div>
         <dl class="tiles reveal">
-          <div class="tile"><dt>Burnout</dt><dd>296 m/s</dd><span class="note">Mach 0.86 at 494 m</span></div>
-          <div class="tile"><dt>Apogee</dt><dd>1,735 m</dd><span class="note">16.3 s after liftoff</span></div>
-          <div class="tile"><dt>Peak load</dt><dd>12.4 g</dd><span class="note">near the end of the burn</span></div>
-          <div class="tile"><dt>Whole flight</dt><dd>117 s</dd><span class="note">about two minutes</span></div>
+          <div class="tile"><dt>Top speed</dt><dd>157 m/s</dd><span class="note">Mach 0.48</span></div>
+          <div class="tile"><dt>Peak load</dt><dd>9.1 g</dd><span class="note">during the burn</span></div>
+          <div class="tile"><dt>Landing</dt><dd>5.2 m/s</dd><span class="note">under the 60-inch main</span></div>
+          <div class="tile"><dt>Whole flight</dt><dd>98 s</dd><span class="note">about a minute and a half</span></div>
         </dl>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="shead reveal"><h2>Four limits every design must pass</h2><span class="aside">A design that misses one is not ready to build</span></div>
+        <dl class="tiles reveal">
+          <div class="tile"><dt>Stability</dt><dd>1.74</dd><span class="note">limit: 1.0 to 2.0 calibres</span></div>
+          <div class="tile"><dt>Thrust to weight</dt><dd>8.3</dd><span class="note">limit: at least 5</span></div>
+          <div class="tile"><dt>Rail exit</dt><dd>17.8 m/s</dd><span class="note">limit: about 15 m/s</span></div>
+          <div class="tile"><dt>Landing speed</dt><dd>5.2 m/s</dd><span class="note">limit: 6 m/s or less</span></div>
+        </dl>
+        <p class="fine reveal">Checked two ways: by hand and in OpenRocket. The two agree within 4%, and the simulation was re-run with every estimated mass 10% heavier and 10% lighter.</p>
       </div>
     </section>
 
@@ -274,10 +301,10 @@ STUDIES = hero("Studies", "Research, written down properly.",
 
     <section class="section" id="alpha-math">
       <div class="wrap narrow">
-        <div class="shead reveal"><h2>Alpha I flight mathematics</h2><span class="aside">Working paper · June 2026</span></div>
+        <div class="shead reveal"><h2>Alpha I flight mathematics</h2><span class="aside">Working paper · Revision 2, November 2026</span></div>
         <div class="prose">
-          <p class="reveal big">Before any part of my rocket is built, its flight is worked out on paper: the air at the launch site, the motor, the speed off the rail, the rocket equation, the load on the airframe and the size of each parachute.</p>
-          <p class="reveal">It is a first revision, and a second is under way. The worked calculations are laid out as cards on the Project Alpha page.</p>
+          <p class="reveal big">Before any part of my rocket is built, its flight is worked out on paper: the air at the launch site, the motor, the speed off the rail, the rocket equation, stability, the load on the airframe and the size of each parachute.</p>
+          <p class="reveal">This is the second revision. A review found wrong motor data in the first, so the calculation was rewritten as a script built on the motor's certified thrust curve. Its results agree with the OpenRocket simulation within 4%. The worked calculations are laid out as cards on the Project Alpha page.</p>
         </div>
         {more("Open the Alpha I flight math", "../alpha/#math")}
       </div>
@@ -352,9 +379,9 @@ LESSON_LIST = [
     ("This portfolio", "November 18, 2026", "Ten tools that were nine",
      "This site said I had ten live space-data tools. Counting the list gave nine. Its animated flight route also broke on some screens, because it measured the page once and the page kept growing.",
      "Counts are re-counted from the lists they describe, and the route reads its position fresh every time."),
-    ("Project Alpha", "November 2026", "Two documents, two different rockets",
-     "My rocket's design file and its math sheet were written separately and drifted apart, down to two different lengths for the same airframe.",
-     "Revision 2 starts from one set of dimensions, and every calculation is redone from it before any part is bought."),
+    ("Project Alpha", "November 18, 2026", "The review that changed my rocket",
+     "Before buying any parts I had the design checked against certification data. The motor figures in my hand calculations were wrong, the motor in my simulation was out of production and too weak for a safe launch, and an earlier rail-exit number had been wrong too.",
+     "Motor data now comes only from certification documents. Every design must pass four safety limits, by hand and in simulation, and the two must agree before anything is bought."),
 ]
 
 LESSONS = hero("Lessons learned", "What went wrong, and what I changed.",
@@ -388,7 +415,7 @@ ADMISSIONS = hero("For admissions", "Malcolm Syme, in sixty seconds.",
         <div class="adm3">
           <a class="adm reveal" href="../studies/#winglets"><span class="adm-n">01</span><span class="adm-k">Research</span><h3>Winglets and Induced Drag</h3><p>A 14-page paper built on NASA and manufacturer sources, with a 1:35 model I designed in CAD.</p><span class="xp-link">Read the paper{ARROW}</span></a>
           <a class="adm reveal" href="../case/flight-deck-suite.html"><span class="adm-n">02</span><span class="adm-k">Engineering</span><h3>Flight Deck Suite</h3><p>Seven connected apps for flight simulation, a public release, and the day it went wrong.</p><span class="xp-link">Read the case study{ARROW}</span></a>
-          <a class="adm reveal" href="../alpha/"><span class="adm-n">03</span><span class="adm-k">Hands-on</span><h3>Project Alpha</h3><p>A high-power rocket designed from the math up. First revision, shown as it really stands.</p><span class="xp-link">Open the build log{ARROW}</span></a>
+          <a class="adm reveal" href="../alpha/"><span class="adm-n">03</span><span class="adm-k">Hands-on</span><h3>Project Alpha</h3><p>A high-power rocket designed from the math up, and checked two ways before any part is bought.</p><span class="xp-link">Open the build log{ARROW}</span></a>
         </div>
       </div>
     </section>
@@ -398,7 +425,7 @@ ADMISSIONS = hero("For admissions", "Malcolm Syme, in sixty seconds.",
         <dl class="tiles six reveal">
           <a class="tile" href="../#projects"><dt>Apps and tools</dt><dd>17</dd><span class="note">desktop, phone and web</span></a>
           <a class="tile" href="../case/simply-aerospace.html"><dt>Explainers</dt><dd>24</dd><span class="note">at three levels</span></a>
-          <a class="tile" href="../flights/"><dt>Sim flights</dt><dd id="st-flights">61</dd><span class="note" id="st-hours">logged automatically</span></a>
+          <a class="tile" href="../flights/"><dt>Sim flights</dt><dd id="st-flights">63</dd><span class="note" id="st-hours">logged automatically</span></a>
           <a class="tile" href="../experience/"><dt>Certifications</dt><dd>6</dd><span class="note">drone, first aid, lifesaving</span></a>
           <a class="tile" href="../case/syme-skyworks.html"><dt>Company founded</dt><dd>2023</dd><span class="note">Syme Skyworks</span></a>
           <a class="tile" href="../lessons/"><dt>Lessons written up</dt><dd>9</dd><span class="note">what went wrong</span></a>

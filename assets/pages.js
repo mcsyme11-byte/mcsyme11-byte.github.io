@@ -67,16 +67,22 @@
   /* ---------- Patches ---------- */
   if (page === "patches") {
     var filter = "all";
+    var patches = [];
+    D.projects.forEach(function (p) {
+      patches.push(p);
+      (D.buildPatches || []).forEach(function (b) { if (b.after === p.id) patches.push(b); });
+    });
+    var official = function (p) { return !!p.patchImage && !p.after; };
     var drawGallery = function () {
-      $("#gallery").innerHTML = D.projects.filter(function (p) { return filter === "all" || (filter === "official" ? !!p.patchImage : p.status === filter); }).map(function (p, i) {
+      $("#gallery").innerHTML = patches.filter(function (p) { return filter === "all" || (filter === "official" ? official(p) : p.status === filter); }).map(function (p, i) {
         return '<button class="flip reveal in" style="--d:' + Math.min(i, 10) * 30 + 'ms" aria-label="' + esc(p.title) + ': turn the patch over"><span class="flip-in">' +
-          '<span class="flip-f">' + window.Patch(p, 200) + '<span class="flip-name">' + esc(p.title) + "</span>" + (p.patchImage ? '<span class="flip-tag">Official logo</span>' : "") + "</span>" +
-          '<span class="flip-b"><span class="pill ' + p.status + '"><i></i>' + STATUS[p.status] + "</span><b>" + esc(p.title) + "</b><span>" + esc(p.tagline) + '</span><a class="xp-link" href="../#p/' + esc(p.id) + '">Open the project' + ARROW + "</a></span>" +
+          '<span class="flip-f">' + window.Patch(p, 200) + '<span class="flip-name">' + esc(p.title) + "</span>" + (official(p) ? '<span class="flip-tag">Official logo</span>' : p.after ? '<span class="flip-tag">Build patch</span>' : "") + "</span>" +
+          '<span class="flip-b"><span class="pill ' + p.status + '"><i></i>' + STATUS[p.status] + "</span><b>" + esc(p.title) + "</b><span>" + esc(p.tagline) + '</span><a class="xp-link" href="../' + (p.link ? esc(p.link) : "#p/" + esc(p.id)) + '">' + esc(p.linkText || "Open the project") + ARROW + "</a></span>" +
           "</span></button>";
       }).join("");
     };
-    var counts = { all: D.projects.length, official: D.projects.filter(function (p) { return p.patchImage; }).length,
-      current: D.projects.filter(function (p) { return p.status === "current"; }).length, idea: D.projects.filter(function (p) { return p.status === "idea"; }).length };
+    var counts = { all: patches.length, official: patches.filter(official).length,
+      current: patches.filter(function (p) { return p.status === "current"; }).length, idea: patches.filter(function (p) { return p.status === "idea"; }).length };
     $("#gal-filter").innerHTML = [["all", "All"], ["official", "Official logos"], ["current", "Current"], ["idea", "Ideas"]].map(function (f) {
       return '<button class="chip" data-f="' + f[0] + '" aria-pressed="' + (f[0] === "all") + '">' + f[1] + '<span class="n">' + counts[f[0]] + "</span></button>";
     }).join("");

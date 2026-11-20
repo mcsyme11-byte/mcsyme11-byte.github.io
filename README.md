@@ -54,7 +54,7 @@ The rest of the Latest feed is the `news` list in `data/projects.js`. Add a line
 
 ## Pages added Nov 18, 2026 (third round)
 
-- **Project Alpha** (`alpha/`): Alpha I drawn to scale from its design file, the first-revision flight math as cards, the predicted flight and a build log. Updated as the project moves.
+- **Project Alpha** (`alpha/`): the program and its two builds with their patches, Alpha I drawn to scale, its flight math as cards, the simulated flight, the four safety limits and a build log. It follows the Project-Alpha repository and is updated as the project moves.
 - **Studies** (`studies/`): the winglets paper (all 14 pages, its key numbers and the seven wingtips rendered from the CAD files) and the Alpha I flight mathematics.
 - **Flight log** (`flights/`): a globe of every route (drag it, or jump to an airport), landings, records and aircraft, read live from Logbook's public data.
 - **Lessons learned** (`lessons/`): nine mistakes and the rule each one left behind, from each project's history file.

@@ -8,7 +8,7 @@
  *   started:    shown on the card and used for the timeline (keep it short, e.g. "Oct 2026")
  */
 window.PORTFOLIO = {
-  updated: "November 18, 2026",
+  updated: "November 19, 2026",
 
   /* The four numbers at the top of the page. "auto" counts from the project list below. */
   stats: [
@@ -128,7 +128,7 @@ window.PORTFOLIO = {
       patchImage: "brand/patches/nedap-patch.svg",
       markImage: "brand/patches/nedap-mark.svg",
       icon: "asteroid",
-      badge: "10 tools live",
+      badge: "9 tools live",
       title: "NASA and ESA Data Projects",
       tagline: "Exploring real space data from NASA and the European Space Agency",
       status: "current",
@@ -191,9 +191,11 @@ window.PORTFOLIO = {
     },
     {
       id: "project-alpha",
+      thumbImage: "brand/patches/thumb/project-alpha-232.png",
+      patchImage: "brand/patches/project-alpha-patch-512.png",
       icon: "rocket",
       title: "Project Alpha",
-      tagline: "Designing a high-power rocket from the math up",
+      tagline: "A high-power rocketry program, designed from the math up",
       caseStudy: "alpha/", caseKind: "Build log", caseLabel: "Drawing, flight math and progress",
       status: "current",
       categories: ["Space"],
@@ -201,15 +203,19 @@ window.PORTFOLIO = {
       featured: true,
       role: "Designer and builder",
       summary:
-        "A hands-on rocketry project. The first build, Alpha I, is a 3-inch fibreglass rocket with dual-deploy recovery (a small drogue chute at the top of the flight, then the main parachute closer to the ground). It is in the design phase: the airframe is drawn and its flight is worked out on paper, while the motor and the launch plan are still being settled. A larger Alpha II is planned.",
-      highlights: [
-        "3-inch fibreglass airframe, 1.28 m long, drawn in OpenRocket",
-        "Dual-deploy recovery: a drogue at apogee, then the main parachute",
-        "Flight mathematics worked out before any part is built",
-        "First revision of the design; a second is under way",
-        "Alpha II planned as the next, larger build"
+        "A long-term rocketry program under Syme Skyworks: each rocket is designed from first principles, checked in simulation and documented from the first equation to the flight. The first build, Alpha I, is a 3-inch rocket on a 54 mm I-class motor with dual-deploy recovery (a small drogue chute at the top of the flight, then the main parachute closer to the ground). Its first version is designed, hand-calculated, simulated and priced; nothing has been bought or built yet. The build is planned for January 2027 and the first flight for a spring 2027 club launch. Alpha II, a larger 4-inch rocket, is an early concept.",
+      parts: [
+        { name: "Alpha I", text: "Current build: 3-inch, 1.49 m long, 2.69 kg at lift-off, simulated to 982 m (3,223 ft) above ground." },
+        { name: "Alpha II", text: "Early concept: 4-inch fibreglass, K-class motor, about 3,000 m (10,000 ft)." }
       ],
-      skills: ["Rocketry", "Physics", "Hands-on building", "Engineering design"],
+      highlights: [
+        "Every number worked by hand and in OpenRocket; the two agree within 4%",
+        "Four safety limits every design must pass: stability, thrust-to-weight, rail exit and landing speed",
+        "A review against certification data caught wrong motor figures before any part was bought",
+        "Designed to a budget: every part priced and every mass itemised",
+        "Each build has its own mission patch"
+      ],
+      skills: ["Rocketry", "Physics", "Simulation", "Engineering design"],
       links: []
     },
     {
@@ -273,7 +279,7 @@ window.PORTFOLIO = {
     {
       id: "syme-skyworks",
       thumbImage: "brand/patches/thumb/syme-skyworks-232.png",
-      patchImage: "brand/patches/syme-skyworks-patch.png",
+      patchImage: "brand/patches/syme-skyworks-patch-512.png",
       markImage: "brand/patches/syme-skyworks-mark.svg",
       icon: "drone",
       title: "Syme Skyworks",
@@ -412,7 +418,8 @@ window.PORTFOLIO = {
     { fix: "PUBLC", when: "Nov 10, 2026", what: "First public release of the Flight Deck Suite" },
     { fix: "TESTG", when: "Nov 15, 2026", what: "Started public testing of Hot Mic" },
     { fix: "ORBIT", when: "Nov 17, 2026", what: "Orbit & Space Watch went live: four new space tools, from idea to published" },
-    { fix: "PATCH", when: "Nov 17, 2026", what: "Six projects adopted their mission patches as official logos" }
+    { fix: "PATCH", when: "Nov 17, 2026", what: "Six projects adopted their mission patches as official logos" },
+    { fix: "ALPH1", when: "Nov 18, 2026", what: "Alpha I reviewed against certification data and redesigned to a budget" }
   ],
   destination: { fix: "UNIV", what: "Study aerospace engineering at university, and work toward a career in Canada's space industry." },
 
@@ -473,18 +480,22 @@ window.PORTFOLIO = {
 
   /* "On the workbench": what is being worked on right now. state: "Building" | "Testing" | "Writing" | "Refining" | "In review" */
   bench: [
-    { id: "nasa-data", state: "Refining", text: "Orbit & Space Watch: four new tools just went live and are being polished" },
+    { id: "nasa-data", state: "Refining", text: "Site search, keyboard shortcuts and reload buttons added across every tool" },
+    { id: "flight-deck-suite", state: "Ready", text: "Logbook 4.12 (full-screen route maps) and Ramp 0.3.3 are built and tested, waiting to be published" },
     { id: "flight-deck-suite", state: "Testing", text: "Vantage: tests before its first public release through Flight Deck Manager" },
     { id: "hot-mic", state: "Testing", text: "Public testing: fixing what testers report" },
     { id: "airport-scenery", state: "In review", text: "Springbank (CYBW): the airport layout, with the first buildings modelled" },
     { id: "winglets", state: "Writing", text: "The research paper, and a 3D-printed wingtip display model" },
-    { id: "project-alpha", state: "Designing", text: "Alpha I: second revision of the design under way" }
+    { id: "project-alpha", state: "Designed", text: "Alpha I: first version designed, simulated and priced; open questions before anything is ordered" }
   ],
 
   /* "What's new". Newest first. Flight Deck Suite releases are also read live from its catalog. */
   news: [
+    { date: "2026-11-19", project: "Project Alpha", text: "Alpha I and Alpha II each have their own mission patch", url: "alpha/" },
+    { date: "2026-11-19", project: "NASA and ESA Data Projects", text: "Site search, keyboard shortcuts and a CHEOPS light curve of the exoplanet WASP-189 b", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/" },
+    { date: "2026-11-19", project: "Project Alpha", text: "Build manual written for the first version of Alpha I", url: "alpha/" },
+    { date: "2026-11-18", project: "Project Alpha", text: "Alpha I redesigned after a review: new motor, resized recovery, and a budget", url: "alpha/" },
     { date: "2026-11-18", project: "Winglets Research Paper", text: "The paper and its seven CAD wingtips can now be read on the Studies page", url: "studies/" },
-    { date: "2026-11-18", project: "Project Alpha", text: "Build log opened: the rocket drawn to scale, with its first-revision flight math", url: "alpha/" },
     { date: "2026-11-18", project: "NASA and ESA Data Projects", text: "Space Weather now updates itself with a scheduled data job", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-weather/" },
     { date: "2026-11-17", project: "NASA and ESA Data Projects", text: "Orbit & Space Watch is live: Orbit Watch, Space Weather, Exoplanets and Planetary Maps", url: "https://mcsyme11-byte.github.io/NASA-ESA-Data-and-API-Projects/space-watch/" },
     { date: "2026-11-17", project: "All projects", text: "Six projects adopted their mission patches as official logos" },
@@ -496,6 +507,14 @@ window.PORTFOLIO = {
     { date: "2026-11-15", project: "Hot Mic", text: "Hot Mic 0.5.7: public testing begins, with a built-in Report a problem page", url: "https://mcsyme11-byte.github.io/HotMic-releases/" },
     { date: "2026-11-10", project: "Flight Deck Suite", text: "First public release, with its own website and downloads", url: "https://mcsyme11-byte.github.io/Flight-Suite-Releases/" },
     { date: "2026-11-07", project: "Airport Scenery", text: "Research started for Springbank (CYBW) and Red Deer (CYQF)" }
+  ],
+
+  /* Patches of builds inside a project, shown in the patch gallery after their project. */
+  buildPatches: [
+    { after: "project-alpha", id: "alpha-i", title: "Alpha I", tagline: "Project Alpha's current build: a 3-inch rocket on an I-class motor", status: "current",
+      patchImage: "brand/patches/alpha-i-patch.svg", markImage: "brand/patches/alpha-i-mark.svg", thumbImage: "brand/patches/thumb/alpha-i-232.png", link: "alpha/", linkText: "Open the build log" },
+    { after: "project-alpha", id: "alpha-ii", title: "Alpha II", tagline: "Project Alpha's next build, an early concept: 4-inch, K-class motor", status: "idea",
+      patchImage: "brand/patches/alpha-ii-patch.svg", markImage: "brand/patches/alpha-ii-mark.svg", thumbImage: "brand/patches/thumb/alpha-ii-232.png", link: "alpha/", linkText: "Open the build log" }
   ],
 
   /* Live data read from Malcolm's own public sites (same website, so no keys are needed). */

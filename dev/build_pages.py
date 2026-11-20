@@ -14,7 +14,7 @@ import pages_extra as X
 import shared as S
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-V = "20261118i"
+V = "20261119a"
 
 NAV = [("../", "Home", "home"), ("../about/", "About", "about"), ("../experience/", "Experience", "experience"),
        ("../studies/", "Studies", "studies"), ("../alpha/", "Project Alpha", "alpha"), ("../flights/", "Flight log", "flights")]
@@ -102,7 +102,7 @@ ABOUT = hero("About", "I build things that fly, and things that explain flight."
         <dl class="tiles six reveal" id="about-stats">
           <div class="tile"><dt>Apps and tools</dt><dd>17</dd><span class="note">desktop, phone and web</span></div>
           <div class="tile"><dt>Explainers</dt><dd>24</dd><span class="note">on Simply Aerospace</span></div>
-          <div class="tile"><dt>Sim flights</dt><dd id="st-flights">61</dd><span class="note" id="st-hours">logged automatically</span></div>
+          <div class="tile"><dt>Sim flights</dt><dd id="st-flights">63</dd><span class="note" id="st-hours">logged automatically</span></div>
           <div class="tile"><dt>Certifications</dt><dd>6</dd><span class="note">drone, first aid, lifesaving</span></div>
           <div class="tile"><dt>Case studies</dt><dd>5</dd><span class="note">how each was built</span></div>
           <div class="tile"><dt>Working since</dt><dd>2019</dd><span class="note">first paid jobs</span></div>
@@ -129,7 +129,7 @@ ABOUT = hero("About", "I build things that fly, and things that explain flight."
         <div class="shead reveal"><h2>The flight deck</h2><span class="aside">What I fly and build with</span></div>
         <div class="gear">
           <div class="gear-card reveal"><h3>Simulator cockpit</h3><ul><li>Side stick, throttle quadrant and rudder pedals <em>Thrustmaster</em></li><li>Autopilot panel (FCU), MCDU and overhead panel <em>WinWing</em></li><li>Microsoft Flight Simulator 2024, flown on VATSIM</li></ul></div>
-          <div class="gear-card reveal"><h3>In the air</h3><ul><li>DJI Air 3S <em>inspections, surveys, 4K video</em></li><li>Transport Canada drone pilot certificate <em>Basic Operations</em></li><li>Project Alpha <em>3-inch fibreglass rocket, in design</em></li></ul></div>
+          <div class="gear-card reveal"><h3>In the air</h3><ul><li>DJI Air 3S <em>inspections, surveys, 4K video</em></li><li>Transport Canada drone pilot certificate <em>Basic Operations</em></li><li>Project Alpha <em>3-inch rocket, designed and simulated</em></li></ul></div>
           <div class="gear-card reveal"><h3>Workshop</h3><ul><li>Claude <em>building, studying, reviewing</em></li><li>GitHub <em>every project, with automatic checks</em></li><li>Blender, CAD and 3D printing <em>scenery and models</em></li></ul></div>
         </div>
       </div>
@@ -210,7 +210,7 @@ IDEAS = hero("Idea Lab", "Thirty ideas. Seven already live.",
     </section>"""
 
 PATCHES = hero("Mission patches", "Every project flies its own patch.",
-               "Like real space missions, each of my projects has a mission patch, and six projects use theirs as their official logo. Select one to turn it over.") + f"""
+               "Like real space missions, each of my projects has a mission patch, and seven projects use theirs as their official logo. Select one to turn it over.") + f"""
     <section class="section">
       <div class="wrap">
         <div class="gal-filter reveal" id="gal-filter"></div>
@@ -238,7 +238,7 @@ PAGES = [
     ("experience", "Experience and certifications", "Work experience, certifications and strengths of Malcolm Syme.", EXPERIENCE),
     ("ideas", "Idea Lab", "Thirty project ideas, grouped into seven projects, and which ones are live.", IDEAS),
     ("patches", "Mission patches", "The mission patch of every project by Malcolm Syme.", PATCHES),
-    ("alpha", "Project Alpha", "Alpha I: a 3-inch fibreglass rocket designed from the math up. Build log, drawing and flight mathematics.", X.ALPHA),
+    ("alpha", "Project Alpha", "Project Alpha: a rocketry program. Alpha I drawn to scale, its flight mathematics, its safety limits and the build log.", X.ALPHA),
     ("studies", "Studies", "Winglets and Induced Drag, a research paper with a 1:35 CAD model, and the flight mathematics of Alpha I.", X.STUDIES),
     ("flights", "Flight log", "Flights logged automatically by Logbook: routes, landings, records and aircraft.", X.FLIGHTS),
     ("lessons", "Lessons learned", "What went wrong across Malcolm Syme's projects, and the rule each mistake left behind.", X.LESSONS),

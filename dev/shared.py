@@ -1,7 +1,7 @@
 """The parts every page of the portfolio shares: the page order, and the footer with its "Keep exploring" list.
 
 Used by dev/build_pages.py (extra pages and the home page's footer) and dev/build_cases.py (case studies).
-Every page ends with the same footer: the seal and contact, five columns of links, the six project patches
+Every page ends with the same footer: the seal and contact, five columns of links, the project patches
 and the credit line. Above it, every page except the home page has a "Keep exploring" list of the other pages.
 A new page is added to PAGES, ABOUT and COLUMNS once and appears everywhere.
 """
@@ -21,17 +21,18 @@ CASES = [("flight-deck-suite", "Flight Deck Suite"), ("hot-mic", "Hot Mic"), ("n
 # One line about each page and case study, shown in the directory.
 ABOUT = {"home": "The home page and the full project list", "about": "The short version, and how I work",
          "experience": "Work, certifications and strengths", "admissions": "Sixty seconds: what to open first, and a one-page CV",
-         "studies": "The winglets paper and its seven CAD wingtips", "alpha": "A rocket designed from the math up",
+         "studies": "The winglets paper and its seven CAD wingtips", "alpha": "A rocketry program, and a rocket designed from the math up",
          "flights": "Every flight on a globe, with landings and records", "lessons": "Nine mistakes, and the rule each one left behind",
          "ideas": "Thirty ideas, seven already live", "patches": "Every project's patch, and what each part means",
          "flight-deck-suite": "Seven connected apps for flight simulation", "hot-mic": "Private voice dictation for Windows",
          "nasa-esa-data-projects": "Nine live tools built on real space data", "simply-aerospace": "Aerospace explained at three levels",
          "syme-skyworks": "A drone services company of my own"}
 
-# The six projects whose mission patch is their official logo: (project id, thumbnail name, title).
+# The projects whose mission patch is their official logo: (project id, thumbnail name, title).
 PATCHES = [("flight-deck-suite", "flight-deck-suite", "Flight Deck Suite"), ("hot-mic", "hot-mic", "Hot Mic"),
            ("nasa-data", "nasa-data", "NASA and ESA Data Projects"), ("simply-aerospace", "simply-aerospace", "Simply Aerospace"),
-           ("airport-scenery", "airport-scenery", "Airport Scenery"), ("syme-skyworks", "syme-skyworks", "Syme Skyworks")]
+           ("airport-scenery", "airport-scenery", "Airport Scenery"), ("syme-skyworks", "syme-skyworks", "Syme Skyworks"),
+           ("project-alpha", "project-alpha", "Project Alpha")]
 
 COLUMNS = [("Start here", ["home", "about", "experience", "admissions"]),
            ("The work", ["#projects", "studies", "alpha", "flights"]),
